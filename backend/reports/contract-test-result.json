@@ -1,0 +1,25 @@
+{
+  "contractVersion": "1.0.0",
+  "baseURL": "http://127.0.0.1:18080/api/v1",
+  "postgresPort": "55432",
+  "totalOperations": 14,
+  "coveredOperations": [
+    "addToWordLearningQueue",
+    "getCurrentUser",
+    "getDailySummary",
+    "getHealth",
+    "getReadingArticle",
+    "listPenpalThreads",
+    "listReadingArticles",
+    "listReviewEvents",
+    "listWords",
+    "login",
+    "logout",
+    "refreshAuthToken",
+    "sendPenpalLetter",
+    "submitReview"
+  ],
+  "passRate": "100%",
+  "failures": [],
+  "generatedAt": "2026-06-13T07:36:21.847Z"
+}

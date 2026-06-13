@@ -810,3 +810,117 @@
 5. 有明确验收标准和维护责任人。
 
 综上，第二阶段的范围控制结论是：**本期只做能支撑英语学习闭环和安全上线底线的功能；所有偏社区化、算法化、运营后台化、AI 深度化和复杂数据可视化的内容均延后或排除。**
+
+---
+
+## 附录：机器可解析标签索引
+
+> 本附录只用于自动解析和追溯，不改变正文中的需求语义。新增、删除或改名 ID 时，必须同步更新 `docs/rtm.json`、Gherkin 和相关校验脚本。
+
+<!-- REQ:REQ-AUTH-01 -->
+<!-- REQ:REQ-AUTH-02 -->
+<!-- REQ:REQ-AUTH-03 -->
+<!-- REQ:REQ-AUTH-04 -->
+<!-- REQ:REQ-NAV-01 -->
+<!-- REQ:REQ-NAV-02 -->
+<!-- REQ:REQ-NAV-03 -->
+<!-- REQ:REQ-NAV-04 -->
+<!-- REQ:REQ-VOC-01 -->
+<!-- REQ:REQ-VOC-02 -->
+<!-- REQ:REQ-VOC-03 -->
+<!-- REQ:REQ-VOC-04 -->
+<!-- REQ:REQ-VOC-05 -->
+<!-- REQ:REQ-VOC-06 -->
+<!-- REQ:REQ-VOC-07 -->
+<!-- REQ:REQ-VOC-08 -->
+<!-- REQ:REQ-VOC-09 -->
+<!-- REQ:REQ-VOC-10 -->
+<!-- REQ:REQ-VOC-11 -->
+<!-- REQ:REQ-VOC-12 -->
+<!-- REQ:REQ-RD-01 -->
+<!-- REQ:REQ-RD-02 -->
+<!-- REQ:REQ-RD-03 -->
+<!-- REQ:REQ-RD-04 -->
+<!-- REQ:REQ-RD-05 -->
+<!-- REQ:REQ-RD-06 -->
+<!-- REQ:REQ-RD-07 -->
+<!-- REQ:REQ-RD-08 -->
+<!-- REQ:REQ-RD-09 -->
+<!-- REQ:REQ-RD-10 -->
+<!-- REQ:REQ-RD-11 -->
+<!-- REQ:REQ-RD-12 -->
+<!-- REQ:REQ-PAL-01 -->
+<!-- REQ:REQ-PAL-02 -->
+<!-- REQ:REQ-PAL-03 -->
+<!-- REQ:REQ-PAL-04 -->
+<!-- REQ:REQ-PAL-05 -->
+<!-- REQ:REQ-PAL-06 -->
+<!-- REQ:REQ-PAL-07 -->
+<!-- REQ:REQ-PAL-08 -->
+<!-- REQ:REQ-PAL-09 -->
+<!-- REQ:REQ-PAL-10 -->
+<!-- REQ:REQ-PAL-11 -->
+<!-- REQ:REQ-PAL-12 -->
+<!-- REQ:REQ-PAL-13 -->
+<!-- REQ:REQ-REC-01 -->
+<!-- REQ:REQ-REC-02 -->
+<!-- REQ:REQ-REC-03 -->
+<!-- REQ:REQ-REC-04 -->
+<!-- REQ:REQ-REC-05 -->
+<!-- REQ:REQ-REC-06 -->
+<!-- REQ:REQ-REC-07 -->
+<!-- REQ:REQ-GOV-01 -->
+<!-- NFR:NFR-UX-01 -->
+<!-- NFR:NFR-UX-02 -->
+<!-- NFR:NFR-UX-03 -->
+<!-- NFR:NFR-UX-04 -->
+<!-- NFR:NFR-PERF-01 -->
+<!-- NFR:NFR-PERF-02 -->
+<!-- NFR:NFR-PERF-03 -->
+<!-- NFR:NFR-PERF-04 -->
+<!-- NFR:NFR-PERF-05 -->
+<!-- NFR:NFR-STAB-01 -->
+<!-- NFR:NFR-STAB-02 -->
+<!-- NFR:NFR-STAB-03 -->
+<!-- NFR:NFR-STAB-04 -->
+<!-- NFR:NFR-SEC-01 -->
+<!-- NFR:NFR-SEC-02 -->
+<!-- NFR:NFR-SEC-03 -->
+<!-- NFR:NFR-SEC-04 -->
+<!-- NFR:NFR-SEC-05 -->
+<!-- NFR:NFR-MAINT-01 -->
+<!-- NFR:NFR-MAINT-02 -->
+<!-- NFR:NFR-MAINT-03 -->
+<!-- NFR:NFR-MAINT-04 -->
+<!-- NFR:NFR-ROBUST-01 -->
+<!-- RULE:RULE-GSL-01 -->
+<!-- RULE:RULE-GSL-02 -->
+<!-- RULE:RULE-GSL-03 -->
+<!-- RULE:RULE-GSL-04 -->
+<!-- RULE:RULE-VOC-01 -->
+<!-- RULE:RULE-VOC-02 -->
+<!-- RULE:RULE-VOC-03 -->
+<!-- RULE:RULE-VOC-04 -->
+<!-- RULE:RULE-VOC-05 -->
+<!-- RULE:RULE-VOC-06 -->
+<!-- RULE:RULE-VOC-07 -->
+<!-- RULE:RULE-RD-01 -->
+<!-- RULE:RULE-RD-02 -->
+<!-- RULE:RULE-RD-03 -->
+<!-- RULE:RULE-RD-04 -->
+<!-- RULE:RULE-RD-05 -->
+<!-- RULE:RULE-RD-06 -->
+<!-- RULE:RULE-PAL-01 -->
+<!-- RULE:RULE-PAL-02 -->
+<!-- RULE:RULE-PAL-03 -->
+<!-- RULE:RULE-PAL-04 -->
+<!-- RULE:RULE-PAL-05 -->
+<!-- RULE:RULE-PAL-06 -->
+<!-- RULE:RULE-PAL-07 -->
+<!-- RULE:RULE-PAL-08 -->
+<!-- RULE:RULE-REC-01 -->
+<!-- RULE:RULE-REC-02 -->
+<!-- RULE:RULE-REC-03 -->
+<!-- RULE:RULE-REC-04 -->
+<!-- RULE:RULE-REC-05 -->
+<!-- RULE:RULE-REC-06 -->

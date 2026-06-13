@@ -1,0 +1,52 @@
+{
+  "schemaVersion": "1.0.0",
+  "tools": [
+    {
+      "name": "search_docs",
+      "description": "检索文档块，支持关键词、类型和 ID 过滤",
+      "input": {
+        "query": "string",
+        "filters": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      },
+      "output": {
+        "chunks": "docs/index/chunks.jsonl records"
+      }
+    },
+    {
+      "name": "get_related_requirements",
+      "description": "通过 API ID 或需求 ID 查询知识图谱关联",
+      "input": {
+        "id": "string"
+      },
+      "output": {
+        "nodes": [],
+        "edges": []
+      }
+    },
+    {
+      "name": "run_validation",
+      "description": "触发本地验证命令",
+      "input": {
+        "task": "specs|backend|front|all"
+      },
+      "output": {
+        "exitCode": "number",
+        "summary": "string"
+      }
+    },
+    {
+      "name": "report_discrepancy",
+      "description": "记录文档、代码、接口或测试不一致",
+      "input": {
+        "description": "string",
+        "relatedIds": []
+      },
+      "output": {
+        "reportPath": "string"
+      }
+    }
+  ]
+}

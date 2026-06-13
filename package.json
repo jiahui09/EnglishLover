@@ -1,0 +1,16 @@
+{
+  "name": "englishlover-governance",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "check:specs": "cd backend && npm run check:specs",
+    "check:doc-knowledge": "cd backend && npm run check:doc-knowledge",
+    "check:doc-impact": "cd backend && npm run check:doc-impact",
+    "check:openapi": "cd backend && npm run contract",
+    "verify:backend": "cd backend && npm run verify",
+    "verify:front": "cd front && npm run verify",
+    "verify": "npm run verify:backend && npm run verify:front",
+    "prepare:githooks": "git config core.hooksPath .githooks"
+  }
+}

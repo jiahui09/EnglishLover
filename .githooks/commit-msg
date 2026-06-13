@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+set -eu
+
+msg_file="$1"
+if git diff --cached --name-only | grep -E '^(docs/|backend/openapi/|tests/specs/|tests/baselines/)' >/dev/null; then
+  if ! grep -E '^(Spec-Impact|Docs-Impact): .+' "$msg_file" >/dev/null; then
+    echo "文档/规约变更提交必须包含影响说明 trailer，例如：" >&2
+    echo "Spec-Impact: REQ-VOC-03, API-REVIEW-SUBMIT, TEST-WORD-REVIEW-01" >&2
+    exit 1
+  fi
+fi

@@ -39,8 +39,11 @@
 | `docs/phase-2-requirements-specification-and-scope-control.md` | 第二阶段文档 | 需求规格和范围控制 |
 | `docs/phase-3-product-and-user-experience-design.md` | 第三阶段文档 | 产品与 UX 设计 |
 | `docs/phase-4-technical-architecture-design.md` | 第四阶段文档 | 技术架构设计和评审整改记录 |
-| `docs/function-analysis-and-system-architecture.md` | 功能与系统架构分析 | 历史架构分析，部分内容引用了未在当前快照核验到的源码路径 |
+| `docs/phase-5-component-library-and-reuse-design.md` | 第五阶段文档 | 组件库建设与复用执行方案 |
+| `docs/function-analysis-and-system-architecture.md` | 功能与系统架构分析 | 历史/目标架构分析，部分内容引用了未在当前快照核验到的源码路径 |
 | `docs/docker-compose-guide.md` | Docker/Compose 指南 | 部署学习手册，提到 `front/` 但当前未核验到源码 |
+| `docs/data-retention-and-deletion-policy.md` | 数据治理策略 | 注销、删除、匿名化、导出和审计留存目标策略 |
+| `docs/performance-test-plan.md` | 性能测试计划 | 性能场景、指标和报告模板，尚未执行压测 |
 
 ### 2.2 当前未核查到的关键源码资产
 

@@ -8,6 +8,16 @@
 
 ## 推荐阅读路径
 
+
+### 0. 可执行规约与一致性门禁
+
+1. [可执行规约系统](executable-specification-system.md)
+2. [追溯矩阵](rtm.json)
+3. [术语表](GLOSSARY.md)
+4. [ADR-0001：可执行规约系统](adr/ADR-0001-executable-specification-system.md)
+5. [规约追溯图源码](diagrams/spec-traceability.mmd)
+6. [Agent 合规推理提示词](agent-workflows/compliance-reasoning-prompt.md)
+
 ### 1. 快速了解项目
 
 1. [README](../README.md)
@@ -37,6 +47,9 @@
 
 | 文档 | 定位 | 状态边界 |
 |---|---|---|
+| `executable-specification-system.md` | 可执行规约系统入口 | 机器可解析约束，不替代真实实现验收 |
+| `rtm.json` | 需求追溯矩阵 | 需求、功能、接口、测试、非功能约束的机器映射 |
+| `GLOSSARY.md` | 术语表 | AI/Agent 优先词义来源 |
 | `../README.md` | 项目入口和当前状态说明 | 记录当前仓库不能直接运行的事实 |
 | `../DESIGN.md` | 产品体验和设计 source of truth | 基于现有文档，不声明已有 UI 实现 |
 | `online-english-learning-platform-development-process.md` | 全生命周期开发流程规划 | 流程建议，不等同于已完成 |

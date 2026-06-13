@@ -1,0 +1,2991 @@
+{
+  "schemaVersion": "1.0.0",
+  "generatedAtPolicy": "manual-source-of-truth; update in the same PR as related docs/code/tests",
+  "project": "EnglishLover",
+  "purpose": "Machine-readable requirements traceability matrix for executable documentation constraints.",
+  "idScheme": {
+    "requirement": "REQ-<MODULE>-NN",
+    "feature": "FEAT-<MODULE>-<NAME>",
+    "api": "API-<MODULE>-<OPERATION>",
+    "test": "TEST-<MODULE>-<SCENARIO>-NN",
+    "nfr": "NFR-<CATEGORY>-NN",
+    "rule": "RULE-<MODULE>-NN"
+  },
+  "sources": [
+    {
+      "id": "SRC-REQ-PHASE2",
+      "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+      "role": "需求规格与范围控制基线"
+    },
+    {
+      "id": "SRC-OPENAPI",
+      "path": "backend/openapi/openapi.yaml",
+      "role": "接口唯一事实源"
+    },
+    {
+      "id": "SRC-GHERKIN",
+      "path": "tests/specs",
+      "role": "可执行验收标准"
+    },
+    {
+      "id": "SRC-NFR-BASELINE",
+      "path": "tests/baselines/nonfunctional.json",
+      "role": "非功能自动化基准"
+    }
+  ],
+  "requirements": [
+    {
+      "id": "REQ-AUTH-01",
+      "legacyId": "AUTH-01",
+      "type": "requirement",
+      "module": "auth",
+      "title": "测试账号登录并建立会话",
+      "priority": "P0",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "backend auth login",
+        "hiddenTag": "<!-- REQ:REQ-AUTH-01 -->"
+      },
+      "featureIds": [
+        "FEAT-AUTH-SESSION"
+      ],
+      "apiIds": [
+        "API-AUTH-LOGIN"
+      ],
+      "testIds": [
+        "TEST-AUTH-LOGIN-01"
+      ],
+      "nfrIds": [
+        "NFR-SEC-04",
+        "NFR-STAB-02"
+      ]
+    },
+    {
+      "id": "REQ-AUTH-02",
+      "legacyId": "AUTH-02",
+      "type": "requirement",
+      "module": "auth",
+      "title": "Refresh Token 轮换会话",
+      "priority": "P0",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "backend auth refresh",
+        "hiddenTag": "<!-- REQ:REQ-AUTH-02 -->"
+      },
+      "featureIds": [
+        "FEAT-AUTH-SESSION"
+      ],
+      "apiIds": [
+        "API-AUTH-REFRESH"
+      ],
+      "testIds": [
+        "TEST-AUTH-SESSION-01"
+      ],
+      "nfrIds": [
+        "NFR-SEC-04"
+      ]
+    },
+    {
+      "id": "REQ-AUTH-03",
+      "legacyId": "AUTH-03",
+      "type": "requirement",
+      "module": "auth",
+      "title": "退出登录并清理会话",
+      "priority": "P0",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "backend auth logout",
+        "hiddenTag": "<!-- REQ:REQ-AUTH-03 -->"
+      },
+      "featureIds": [
+        "FEAT-AUTH-SESSION"
+      ],
+      "apiIds": [
+        "API-AUTH-LOGOUT"
+      ],
+      "testIds": [
+        "TEST-AUTH-SESSION-01"
+      ],
+      "nfrIds": [
+        "NFR-SEC-04"
+      ]
+    },
+    {
+      "id": "REQ-AUTH-04",
+      "legacyId": "AUTH-04",
+      "type": "requirement",
+      "module": "auth",
+      "title": "查询当前登录用户",
+      "priority": "P0",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "backend auth me",
+        "hiddenTag": "<!-- REQ:REQ-AUTH-04 -->"
+      },
+      "featureIds": [
+        "FEAT-AUTH-SESSION"
+      ],
+      "apiIds": [
+        "API-AUTH-ME"
+      ],
+      "testIds": [
+        "TEST-AUTH-SESSION-01"
+      ],
+      "nfrIds": [
+        "NFR-SEC-01"
+      ]
+    },
+    {
+      "id": "REQ-NAV-01",
+      "legacyId": "NAV-01",
+      "type": "requirement",
+      "module": "navigation",
+      "title": "三大核心入口",
+      "priority": "P0",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "NAV-01",
+        "hiddenTag": "<!-- REQ:REQ-NAV-01 -->"
+      },
+      "featureIds": [
+        "FEAT-NAV-CORE"
+      ],
+      "apiIds": [],
+      "testIds": [
+        "TEST-NAV-ENTRY-01"
+      ],
+      "nfrIds": [
+        "NFR-UX-01"
+      ]
+    },
+    {
+      "id": "REQ-NAV-02",
+      "legacyId": "NAV-02",
+      "type": "requirement",
+      "module": "navigation",
+      "title": "动态行动入口",
+      "priority": "P1",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "NAV-02",
+        "hiddenTag": "<!-- REQ:REQ-NAV-02 -->"
+      },
+      "featureIds": [
+        "FEAT-NAV-CORE"
+      ],
+      "apiIds": [
+        "API-ANALYTICS-DAILY-SUMMARY"
+      ],
+      "testIds": [
+        "TEST-ANALYTICS-SUMMARY-01"
+      ],
+      "nfrIds": [
+        "NFR-STAB-02"
+      ]
+    },
+    {
+      "id": "REQ-NAV-03",
+      "legacyId": "NAV-03",
+      "type": "requirement",
+      "module": "navigation",
+      "title": "基础响应式布局",
+      "priority": "P0",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "NAV-03",
+        "hiddenTag": "<!-- REQ:REQ-NAV-03 -->"
+      },
+      "featureIds": [
+        "FEAT-NAV-CORE"
+      ],
+      "apiIds": [],
+      "testIds": [
+        "TEST-NAV-ENTRY-01"
+      ],
+      "nfrIds": [
+        "NFR-UX-01"
+      ]
+    },
+    {
+      "id": "REQ-NAV-04",
+      "legacyId": "NAV-04",
+      "type": "requirement",
+      "module": "navigation",
+      "title": "统一状态提示",
+      "priority": "P0",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "NAV-04",
+        "hiddenTag": "<!-- REQ:REQ-NAV-04 -->"
+      },
+      "featureIds": [
+        "FEAT-NAV-CORE"
+      ],
+      "apiIds": [],
+      "testIds": [
+        "TEST-NAV-ENTRY-01"
+      ],
+      "nfrIds": [
+        "NFR-UX-04"
+      ]
+    },
+    {
+      "id": "REQ-VOC-01",
+      "legacyId": "VOC-01",
+      "type": "requirement",
+      "module": "word",
+      "title": "单词列表与分类入口",
+      "priority": "P0",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "VOC-01",
+        "hiddenTag": "<!-- REQ:REQ-VOC-01 -->"
+      },
+      "featureIds": [
+        "FEAT-WORD-LIST"
+      ],
+      "apiIds": [
+        "API-WORD-LIST"
+      ],
+      "testIds": [
+        "TEST-WORD-LIST-01"
+      ],
+      "nfrIds": [
+        "NFR-STAB-02"
+      ]
+    },
+    {
+      "id": "REQ-VOC-02",
+      "legacyId": "VOC-02",
+      "type": "requirement",
+      "module": "word",
+      "title": "单词详情",
+      "priority": "P0",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "VOC-02",
+        "hiddenTag": "<!-- REQ:REQ-VOC-02 -->"
+      },
+      "featureIds": [
+        "FEAT-WORD-LIST"
+      ],
+      "apiIds": [],
+      "testIds": [
+        "TEST-WORD-REVIEW-01"
+      ],
+      "nfrIds": [
+        "NFR-STAB-02"
+      ]
+    },
+    {
+      "id": "REQ-VOC-03",
+      "legacyId": "VOC-03",
+      "type": "requirement",
+      "module": "word",
+      "title": "主动回忆练习",
+      "priority": "P0",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "VOC-03",
+        "hiddenTag": "<!-- REQ:REQ-VOC-03 -->"
+      },
+      "featureIds": [
+        "FEAT-WORD-REVIEW"
+      ],
+      "apiIds": [
+        "API-REVIEW-SUBMIT"
+      ],
+      "testIds": [
+        "TEST-WORD-REVIEW-01"
+      ],
+      "nfrIds": [
+        "NFR-STAB-03"
+      ]
+    },
+    {
+      "id": "REQ-VOC-04",
+      "legacyId": "VOC-04",
+      "type": "requirement",
+      "module": "word",
+      "title": "即时答题反馈",
+      "priority": "P0",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "VOC-04",
+        "hiddenTag": "<!-- REQ:REQ-VOC-04 -->"
+      },
+      "featureIds": [
+        "FEAT-WORD-REVIEW"
+      ],
+      "apiIds": [
+        "API-REVIEW-SUBMIT"
+      ],
+      "testIds": [
+        "TEST-WORD-REVIEW-01"
+      ],
+      "nfrIds": [
+        "NFR-UX-04"
+      ]
+    },
+    {
+      "id": "REQ-VOC-05",
+      "legacyId": "VOC-05",
+      "type": "requirement",
+      "module": "word",
+      "title": "基础复习排程",
+      "priority": "P0",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "VOC-05",
+        "hiddenTag": "<!-- REQ:REQ-VOC-05 -->"
+      },
+      "featureIds": [
+        "FEAT-WORD-REVIEW"
+      ],
+      "apiIds": [
+        "API-REVIEW-SUBMIT",
+        "API-REVIEW-EVENTS"
+      ],
+      "testIds": [
+        "TEST-WORD-REVIEW-01"
+      ],
+      "nfrIds": [
+        "NFR-STAB-01"
+      ]
+    },
+    {
+      "id": "REQ-VOC-06",
+      "legacyId": "VOC-06",
+      "type": "requirement",
+      "module": "word",
+      "title": "复习队列优先级",
+      "priority": "P0",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "VOC-06",
+        "hiddenTag": "<!-- REQ:REQ-VOC-06 -->"
+      },
+      "featureIds": [
+        "FEAT-WORD-REVIEW"
+      ],
+      "apiIds": [
+        "API-WORD-LIST",
+        "API-REVIEW-EVENTS"
+      ],
+      "testIds": [
+        "TEST-WORD-QUEUE-01"
+      ],
+      "nfrIds": [
+        "NFR-STAB-01"
+      ]
+    },
+    {
+      "id": "REQ-VOC-07",
+      "legacyId": "VOC-07",
+      "type": "requirement",
+      "module": "word",
+      "title": "每日任务上限",
+      "priority": "P0",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "VOC-07",
+        "hiddenTag": "<!-- REQ:REQ-VOC-07 -->"
+      },
+      "featureIds": [
+        "FEAT-WORD-REVIEW"
+      ],
+      "apiIds": [
+        "API-WORD-LIST"
+      ],
+      "testIds": [
+        "TEST-WORD-QUEUE-01"
+      ],
+      "nfrIds": [
+        "NFR-UX-02"
+      ]
+    },
+    {
+      "id": "REQ-VOC-08",
+      "legacyId": "VOC-08",
+      "type": "requirement",
+      "module": "word",
+      "title": "中断保存",
+      "priority": "P0",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "VOC-08",
+        "hiddenTag": "<!-- REQ:REQ-VOC-08 -->"
+      },
+      "featureIds": [
+        "FEAT-WORD-REVIEW"
+      ],
+      "apiIds": [
+        "API-REVIEW-SUBMIT"
+      ],
+      "testIds": [
+        "TEST-WORD-RESUME-01"
+      ],
+      "nfrIds": [
+        "NFR-STAB-04"
+      ]
+    },
+    {
+      "id": "REQ-VOC-09",
+      "legacyId": "VOC-09",
+      "type": "requirement",
+      "module": "word",
+      "title": "错词强化",
+      "priority": "P1",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "VOC-09",
+        "hiddenTag": "<!-- REQ:REQ-VOC-09 -->"
+      },
+      "featureIds": [
+        "FEAT-WORD-REVIEW"
+      ],
+      "apiIds": [
+        "API-REVIEW-SUBMIT",
+        "API-REVIEW-EVENTS"
+      ],
+      "testIds": [
+        "TEST-WORD-QUEUE-01"
+      ],
+      "nfrIds": [
+        "NFR-STAB-01"
+      ]
+    },
+    {
+      "id": "REQ-VOC-10",
+      "legacyId": "VOC-10",
+      "type": "requirement",
+      "module": "word",
+      "title": "答案容错",
+      "priority": "Conditional P0",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "VOC-10",
+        "hiddenTag": "<!-- REQ:REQ-VOC-10 -->"
+      },
+      "featureIds": [
+        "FEAT-WORD-REVIEW"
+      ],
+      "apiIds": [
+        "API-REVIEW-SUBMIT"
+      ],
+      "testIds": [],
+      "nfrIds": [
+        "NFR-ROBUST-01"
+      ]
+    },
+    {
+      "id": "REQ-VOC-11",
+      "legacyId": "VOC-11",
+      "type": "requirement",
+      "module": "word",
+      "title": "数据字段预留",
+      "priority": "P1",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "VOC-11",
+        "hiddenTag": "<!-- REQ:REQ-VOC-11 -->"
+      },
+      "featureIds": [
+        "FEAT-WORD-REVIEW"
+      ],
+      "apiIds": [
+        "API-REVIEW-SUBMIT"
+      ],
+      "testIds": [],
+      "nfrIds": [
+        "NFR-MAINT-04"
+      ]
+    },
+    {
+      "id": "REQ-VOC-12",
+      "legacyId": "VOC-12",
+      "type": "requirement",
+      "module": "word",
+      "title": "发音与例句朗读",
+      "priority": "P1",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "VOC-12",
+        "hiddenTag": "<!-- REQ:REQ-VOC-12 -->"
+      },
+      "featureIds": [
+        "FEAT-WORD-LIST"
+      ],
+      "apiIds": [],
+      "testIds": [],
+      "nfrIds": [
+        "NFR-UX-04"
+      ]
+    },
+    {
+      "id": "REQ-RD-01",
+      "legacyId": "RD-01",
+      "type": "requirement",
+      "module": "reading",
+      "title": "阅读材料列表",
+      "priority": "P0",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "RD-01",
+        "hiddenTag": "<!-- REQ:REQ-RD-01 -->"
+      },
+      "featureIds": [
+        "FEAT-READING-PRACTICE"
+      ],
+      "apiIds": [
+        "API-READING-LIST"
+      ],
+      "testIds": [
+        "TEST-READING-PRACTICE-01"
+      ],
+      "nfrIds": [
+        "NFR-STAB-02"
+      ]
+    },
+    {
+      "id": "REQ-RD-02",
+      "legacyId": "RD-02",
+      "type": "requirement",
+      "module": "reading",
+      "title": "冷启动选材",
+      "priority": "P0",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "RD-02",
+        "hiddenTag": "<!-- REQ:REQ-RD-02 -->"
+      },
+      "featureIds": [
+        "FEAT-READING-PRACTICE"
+      ],
+      "apiIds": [
+        "API-READING-LIST"
+      ],
+      "testIds": [
+        "TEST-READING-PRACTICE-01"
+      ],
+      "nfrIds": [
+        "NFR-UX-04"
+      ]
+    },
+    {
+      "id": "REQ-RD-03",
+      "legacyId": "RD-03",
+      "type": "requirement",
+      "module": "reading",
+      "title": "文章详情",
+      "priority": "P0",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "RD-03",
+        "hiddenTag": "<!-- REQ:REQ-RD-03 -->"
+      },
+      "featureIds": [
+        "FEAT-READING-PRACTICE"
+      ],
+      "apiIds": [
+        "API-READING-DETAIL"
+      ],
+      "testIds": [
+        "TEST-READING-PRACTICE-01"
+      ],
+      "nfrIds": [
+        "NFR-STAB-02"
+      ]
+    },
+    {
+      "id": "REQ-RD-04",
+      "legacyId": "RD-04",
+      "type": "requirement",
+      "module": "reading",
+      "title": "重点词辅助并加入单词队列",
+      "priority": "P0",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "RD-04",
+        "hiddenTag": "<!-- REQ:REQ-RD-04 -->"
+      },
+      "featureIds": [
+        "FEAT-READING-WORD-QUEUE"
+      ],
+      "apiIds": [
+        "API-READING-WORD-QUEUE"
+      ],
+      "testIds": [
+        "TEST-READING-WORD-QUEUE-01"
+      ],
+      "nfrIds": [
+        "NFR-STAB-01"
+      ]
+    },
+    {
+      "id": "REQ-RD-05",
+      "legacyId": "RD-05",
+      "type": "requirement",
+      "module": "reading",
+      "title": "三类基础题型",
+      "priority": "P0",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "RD-05",
+        "hiddenTag": "<!-- REQ:REQ-RD-05 -->"
+      },
+      "featureIds": [
+        "FEAT-READING-PRACTICE"
+      ],
+      "apiIds": [],
+      "testIds": [
+        "TEST-READING-PRACTICE-01"
+      ],
+      "nfrIds": [
+        "NFR-STAB-03"
+      ]
+    },
+    {
+      "id": "REQ-RD-06",
+      "legacyId": "RD-06",
+      "type": "requirement",
+      "module": "reading",
+      "title": "解析与原文依据",
+      "priority": "P0",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "RD-06",
+        "hiddenTag": "<!-- REQ:REQ-RD-06 -->"
+      },
+      "featureIds": [
+        "FEAT-READING-PRACTICE"
+      ],
+      "apiIds": [],
+      "testIds": [
+        "TEST-READING-PRACTICE-01"
+      ],
+      "nfrIds": [
+        "NFR-UX-04"
+      ]
+    },
+    {
+      "id": "REQ-RD-07",
+      "legacyId": "RD-07",
+      "type": "requirement",
+      "module": "reading",
+      "title": "阅读记录保存",
+      "priority": "P0",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "RD-07",
+        "hiddenTag": "<!-- REQ:REQ-RD-07 -->"
+      },
+      "featureIds": [
+        "FEAT-READING-PRACTICE"
+      ],
+      "apiIds": [
+        "API-REVIEW-EVENTS"
+      ],
+      "testIds": [
+        "TEST-READING-PRACTICE-01"
+      ],
+      "nfrIds": [
+        "NFR-STAB-01",
+        "NFR-STAB-04"
+      ]
+    },
+    {
+      "id": "REQ-RD-08",
+      "legacyId": "RD-08",
+      "type": "requirement",
+      "module": "reading",
+      "title": "内容纠错入口",
+      "priority": "P1",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "RD-08",
+        "hiddenTag": "<!-- REQ:REQ-RD-08 -->"
+      },
+      "featureIds": [
+        "FEAT-READING-PRACTICE"
+      ],
+      "apiIds": [],
+      "testIds": [],
+      "nfrIds": [
+        "NFR-MAINT-03"
+      ]
+    },
+    {
+      "id": "REQ-RD-09",
+      "legacyId": "RD-09",
+      "type": "requirement",
+      "module": "reading",
+      "title": "阅读策略提示",
+      "priority": "P1",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "RD-09",
+        "hiddenTag": "<!-- REQ:REQ-RD-09 -->"
+      },
+      "featureIds": [
+        "FEAT-READING-PRACTICE"
+      ],
+      "apiIds": [],
+      "testIds": [],
+      "nfrIds": [
+        "NFR-UX-02"
+      ]
+    },
+    {
+      "id": "REQ-RD-10",
+      "legacyId": "RD-10",
+      "type": "requirement",
+      "module": "reading",
+      "title": "高亮与素材",
+      "priority": "P2",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "RD-10",
+        "hiddenTag": "<!-- REQ:REQ-RD-10 -->"
+      },
+      "featureIds": [
+        "FEAT-READING-PRACTICE"
+      ],
+      "apiIds": [],
+      "testIds": [],
+      "nfrIds": [
+        "NFR-MAINT-04"
+      ]
+    },
+    {
+      "id": "REQ-RD-11",
+      "legacyId": "RD-11",
+      "type": "requirement",
+      "module": "reading",
+      "title": "听读同步",
+      "priority": "P2",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "RD-11",
+        "hiddenTag": "<!-- REQ:REQ-RD-11 -->"
+      },
+      "featureIds": [
+        "FEAT-READING-PRACTICE"
+      ],
+      "apiIds": [],
+      "testIds": [],
+      "nfrIds": [
+        "NFR-UX-04"
+      ]
+    },
+    {
+      "id": "REQ-RD-12",
+      "legacyId": "RD-12",
+      "type": "requirement",
+      "module": "reading",
+      "title": "动态难度推荐",
+      "priority": "P2",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "RD-12",
+        "hiddenTag": "<!-- REQ:REQ-RD-12 -->"
+      },
+      "featureIds": [
+        "FEAT-READING-PRACTICE"
+      ],
+      "apiIds": [],
+      "testIds": [],
+      "nfrIds": [
+        "NFR-MAINT-04"
+      ]
+    },
+    {
+      "id": "REQ-PAL-01",
+      "legacyId": "PAL-01",
+      "type": "requirement",
+      "module": "penpal",
+      "title": "安全档案",
+      "priority": "P0",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "PAL-01",
+        "hiddenTag": "<!-- REQ:REQ-PAL-01 -->"
+      },
+      "featureIds": [
+        "FEAT-PENPAL-LETTER"
+      ],
+      "apiIds": [],
+      "testIds": [
+        "TEST-PENPAL-LETTER-01"
+      ],
+      "nfrIds": [
+        "NFR-SEC-01"
+      ]
+    },
+    {
+      "id": "REQ-PAL-02",
+      "legacyId": "PAL-02",
+      "type": "requirement",
+      "module": "penpal",
+      "title": "受控测试笔友关系",
+      "priority": "P0",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "PAL-02",
+        "hiddenTag": "<!-- REQ:REQ-PAL-02 -->"
+      },
+      "featureIds": [
+        "FEAT-PENPAL-LETTER"
+      ],
+      "apiIds": [
+        "API-PENPAL-THREADS"
+      ],
+      "testIds": [
+        "TEST-PENPAL-LETTER-01"
+      ],
+      "nfrIds": [
+        "NFR-SEC-02"
+      ]
+    },
+    {
+      "id": "REQ-PAL-03",
+      "legacyId": "PAL-03",
+      "type": "requirement",
+      "module": "penpal",
+      "title": "收件箱与通信历史入口",
+      "priority": "P0",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "PAL-03",
+        "hiddenTag": "<!-- REQ:REQ-PAL-03 -->"
+      },
+      "featureIds": [
+        "FEAT-PENPAL-LETTER"
+      ],
+      "apiIds": [
+        "API-PENPAL-THREADS"
+      ],
+      "testIds": [
+        "TEST-PENPAL-LETTER-01"
+      ],
+      "nfrIds": [
+        "NFR-SEC-01"
+      ]
+    },
+    {
+      "id": "REQ-PAL-04",
+      "legacyId": "PAL-04",
+      "type": "requirement",
+      "module": "penpal",
+      "title": "信件编辑器",
+      "priority": "P0",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "PAL-04",
+        "hiddenTag": "<!-- REQ:REQ-PAL-04 -->"
+      },
+      "featureIds": [
+        "FEAT-PENPAL-LETTER"
+      ],
+      "apiIds": [
+        "API-PENPAL-LETTER-SEND"
+      ],
+      "testIds": [
+        "TEST-PENPAL-LETTER-01"
+      ],
+      "nfrIds": [
+        "NFR-UX-03"
+      ]
+    },
+    {
+      "id": "REQ-PAL-05",
+      "legacyId": "PAL-05",
+      "type": "requirement",
+      "module": "penpal",
+      "title": "草稿自动保存",
+      "priority": "P0",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "PAL-05",
+        "hiddenTag": "<!-- REQ:REQ-PAL-05 -->"
+      },
+      "featureIds": [
+        "FEAT-PENPAL-LETTER"
+      ],
+      "apiIds": [],
+      "testIds": [
+        "TEST-PENPAL-LETTER-01"
+      ],
+      "nfrIds": [
+        "NFR-STAB-01",
+        "NFR-STAB-04"
+      ]
+    },
+    {
+      "id": "REQ-PAL-06",
+      "legacyId": "PAL-06",
+      "type": "requirement",
+      "module": "penpal",
+      "title": "发送前安全审核",
+      "priority": "P0",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "PAL-06",
+        "hiddenTag": "<!-- REQ:REQ-PAL-06 -->"
+      },
+      "featureIds": [
+        "FEAT-PENPAL-LETTER"
+      ],
+      "apiIds": [
+        "API-PENPAL-LETTER-SEND"
+      ],
+      "testIds": [
+        "TEST-PENPAL-SAFETY-01"
+      ],
+      "nfrIds": [
+        "NFR-SEC-03"
+      ]
+    },
+    {
+      "id": "REQ-PAL-07",
+      "legacyId": "PAL-07",
+      "type": "requirement",
+      "module": "penpal",
+      "title": "误判不丢稿",
+      "priority": "P0",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "PAL-07",
+        "hiddenTag": "<!-- REQ:REQ-PAL-07 -->"
+      },
+      "featureIds": [
+        "FEAT-PENPAL-LETTER"
+      ],
+      "apiIds": [],
+      "testIds": [
+        "TEST-PENPAL-SAFETY-01"
+      ],
+      "nfrIds": [
+        "NFR-STAB-01"
+      ]
+    },
+    {
+      "id": "REQ-PAL-08",
+      "legacyId": "PAL-08",
+      "type": "requirement",
+      "module": "penpal",
+      "title": "发送与通信历史",
+      "priority": "P0",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "PAL-08",
+        "hiddenTag": "<!-- REQ:REQ-PAL-08 -->"
+      },
+      "featureIds": [
+        "FEAT-PENPAL-LETTER"
+      ],
+      "apiIds": [
+        "API-PENPAL-LETTER-SEND",
+        "API-PENPAL-THREADS"
+      ],
+      "testIds": [
+        "TEST-PENPAL-LETTER-01"
+      ],
+      "nfrIds": [
+        "NFR-STAB-01"
+      ]
+    },
+    {
+      "id": "REQ-PAL-09",
+      "legacyId": "PAL-09",
+      "type": "requirement",
+      "module": "penpal",
+      "title": "举报、屏蔽、解除关系",
+      "priority": "P0",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "PAL-09",
+        "hiddenTag": "<!-- REQ:REQ-PAL-09 -->"
+      },
+      "featureIds": [
+        "FEAT-PENPAL-LETTER"
+      ],
+      "apiIds": [
+        "API-PENPAL-THREADS"
+      ],
+      "testIds": [
+        "TEST-PENPAL-RELATION-01"
+      ],
+      "nfrIds": [
+        "NFR-SEC-02"
+      ]
+    },
+    {
+      "id": "REQ-PAL-10",
+      "legacyId": "PAL-10",
+      "type": "requirement",
+      "module": "penpal",
+      "title": "写作支架",
+      "priority": "P1",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "PAL-10",
+        "hiddenTag": "<!-- REQ:REQ-PAL-10 -->"
+      },
+      "featureIds": [
+        "FEAT-PENPAL-LETTER"
+      ],
+      "apiIds": [],
+      "testIds": [],
+      "nfrIds": [
+        "NFR-UX-03"
+      ]
+    },
+    {
+      "id": "REQ-PAL-11",
+      "legacyId": "PAL-11",
+      "type": "requirement",
+      "module": "penpal",
+      "title": "语言检查",
+      "priority": "P2/Conditional P1",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "PAL-11",
+        "hiddenTag": "<!-- REQ:REQ-PAL-11 -->"
+      },
+      "featureIds": [
+        "FEAT-PENPAL-LETTER"
+      ],
+      "apiIds": [],
+      "testIds": [],
+      "nfrIds": [
+        "NFR-PERF-05",
+        "NFR-SEC-05"
+      ]
+    },
+    {
+      "id": "REQ-PAL-12",
+      "legacyId": "PAL-12",
+      "type": "requirement",
+      "module": "penpal",
+      "title": "同伴互助反馈",
+      "priority": "P2",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "PAL-12",
+        "hiddenTag": "<!-- REQ:REQ-PAL-12 -->"
+      },
+      "featureIds": [
+        "FEAT-PENPAL-LETTER"
+      ],
+      "apiIds": [],
+      "testIds": [],
+      "nfrIds": [
+        "NFR-UX-02"
+      ]
+    },
+    {
+      "id": "REQ-PAL-13",
+      "legacyId": "PAL-13",
+      "type": "requirement",
+      "module": "penpal",
+      "title": "主题公开信",
+      "priority": "P2",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "PAL-13",
+        "hiddenTag": "<!-- REQ:REQ-PAL-13 -->"
+      },
+      "featureIds": [
+        "FEAT-PENPAL-LETTER"
+      ],
+      "apiIds": [],
+      "testIds": [],
+      "nfrIds": [
+        "NFR-SEC-03"
+      ]
+    },
+    {
+      "id": "REQ-REC-01",
+      "legacyId": "REC-01",
+      "type": "requirement",
+      "module": "analytics",
+      "title": "今日任务完成度",
+      "priority": "P0",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "REC-01",
+        "hiddenTag": "<!-- REQ:REQ-REC-01 -->"
+      },
+      "featureIds": [
+        "FEAT-ANALYTICS-DAILY"
+      ],
+      "apiIds": [
+        "API-ANALYTICS-DAILY-SUMMARY"
+      ],
+      "testIds": [
+        "TEST-ANALYTICS-SUMMARY-01"
+      ],
+      "nfrIds": [
+        "NFR-STAB-01"
+      ]
+    },
+    {
+      "id": "REQ-REC-02",
+      "legacyId": "REC-02",
+      "type": "requirement",
+      "module": "analytics",
+      "title": "连续学习天数",
+      "priority": "P0",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "REC-02",
+        "hiddenTag": "<!-- REQ:REQ-REC-02 -->"
+      },
+      "featureIds": [
+        "FEAT-ANALYTICS-DAILY"
+      ],
+      "apiIds": [
+        "API-ANALYTICS-DAILY-SUMMARY"
+      ],
+      "testIds": [
+        "TEST-ANALYTICS-SUMMARY-01"
+      ],
+      "nfrIds": [
+        "NFR-STAB-01"
+      ]
+    },
+    {
+      "id": "REQ-REC-03",
+      "legacyId": "REC-03",
+      "type": "requirement",
+      "module": "analytics",
+      "title": "模块完成数量",
+      "priority": "P0",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "REC-03",
+        "hiddenTag": "<!-- REQ:REQ-REC-03 -->"
+      },
+      "featureIds": [
+        "FEAT-ANALYTICS-DAILY"
+      ],
+      "apiIds": [
+        "API-ANALYTICS-DAILY-SUMMARY"
+      ],
+      "testIds": [
+        "TEST-ANALYTICS-SUMMARY-01"
+      ],
+      "nfrIds": [
+        "NFR-STAB-01"
+      ]
+    },
+    {
+      "id": "REQ-REC-04",
+      "legacyId": "REC-04",
+      "type": "requirement",
+      "module": "analytics",
+      "title": "后台统计口径",
+      "priority": "P1",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "REC-04",
+        "hiddenTag": "<!-- REQ:REQ-REC-04 -->"
+      },
+      "featureIds": [
+        "FEAT-ANALYTICS-DAILY"
+      ],
+      "apiIds": [
+        "API-REVIEW-EVENTS"
+      ],
+      "testIds": [],
+      "nfrIds": [
+        "NFR-MAINT-04"
+      ]
+    },
+    {
+      "id": "REQ-REC-05",
+      "legacyId": "REC-05",
+      "type": "requirement",
+      "module": "analytics",
+      "title": "脱敏历史摘要",
+      "priority": "P1",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "REC-05",
+        "hiddenTag": "<!-- REQ:REQ-REC-05 -->"
+      },
+      "featureIds": [
+        "FEAT-ANALYTICS-DAILY"
+      ],
+      "apiIds": [],
+      "testIds": [],
+      "nfrIds": [
+        "NFR-SEC-01"
+      ]
+    },
+    {
+      "id": "REQ-REC-06",
+      "legacyId": "REC-06",
+      "type": "requirement",
+      "module": "analytics",
+      "title": "行动建议",
+      "priority": "P2",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "REC-06",
+        "hiddenTag": "<!-- REQ:REQ-REC-06 -->"
+      },
+      "featureIds": [
+        "FEAT-ANALYTICS-DAILY"
+      ],
+      "apiIds": [],
+      "testIds": [],
+      "nfrIds": [
+        "NFR-SEC-05"
+      ]
+    },
+    {
+      "id": "REQ-REC-07",
+      "legacyId": "REC-07",
+      "type": "requirement",
+      "module": "analytics",
+      "title": "本周趋势/历史复盘",
+      "priority": "P2",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "REC-07",
+        "hiddenTag": "<!-- REQ:REQ-REC-07 -->"
+      },
+      "featureIds": [
+        "FEAT-ANALYTICS-DAILY"
+      ],
+      "apiIds": [],
+      "testIds": [],
+      "nfrIds": [
+        "NFR-PERF-04"
+      ]
+    },
+    {
+      "id": "REQ-GOV-01",
+      "legacyId": "GOV-01",
+      "type": "requirement",
+      "module": "governance",
+      "title": "文档必须能被机器解析并作为可执行规约",
+      "priority": "P0",
+      "source": {
+        "path": "docs/executable-specification-system.md",
+        "anchor": "GOV-01",
+        "hiddenTag": "<!-- REQ:REQ-GOV-01 -->"
+      },
+      "featureIds": [
+        "FEAT-CONSTRAINT-SYSTEM"
+      ],
+      "apiIds": [],
+      "testIds": [
+        "TEST-SPEC-TRACEABILITY-01",
+        "TEST-DOC-KNOWLEDGE-01"
+      ],
+      "nfrIds": [
+        "NFR-MAINT-03"
+      ]
+    }
+  ],
+  "features": [
+    {
+      "id": "FEAT-AUTH-SESSION",
+      "type": "feature",
+      "module": "auth",
+      "title": "认证与会话基础能力",
+      "requirementIds": [
+        "REQ-AUTH-01",
+        "REQ-AUTH-02",
+        "REQ-AUTH-03",
+        "REQ-AUTH-04"
+      ],
+      "apiIds": [
+        "API-AUTH-LOGIN",
+        "API-AUTH-REFRESH",
+        "API-AUTH-LOGOUT",
+        "API-AUTH-ME"
+      ],
+      "testIds": [
+        "TEST-AUTH-LOGIN-01",
+        "TEST-AUTH-SESSION-01"
+      ],
+      "nfrIds": [
+        "NFR-SEC-04"
+      ],
+      "source": {
+        "path": "docs/rtm.json",
+        "hiddenTag": "<!-- FEAT:FEAT-AUTH-SESSION -->"
+      }
+    },
+    {
+      "id": "FEAT-NAV-CORE",
+      "type": "feature",
+      "module": "navigation",
+      "title": "首页核心入口与状态提示",
+      "requirementIds": [
+        "REQ-NAV-01",
+        "REQ-NAV-02",
+        "REQ-NAV-03",
+        "REQ-NAV-04"
+      ],
+      "apiIds": [
+        "API-ANALYTICS-DAILY-SUMMARY"
+      ],
+      "testIds": [
+        "TEST-NAV-ENTRY-01"
+      ],
+      "nfrIds": [
+        "NFR-UX-01",
+        "NFR-UX-04"
+      ],
+      "source": {
+        "path": "docs/rtm.json",
+        "hiddenTag": "<!-- FEAT:FEAT-NAV-CORE -->"
+      }
+    },
+    {
+      "id": "FEAT-WORD-LIST",
+      "type": "feature",
+      "module": "word",
+      "title": "单词列表与学习入口",
+      "requirementIds": [
+        "REQ-VOC-01",
+        "REQ-VOC-02",
+        "REQ-VOC-12"
+      ],
+      "apiIds": [
+        "API-WORD-LIST"
+      ],
+      "testIds": [
+        "TEST-WORD-LIST-01"
+      ],
+      "nfrIds": [
+        "NFR-STAB-02"
+      ],
+      "source": {
+        "path": "docs/rtm.json",
+        "hiddenTag": "<!-- FEAT:FEAT-WORD-LIST -->"
+      }
+    },
+    {
+      "id": "FEAT-WORD-REVIEW",
+      "type": "feature",
+      "module": "word",
+      "title": "单词主动回忆与复习排程",
+      "requirementIds": [
+        "REQ-VOC-03",
+        "REQ-VOC-04",
+        "REQ-VOC-05",
+        "REQ-VOC-06",
+        "REQ-VOC-07",
+        "REQ-VOC-08",
+        "REQ-VOC-09",
+        "REQ-VOC-10",
+        "REQ-VOC-11"
+      ],
+      "apiIds": [
+        "API-REVIEW-SUBMIT",
+        "API-REVIEW-EVENTS"
+      ],
+      "testIds": [
+        "TEST-WORD-REVIEW-01",
+        "TEST-WORD-RESUME-01",
+        "TEST-WORD-QUEUE-01"
+      ],
+      "nfrIds": [
+        "NFR-STAB-01",
+        "NFR-STAB-03",
+        "NFR-STAB-04"
+      ],
+      "source": {
+        "path": "docs/rtm.json",
+        "hiddenTag": "<!-- FEAT:FEAT-WORD-REVIEW -->"
+      }
+    },
+    {
+      "id": "FEAT-READING-PRACTICE",
+      "type": "feature",
+      "module": "reading",
+      "title": "阅读练习闭环",
+      "requirementIds": [
+        "REQ-RD-01",
+        "REQ-RD-02",
+        "REQ-RD-03",
+        "REQ-RD-05",
+        "REQ-RD-06",
+        "REQ-RD-07",
+        "REQ-RD-08",
+        "REQ-RD-09",
+        "REQ-RD-10",
+        "REQ-RD-11",
+        "REQ-RD-12"
+      ],
+      "apiIds": [
+        "API-READING-LIST",
+        "API-READING-DETAIL"
+      ],
+      "testIds": [
+        "TEST-READING-PRACTICE-01"
+      ],
+      "nfrIds": [
+        "NFR-STAB-03"
+      ],
+      "source": {
+        "path": "docs/rtm.json",
+        "hiddenTag": "<!-- FEAT:FEAT-READING-PRACTICE -->"
+      }
+    },
+    {
+      "id": "FEAT-READING-WORD-QUEUE",
+      "type": "feature",
+      "module": "reading",
+      "title": "阅读重点词加入单词学习队列",
+      "requirementIds": [
+        "REQ-RD-04",
+        "REQ-VOC-01"
+      ],
+      "apiIds": [
+        "API-READING-WORD-QUEUE"
+      ],
+      "testIds": [
+        "TEST-READING-WORD-QUEUE-01"
+      ],
+      "nfrIds": [
+        "NFR-STAB-01"
+      ],
+      "source": {
+        "path": "docs/rtm.json",
+        "hiddenTag": "<!-- FEAT:FEAT-READING-WORD-QUEUE -->"
+      }
+    },
+    {
+      "id": "FEAT-PENPAL-LETTER",
+      "type": "feature",
+      "module": "penpal",
+      "title": "受控笔友写信闭环",
+      "requirementIds": [
+        "REQ-PAL-01",
+        "REQ-PAL-02",
+        "REQ-PAL-03",
+        "REQ-PAL-04",
+        "REQ-PAL-05",
+        "REQ-PAL-06",
+        "REQ-PAL-07",
+        "REQ-PAL-08",
+        "REQ-PAL-09",
+        "REQ-PAL-10",
+        "REQ-PAL-11",
+        "REQ-PAL-12",
+        "REQ-PAL-13"
+      ],
+      "apiIds": [
+        "API-PENPAL-THREADS",
+        "API-PENPAL-LETTER-SEND"
+      ],
+      "testIds": [
+        "TEST-PENPAL-LETTER-01",
+        "TEST-PENPAL-SAFETY-01",
+        "TEST-PENPAL-RELATION-01"
+      ],
+      "nfrIds": [
+        "NFR-SEC-02",
+        "NFR-SEC-03"
+      ],
+      "source": {
+        "path": "docs/rtm.json",
+        "hiddenTag": "<!-- FEAT:FEAT-PENPAL-LETTER -->"
+      }
+    },
+    {
+      "id": "FEAT-ANALYTICS-DAILY",
+      "type": "feature",
+      "module": "analytics",
+      "title": "今日成果与学习记录摘要",
+      "requirementIds": [
+        "REQ-REC-01",
+        "REQ-REC-02",
+        "REQ-REC-03",
+        "REQ-REC-04",
+        "REQ-REC-05",
+        "REQ-REC-06",
+        "REQ-REC-07"
+      ],
+      "apiIds": [
+        "API-ANALYTICS-DAILY-SUMMARY",
+        "API-REVIEW-EVENTS"
+      ],
+      "testIds": [
+        "TEST-ANALYTICS-SUMMARY-01"
+      ],
+      "nfrIds": [
+        "NFR-STAB-01",
+        "NFR-SEC-01"
+      ],
+      "source": {
+        "path": "docs/rtm.json",
+        "hiddenTag": "<!-- FEAT:FEAT-ANALYTICS-DAILY -->"
+      }
+    },
+    {
+      "id": "FEAT-CONSTRAINT-SYSTEM",
+      "type": "feature",
+      "module": "governance",
+      "title": "文档可执行规约与一致性门禁",
+      "requirementIds": [
+        "REQ-GOV-01"
+      ],
+      "apiIds": [],
+      "testIds": [
+        "TEST-SPEC-TRACEABILITY-01",
+        "TEST-OPENAPI-CONTRACT-01",
+        "TEST-DOC-KNOWLEDGE-01"
+      ],
+      "nfrIds": [
+        "NFR-MAINT-03"
+      ],
+      "source": {
+        "path": "docs/rtm.json",
+        "hiddenTag": "<!-- FEAT:FEAT-CONSTRAINT-SYSTEM -->"
+      }
+    }
+  ],
+  "apis": [
+    {
+      "id": "API-HEALTH-GET",
+      "type": "api",
+      "module": "health",
+      "method": "GET",
+      "path": "/api/v1/health",
+      "operationId": "getHealth",
+      "source": {
+        "path": "backend/openapi/openapi.yaml",
+        "openapiExtension": "x-api-id",
+        "hiddenTag": "<!-- API:API-HEALTH-GET -->"
+      },
+      "requirementIds": [],
+      "testIds": [
+        "TEST-OPENAPI-CONTRACT-01"
+      ],
+      "nfrIds": [
+        "NFR-STAB-02"
+      ]
+    },
+    {
+      "id": "API-AUTH-LOGIN",
+      "type": "api",
+      "module": "auth",
+      "method": "POST",
+      "path": "/api/v1/auth/login",
+      "operationId": "login",
+      "source": {
+        "path": "backend/openapi/openapi.yaml",
+        "openapiExtension": "x-api-id",
+        "hiddenTag": "<!-- API:API-AUTH-LOGIN -->"
+      },
+      "requirementIds": [
+        "REQ-AUTH-01"
+      ],
+      "testIds": [
+        "TEST-AUTH-LOGIN-01",
+        "TEST-OPENAPI-CONTRACT-01"
+      ],
+      "nfrIds": [
+        "NFR-SEC-04"
+      ]
+    },
+    {
+      "id": "API-AUTH-REFRESH",
+      "type": "api",
+      "module": "auth",
+      "method": "POST",
+      "path": "/api/v1/auth/refresh",
+      "operationId": "refreshAuthToken",
+      "source": {
+        "path": "backend/openapi/openapi.yaml",
+        "openapiExtension": "x-api-id",
+        "hiddenTag": "<!-- API:API-AUTH-REFRESH -->"
+      },
+      "requirementIds": [
+        "REQ-AUTH-02"
+      ],
+      "testIds": [
+        "TEST-AUTH-SESSION-01",
+        "TEST-OPENAPI-CONTRACT-01"
+      ],
+      "nfrIds": [
+        "NFR-SEC-04"
+      ]
+    },
+    {
+      "id": "API-AUTH-LOGOUT",
+      "type": "api",
+      "module": "auth",
+      "method": "POST",
+      "path": "/api/v1/auth/logout",
+      "operationId": "logout",
+      "source": {
+        "path": "backend/openapi/openapi.yaml",
+        "openapiExtension": "x-api-id",
+        "hiddenTag": "<!-- API:API-AUTH-LOGOUT -->"
+      },
+      "requirementIds": [
+        "REQ-AUTH-03"
+      ],
+      "testIds": [
+        "TEST-AUTH-SESSION-01",
+        "TEST-OPENAPI-CONTRACT-01"
+      ],
+      "nfrIds": [
+        "NFR-SEC-04"
+      ]
+    },
+    {
+      "id": "API-AUTH-ME",
+      "type": "api",
+      "module": "auth",
+      "method": "GET",
+      "path": "/api/v1/auth/me",
+      "operationId": "getCurrentUser",
+      "source": {
+        "path": "backend/openapi/openapi.yaml",
+        "openapiExtension": "x-api-id",
+        "hiddenTag": "<!-- API:API-AUTH-ME -->"
+      },
+      "requirementIds": [
+        "REQ-AUTH-04"
+      ],
+      "testIds": [
+        "TEST-AUTH-SESSION-01",
+        "TEST-OPENAPI-CONTRACT-01"
+      ],
+      "nfrIds": [
+        "NFR-SEC-01"
+      ]
+    },
+    {
+      "id": "API-WORD-LIST",
+      "type": "api",
+      "module": "word",
+      "method": "GET",
+      "path": "/api/v1/words",
+      "operationId": "listWords",
+      "source": {
+        "path": "backend/openapi/openapi.yaml",
+        "openapiExtension": "x-api-id",
+        "hiddenTag": "<!-- API:API-WORD-LIST -->"
+      },
+      "requirementIds": [
+        "REQ-VOC-01"
+      ],
+      "testIds": [
+        "TEST-WORD-LIST-01",
+        "TEST-OPENAPI-CONTRACT-01"
+      ],
+      "nfrIds": [
+        "NFR-STAB-02"
+      ]
+    },
+    {
+      "id": "API-REVIEW-SUBMIT",
+      "type": "api",
+      "module": "review",
+      "method": "POST",
+      "path": "/api/v1/reviews/submit",
+      "operationId": "submitReview",
+      "source": {
+        "path": "backend/openapi/openapi.yaml",
+        "openapiExtension": "x-api-id",
+        "hiddenTag": "<!-- API:API-REVIEW-SUBMIT -->"
+      },
+      "requirementIds": [
+        "REQ-VOC-03",
+        "REQ-VOC-04",
+        "REQ-VOC-05",
+        "REQ-VOC-08"
+      ],
+      "testIds": [
+        "TEST-WORD-REVIEW-01",
+        "TEST-WORD-RESUME-01",
+        "TEST-OPENAPI-CONTRACT-01"
+      ],
+      "nfrIds": [
+        "NFR-STAB-01"
+      ]
+    },
+    {
+      "id": "API-REVIEW-EVENTS",
+      "type": "api",
+      "module": "review",
+      "method": "GET",
+      "path": "/api/v1/review-events",
+      "operationId": "listReviewEvents",
+      "source": {
+        "path": "backend/openapi/openapi.yaml",
+        "openapiExtension": "x-api-id",
+        "hiddenTag": "<!-- API:API-REVIEW-EVENTS -->"
+      },
+      "requirementIds": [
+        "REQ-VOC-05",
+        "REQ-REC-04"
+      ],
+      "testIds": [
+        "TEST-WORD-REVIEW-01",
+        "TEST-OPENAPI-CONTRACT-01"
+      ],
+      "nfrIds": [
+        "NFR-STAB-01"
+      ]
+    },
+    {
+      "id": "API-READING-LIST",
+      "type": "api",
+      "module": "reading",
+      "method": "GET",
+      "path": "/api/v1/reading/articles",
+      "operationId": "listReadingArticles",
+      "source": {
+        "path": "backend/openapi/openapi.yaml",
+        "openapiExtension": "x-api-id",
+        "hiddenTag": "<!-- API:API-READING-LIST -->"
+      },
+      "requirementIds": [
+        "REQ-RD-01",
+        "REQ-RD-02"
+      ],
+      "testIds": [
+        "TEST-READING-PRACTICE-01",
+        "TEST-OPENAPI-CONTRACT-01"
+      ],
+      "nfrIds": [
+        "NFR-STAB-02"
+      ]
+    },
+    {
+      "id": "API-READING-DETAIL",
+      "type": "api",
+      "module": "reading",
+      "method": "GET",
+      "path": "/api/v1/reading/articles/{articleId}",
+      "operationId": "getReadingArticle",
+      "source": {
+        "path": "backend/openapi/openapi.yaml",
+        "openapiExtension": "x-api-id",
+        "hiddenTag": "<!-- API:API-READING-DETAIL -->"
+      },
+      "requirementIds": [
+        "REQ-RD-03"
+      ],
+      "testIds": [
+        "TEST-READING-PRACTICE-01",
+        "TEST-OPENAPI-CONTRACT-01"
+      ],
+      "nfrIds": [
+        "NFR-STAB-02"
+      ]
+    },
+    {
+      "id": "API-READING-WORD-QUEUE",
+      "type": "api",
+      "module": "reading",
+      "method": "POST",
+      "path": "/api/v1/reading/articles/{articleId}/words/{wordId}/queue",
+      "operationId": "addToWordLearningQueue",
+      "source": {
+        "path": "backend/openapi/openapi.yaml",
+        "openapiExtension": "x-api-id",
+        "hiddenTag": "<!-- API:API-READING-WORD-QUEUE -->"
+      },
+      "requirementIds": [
+        "REQ-RD-04",
+        "REQ-VOC-01"
+      ],
+      "testIds": [
+        "TEST-READING-WORD-QUEUE-01",
+        "TEST-OPENAPI-CONTRACT-01"
+      ],
+      "nfrIds": [
+        "NFR-STAB-01"
+      ]
+    },
+    {
+      "id": "API-PENPAL-THREADS",
+      "type": "api",
+      "module": "penpal",
+      "method": "GET",
+      "path": "/api/v1/penpal/threads",
+      "operationId": "listPenpalThreads",
+      "source": {
+        "path": "backend/openapi/openapi.yaml",
+        "openapiExtension": "x-api-id",
+        "hiddenTag": "<!-- API:API-PENPAL-THREADS -->"
+      },
+      "requirementIds": [
+        "REQ-PAL-02",
+        "REQ-PAL-03",
+        "REQ-PAL-09"
+      ],
+      "testIds": [
+        "TEST-PENPAL-LETTER-01",
+        "TEST-PENPAL-RELATION-01",
+        "TEST-OPENAPI-CONTRACT-01"
+      ],
+      "nfrIds": [
+        "NFR-SEC-02"
+      ]
+    },
+    {
+      "id": "API-PENPAL-LETTER-SEND",
+      "type": "api",
+      "module": "penpal",
+      "method": "POST",
+      "path": "/api/v1/penpal/letters",
+      "operationId": "sendPenpalLetter",
+      "source": {
+        "path": "backend/openapi/openapi.yaml",
+        "openapiExtension": "x-api-id",
+        "hiddenTag": "<!-- API:API-PENPAL-LETTER-SEND -->"
+      },
+      "requirementIds": [
+        "REQ-PAL-04",
+        "REQ-PAL-06",
+        "REQ-PAL-08",
+        "REQ-REC-03"
+      ],
+      "testIds": [
+        "TEST-PENPAL-LETTER-01",
+        "TEST-PENPAL-SAFETY-01",
+        "TEST-OPENAPI-CONTRACT-01"
+      ],
+      "nfrIds": [
+        "NFR-SEC-03"
+      ]
+    },
+    {
+      "id": "API-ANALYTICS-DAILY-SUMMARY",
+      "type": "api",
+      "module": "analytics",
+      "method": "GET",
+      "path": "/api/v1/analytics/daily-summary",
+      "operationId": "getDailySummary",
+      "source": {
+        "path": "backend/openapi/openapi.yaml",
+        "openapiExtension": "x-api-id",
+        "hiddenTag": "<!-- API:API-ANALYTICS-DAILY-SUMMARY -->"
+      },
+      "requirementIds": [
+        "REQ-REC-01",
+        "REQ-REC-02",
+        "REQ-REC-03",
+        "REQ-NAV-02"
+      ],
+      "testIds": [
+        "TEST-ANALYTICS-SUMMARY-01",
+        "TEST-OPENAPI-CONTRACT-01"
+      ],
+      "nfrIds": [
+        "NFR-STAB-01"
+      ]
+    }
+  ],
+  "tests": [
+    {
+      "id": "TEST-AUTH-LOGIN-01",
+      "type": "test_case",
+      "title": "用户登录并建立会话",
+      "kind": "bdd",
+      "source": {
+        "path": "tests/specs/auth-session.feature",
+        "hiddenTag": "@TEST-AUTH-LOGIN-01"
+      },
+      "requirementIds": [
+        "REQ-AUTH-01"
+      ],
+      "apiIds": [
+        "API-AUTH-LOGIN"
+      ],
+      "nfrIds": [
+        "NFR-SEC-04"
+      ]
+    },
+    {
+      "id": "TEST-AUTH-SESSION-01",
+      "type": "test_case",
+      "title": "会话刷新、查询和退出",
+      "kind": "bdd",
+      "source": {
+        "path": "tests/specs/auth-session.feature",
+        "hiddenTag": "@TEST-AUTH-SESSION-01"
+      },
+      "requirementIds": [
+        "REQ-AUTH-02",
+        "REQ-AUTH-03",
+        "REQ-AUTH-04"
+      ],
+      "apiIds": [
+        "API-AUTH-REFRESH",
+        "API-AUTH-LOGOUT",
+        "API-AUTH-ME"
+      ],
+      "nfrIds": [
+        "NFR-SEC-01",
+        "NFR-SEC-04"
+      ]
+    },
+    {
+      "id": "TEST-NAV-ENTRY-01",
+      "type": "test_case",
+      "title": "首页三大入口和状态提示",
+      "kind": "bdd",
+      "source": {
+        "path": "tests/specs/navigation.feature",
+        "hiddenTag": "@TEST-NAV-ENTRY-01"
+      },
+      "requirementIds": [
+        "REQ-NAV-01",
+        "REQ-NAV-03",
+        "REQ-NAV-04"
+      ],
+      "apiIds": [],
+      "nfrIds": [
+        "NFR-UX-01",
+        "NFR-UX-04"
+      ]
+    },
+    {
+      "id": "TEST-WORD-LIST-01",
+      "type": "test_case",
+      "title": "单词列表与筛选入口",
+      "kind": "bdd",
+      "source": {
+        "path": "tests/specs/word-review.feature",
+        "hiddenTag": "@TEST-WORD-LIST-01"
+      },
+      "requirementIds": [
+        "REQ-VOC-01"
+      ],
+      "apiIds": [
+        "API-WORD-LIST"
+      ],
+      "nfrIds": [
+        "NFR-STAB-02"
+      ]
+    },
+    {
+      "id": "TEST-WORD-REVIEW-01",
+      "type": "test_case",
+      "title": "完成一次单词主动回忆练习",
+      "kind": "bdd",
+      "source": {
+        "path": "tests/specs/word-review.feature",
+        "hiddenTag": "@TEST-WORD-REVIEW-01"
+      },
+      "requirementIds": [
+        "REQ-VOC-03",
+        "REQ-VOC-04",
+        "REQ-VOC-05"
+      ],
+      "apiIds": [
+        "API-REVIEW-SUBMIT",
+        "API-REVIEW-EVENTS"
+      ],
+      "nfrIds": [
+        "NFR-STAB-03"
+      ]
+    },
+    {
+      "id": "TEST-WORD-RESUME-01",
+      "type": "test_case",
+      "title": "单词练习中断后恢复",
+      "kind": "bdd",
+      "source": {
+        "path": "tests/specs/word-review.feature",
+        "hiddenTag": "@TEST-WORD-RESUME-01"
+      },
+      "requirementIds": [
+        "REQ-VOC-08"
+      ],
+      "apiIds": [
+        "API-REVIEW-SUBMIT"
+      ],
+      "nfrIds": [
+        "NFR-STAB-04"
+      ]
+    },
+    {
+      "id": "TEST-WORD-QUEUE-01",
+      "type": "test_case",
+      "title": "复习队列优先级和每日上限",
+      "kind": "bdd",
+      "source": {
+        "path": "tests/specs/word-review.feature",
+        "hiddenTag": "@TEST-WORD-QUEUE-01"
+      },
+      "requirementIds": [
+        "REQ-VOC-06",
+        "REQ-VOC-07",
+        "REQ-VOC-09"
+      ],
+      "apiIds": [
+        "API-WORD-LIST",
+        "API-REVIEW-EVENTS"
+      ],
+      "nfrIds": [
+        "NFR-STAB-01"
+      ]
+    },
+    {
+      "id": "TEST-READING-PRACTICE-01",
+      "type": "test_case",
+      "title": "完成一篇阅读并答题",
+      "kind": "bdd",
+      "source": {
+        "path": "tests/specs/reading-practice.feature",
+        "hiddenTag": "@TEST-READING-PRACTICE-01"
+      },
+      "requirementIds": [
+        "REQ-RD-01",
+        "REQ-RD-02",
+        "REQ-RD-03",
+        "REQ-RD-05",
+        "REQ-RD-06",
+        "REQ-RD-07"
+      ],
+      "apiIds": [
+        "API-READING-LIST",
+        "API-READING-DETAIL"
+      ],
+      "nfrIds": [
+        "NFR-STAB-03"
+      ]
+    },
+    {
+      "id": "TEST-READING-WORD-QUEUE-01",
+      "type": "test_case",
+      "title": "阅读中加入生词",
+      "kind": "bdd",
+      "source": {
+        "path": "tests/specs/reading-practice.feature",
+        "hiddenTag": "@TEST-READING-WORD-QUEUE-01"
+      },
+      "requirementIds": [
+        "REQ-RD-04",
+        "REQ-VOC-01"
+      ],
+      "apiIds": [
+        "API-READING-WORD-QUEUE"
+      ],
+      "nfrIds": [
+        "NFR-STAB-01"
+      ]
+    },
+    {
+      "id": "TEST-PENPAL-LETTER-01",
+      "type": "test_case",
+      "title": "完成一次笔友写信",
+      "kind": "bdd",
+      "source": {
+        "path": "tests/specs/penpal-letter.feature",
+        "hiddenTag": "@TEST-PENPAL-LETTER-01"
+      },
+      "requirementIds": [
+        "REQ-PAL-01",
+        "REQ-PAL-02",
+        "REQ-PAL-03",
+        "REQ-PAL-04",
+        "REQ-PAL-05",
+        "REQ-PAL-08"
+      ],
+      "apiIds": [
+        "API-PENPAL-THREADS",
+        "API-PENPAL-LETTER-SEND"
+      ],
+      "nfrIds": [
+        "NFR-STAB-01"
+      ]
+    },
+    {
+      "id": "TEST-PENPAL-SAFETY-01",
+      "type": "test_case",
+      "title": "笔友安全拦截且误判不丢稿",
+      "kind": "bdd",
+      "source": {
+        "path": "tests/specs/penpal-letter.feature",
+        "hiddenTag": "@TEST-PENPAL-SAFETY-01"
+      },
+      "requirementIds": [
+        "REQ-PAL-06",
+        "REQ-PAL-07"
+      ],
+      "apiIds": [
+        "API-PENPAL-LETTER-SEND"
+      ],
+      "nfrIds": [
+        "NFR-SEC-03"
+      ]
+    },
+    {
+      "id": "TEST-PENPAL-RELATION-01",
+      "type": "test_case",
+      "title": "解除关系后不能继续发信",
+      "kind": "bdd",
+      "source": {
+        "path": "tests/specs/penpal-letter.feature",
+        "hiddenTag": "@TEST-PENPAL-RELATION-01"
+      },
+      "requirementIds": [
+        "REQ-PAL-09"
+      ],
+      "apiIds": [
+        "API-PENPAL-THREADS"
+      ],
+      "nfrIds": [
+        "NFR-SEC-02"
+      ]
+    },
+    {
+      "id": "TEST-ANALYTICS-SUMMARY-01",
+      "type": "test_case",
+      "title": "学习记录随真实行为更新",
+      "kind": "bdd",
+      "source": {
+        "path": "tests/specs/analytics-summary.feature",
+        "hiddenTag": "@TEST-ANALYTICS-SUMMARY-01"
+      },
+      "requirementIds": [
+        "REQ-REC-01",
+        "REQ-REC-02",
+        "REQ-REC-03"
+      ],
+      "apiIds": [
+        "API-ANALYTICS-DAILY-SUMMARY"
+      ],
+      "nfrIds": [
+        "NFR-STAB-01"
+      ]
+    },
+    {
+      "id": "TEST-SPEC-TRACEABILITY-01",
+      "type": "test_case",
+      "title": "RTM 与文档标签一致性",
+      "kind": "static",
+      "source": {
+        "path": "backend/scripts/check-executable-specs.mjs",
+        "hiddenTag": "@TEST-SPEC-TRACEABILITY-01"
+      },
+      "requirementIds": [
+        "REQ-GOV-01"
+      ],
+      "apiIds": [],
+      "nfrIds": [
+        "NFR-MAINT-03"
+      ]
+    },
+    {
+      "id": "TEST-OPENAPI-CONTRACT-01",
+      "type": "test_case",
+      "title": "OpenAPI 与接口契约配置一致性",
+      "kind": "static",
+      "source": {
+        "path": "backend/scripts/check-openapi-contract.mjs",
+        "hiddenTag": "@TEST-OPENAPI-CONTRACT-01"
+      },
+      "requirementIds": [
+        "REQ-GOV-01"
+      ],
+      "apiIds": [
+        "API-HEALTH-GET",
+        "API-AUTH-LOGIN",
+        "API-AUTH-REFRESH",
+        "API-AUTH-LOGOUT",
+        "API-AUTH-ME",
+        "API-WORD-LIST",
+        "API-REVIEW-SUBMIT",
+        "API-REVIEW-EVENTS",
+        "API-READING-LIST",
+        "API-READING-DETAIL",
+        "API-READING-WORD-QUEUE",
+        "API-PENPAL-THREADS",
+        "API-PENPAL-LETTER-SEND",
+        "API-ANALYTICS-DAILY-SUMMARY"
+      ],
+      "nfrIds": [
+        "NFR-MAINT-03"
+      ]
+    },
+    {
+      "id": "TEST-DOC-KNOWLEDGE-01",
+      "type": "test_case",
+      "title": "文档知识索引与图谱一致性",
+      "kind": "static",
+      "source": {
+        "path": "backend/scripts/build-doc-knowledge-base.mjs",
+        "hiddenTag": "@TEST-DOC-KNOWLEDGE-01"
+      },
+      "requirementIds": [
+        "REQ-GOV-01"
+      ],
+      "apiIds": [],
+      "nfrIds": [
+        "NFR-MAINT-03"
+      ]
+    }
+  ],
+  "nfrs": [
+    {
+      "id": "NFR-UX-01",
+      "type": "nonfunctional_constraint",
+      "module": "ux",
+      "title": "核心学习流程页面层级控制在 3 层以内",
+      "priority": "P0",
+      "baselineKey": "navigation.maxCoreFlowDepth",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "NFR-UX-01",
+        "hiddenTag": "<!-- NFR:NFR-UX-01 -->"
+      }
+    },
+    {
+      "id": "NFR-UX-02",
+      "type": "nonfunctional_constraint",
+      "module": "ux",
+      "title": "核心学习流程防打扰",
+      "priority": "P0",
+      "baselineKey": "ux.noBlockingPromotions",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "NFR-UX-02",
+        "hiddenTag": "<!-- NFR:NFR-UX-02 -->"
+      }
+    },
+    {
+      "id": "NFR-UX-03",
+      "type": "nonfunctional_constraint",
+      "module": "ux",
+      "title": "文案行动导向",
+      "priority": "P1",
+      "baselineKey": "ux.actionVerbCopy",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "NFR-UX-03",
+        "hiddenTag": "<!-- NFR:NFR-UX-03 -->"
+      }
+    },
+    {
+      "id": "NFR-UX-04",
+      "type": "nonfunctional_constraint",
+      "module": "ux",
+      "title": "错误反馈可操作",
+      "priority": "P0",
+      "baselineKey": "ux.actionableErrors",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "NFR-UX-04",
+        "hiddenTag": "<!-- NFR:NFR-UX-04 -->"
+      }
+    },
+    {
+      "id": "NFR-PERF-01",
+      "type": "nonfunctional_constraint",
+      "module": "performance",
+      "title": "核心页面 FCP 控制在 1.5 秒以内",
+      "priority": "P1",
+      "baselineKey": "performance.fcpMs",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "NFR-PERF-01",
+        "hiddenTag": "<!-- NFR:NFR-PERF-01 -->"
+      }
+    },
+    {
+      "id": "NFR-PERF-02",
+      "type": "nonfunctional_constraint",
+      "module": "performance",
+      "title": "核心页面 LCP 控制在 2.5 秒以内",
+      "priority": "P1",
+      "baselineKey": "performance.lcpMs",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "NFR-PERF-02",
+        "hiddenTag": "<!-- NFR:NFR-PERF-02 -->"
+      }
+    },
+    {
+      "id": "NFR-PERF-03",
+      "type": "nonfunctional_constraint",
+      "module": "performance",
+      "title": "交互反馈低于 100ms",
+      "priority": "P1",
+      "baselineKey": "performance.interactionFeedbackMs",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "NFR-PERF-03",
+        "hiddenTag": "<!-- NFR:NFR-PERF-03 -->"
+      }
+    },
+    {
+      "id": "NFR-PERF-04",
+      "type": "nonfunctional_constraint",
+      "module": "performance",
+      "title": "非核心资源延迟加载",
+      "priority": "P0",
+      "baselineKey": "performance.lazyNonCriticalResources",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "NFR-PERF-04",
+        "hiddenTag": "<!-- NFR:NFR-PERF-04 -->"
+      }
+    },
+    {
+      "id": "NFR-PERF-05",
+      "type": "nonfunctional_constraint",
+      "module": "performance",
+      "title": "外部接口超时与降级",
+      "priority": "Conditional P0",
+      "baselineKey": "performance.externalApiTimeoutMs",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "NFR-PERF-05",
+        "hiddenTag": "<!-- NFR:NFR-PERF-05 -->"
+      }
+    },
+    {
+      "id": "NFR-STAB-01",
+      "type": "nonfunctional_constraint",
+      "module": "stability",
+      "title": "关键数据可靠保存",
+      "priority": "P0",
+      "baselineKey": "stability.noSilentDataLoss",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "NFR-STAB-01",
+        "hiddenTag": "<!-- NFR:NFR-STAB-01 -->"
+      }
+    },
+    {
+      "id": "NFR-STAB-02",
+      "type": "nonfunctional_constraint",
+      "module": "stability",
+      "title": "避免静默失败",
+      "priority": "P0",
+      "baselineKey": "stability.noSilentFailure",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "NFR-STAB-02",
+        "hiddenTag": "<!-- NFR:NFR-STAB-02 -->"
+      }
+    },
+    {
+      "id": "NFR-STAB-03",
+      "type": "nonfunctional_constraint",
+      "module": "stability",
+      "title": "核心 E2E 测试",
+      "priority": "P0",
+      "baselineKey": "stability.coreE2ERequired",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "NFR-STAB-03",
+        "hiddenTag": "<!-- NFR:NFR-STAB-03 -->"
+      }
+    },
+    {
+      "id": "NFR-STAB-04",
+      "type": "nonfunctional_constraint",
+      "module": "stability",
+      "title": "中断恢复",
+      "priority": "P0",
+      "baselineKey": "stability.resumeAfterInterruption",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "NFR-STAB-04",
+        "hiddenTag": "<!-- NFR:NFR-STAB-04 -->"
+      }
+    },
+    {
+      "id": "NFR-SEC-01",
+      "type": "nonfunctional_constraint",
+      "module": "security",
+      "title": "学习数据默认私有",
+      "priority": "P0",
+      "baselineKey": "security.privateLearningData",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "NFR-SEC-01",
+        "hiddenTag": "<!-- NFR:NFR-SEC-01 -->"
+      }
+    },
+    {
+      "id": "NFR-SEC-02",
+      "type": "nonfunctional_constraint",
+      "module": "security",
+      "title": "通信权限隔离",
+      "priority": "P0",
+      "baselineKey": "security.penpalRelationIsolation",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "NFR-SEC-02",
+        "hiddenTag": "<!-- NFR:NFR-SEC-02 -->"
+      }
+    },
+    {
+      "id": "NFR-SEC-03",
+      "type": "nonfunctional_constraint",
+      "module": "security",
+      "title": "内容安全审核规则 V1.0",
+      "priority": "P0",
+      "baselineKey": "security.contentSafetyRules",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "NFR-SEC-03",
+        "hiddenTag": "<!-- NFR:NFR-SEC-03 -->"
+      }
+    },
+    {
+      "id": "NFR-SEC-04",
+      "type": "nonfunctional_constraint",
+      "module": "security",
+      "title": "密钥保护",
+      "priority": "P0",
+      "baselineKey": "security.noCommittedSecrets",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "NFR-SEC-04",
+        "hiddenTag": "<!-- NFR:NFR-SEC-04 -->"
+      }
+    },
+    {
+      "id": "NFR-SEC-05",
+      "type": "nonfunctional_constraint",
+      "module": "security",
+      "title": "个性化数据使用告知",
+      "priority": "P1",
+      "baselineKey": "security.personalizationNotice",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "NFR-SEC-05",
+        "hiddenTag": "<!-- NFR:NFR-SEC-05 -->"
+      }
+    },
+    {
+      "id": "NFR-MAINT-01",
+      "type": "nonfunctional_constraint",
+      "module": "maintainability",
+      "title": "模块边界清晰",
+      "priority": "P0",
+      "baselineKey": "maintainability.moduleBoundaries",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "NFR-MAINT-01",
+        "hiddenTag": "<!-- NFR:NFR-MAINT-01 -->"
+      }
+    },
+    {
+      "id": "NFR-MAINT-02",
+      "type": "nonfunctional_constraint",
+      "module": "maintainability",
+      "title": "公共组件复用",
+      "priority": "P1",
+      "baselineKey": "maintainability.componentReuse",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "NFR-MAINT-02",
+        "hiddenTag": "<!-- NFR:NFR-MAINT-02 -->"
+      }
+    },
+    {
+      "id": "NFR-MAINT-03",
+      "type": "nonfunctional_constraint",
+      "module": "maintainability",
+      "title": "文档同步",
+      "priority": "P1",
+      "baselineKey": "maintainability.docSync",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "NFR-MAINT-03",
+        "hiddenTag": "<!-- NFR:NFR-MAINT-03 -->"
+      }
+    },
+    {
+      "id": "NFR-MAINT-04",
+      "type": "nonfunctional_constraint",
+      "module": "maintainability",
+      "title": "数据结构可扩展",
+      "priority": "P1",
+      "baselineKey": "maintainability.extensibleDataModel",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "NFR-MAINT-04",
+        "hiddenTag": "<!-- NFR:NFR-MAINT-04 -->"
+      }
+    },
+    {
+      "id": "NFR-ROBUST-01",
+      "type": "nonfunctional_constraint",
+      "module": "robustness",
+      "title": "后端 API 输入校验",
+      "priority": "P1",
+      "baselineKey": "robustness.backendInputValidation",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "NFR-ROBUST-01",
+        "hiddenTag": "<!-- NFR:NFR-ROBUST-01 -->"
+      }
+    }
+  ],
+  "rules": [
+    {
+      "id": "RULE-GSL-01",
+      "type": "business_rule",
+      "module": "learning-session",
+      "title": "单词练习和阅读练习均应使用学习会话记录支撑中断恢复",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "RULE-GSL-01",
+        "hiddenTag": "<!-- RULE:RULE-GSL-01 -->"
+      },
+      "requirementIds": [
+        "REQ-VOC-08",
+        "REQ-RD-07"
+      ]
+    },
+    {
+      "id": "RULE-GSL-02",
+      "type": "business_rule",
+      "module": "learning-session",
+      "title": "已提交答题结果属于正式学习日志，不因重新开始会话而被覆盖或重复计算",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "RULE-GSL-02",
+        "hiddenTag": "<!-- RULE:RULE-GSL-02 -->"
+      },
+      "requirementIds": [
+        "REQ-VOC-08",
+        "REQ-RD-07"
+      ]
+    },
+    {
+      "id": "RULE-GSL-03",
+      "type": "business_rule",
+      "module": "learning-session",
+      "title": "重新开始只清除当前未完成会话进度，不删除已产生日志和统计事件",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "RULE-GSL-03",
+        "hiddenTag": "<!-- RULE:RULE-GSL-03 -->"
+      },
+      "requirementIds": [
+        "REQ-VOC-08",
+        "REQ-RD-07",
+        "REQ-REC-03"
+      ]
+    },
+    {
+      "id": "RULE-GSL-04",
+      "type": "business_rule",
+      "module": "learning-session",
+      "title": "恢复所需内容下架或损坏时提示原因并提供重新开始入口",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "RULE-GSL-04",
+        "hiddenTag": "<!-- RULE:RULE-GSL-04 -->"
+      },
+      "requirementIds": [
+        "REQ-VOC-08",
+        "REQ-RD-07"
+      ]
+    },
+    {
+      "id": "RULE-VOC-01",
+      "type": "business_rule",
+      "module": "word",
+      "title": "仅查看单词详情不直接等同于已掌握",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "RULE-VOC-01",
+        "hiddenTag": "<!-- RULE:RULE-VOC-01 -->"
+      },
+      "requirementIds": [
+        "REQ-VOC-02",
+        "REQ-VOC-05"
+      ]
+    },
+    {
+      "id": "RULE-VOC-02",
+      "type": "business_rule",
+      "module": "word",
+      "title": "复习队列按 P0 到期词、P1 上一会话错误词、P2 低掌握词填充",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "RULE-VOC-02",
+        "hiddenTag": "<!-- RULE:RULE-VOC-02 -->"
+      },
+      "requirementIds": [
+        "REQ-VOC-06",
+        "REQ-VOC-07"
+      ]
+    },
+    {
+      "id": "RULE-VOC-03",
+      "type": "business_rule",
+      "module": "word",
+      "title": "接近正确不等同于完全正确，应独立记录",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "RULE-VOC-03",
+        "hiddenTag": "<!-- RULE:RULE-VOC-03 -->"
+      },
+      "requirementIds": [
+        "REQ-VOC-10"
+      ]
+    },
+    {
+      "id": "RULE-VOC-04",
+      "type": "business_rule",
+      "module": "word",
+      "title": "待复习任务过多时受每日上限保护，超出部分顺延",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "RULE-VOC-04",
+        "hiddenTag": "<!-- RULE:RULE-VOC-04 -->"
+      },
+      "requirementIds": [
+        "REQ-VOC-07"
+      ]
+    },
+    {
+      "id": "RULE-VOC-05",
+      "type": "business_rule",
+      "module": "word",
+      "title": "手动调整学习状态应记录为用户操作，不覆盖真实练习日志",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "RULE-VOC-05",
+        "hiddenTag": "<!-- RULE:RULE-VOC-05 -->"
+      },
+      "requirementIds": [
+        "REQ-VOC-11"
+      ]
+    },
+    {
+      "id": "RULE-VOC-06",
+      "type": "business_rule",
+      "module": "word",
+      "title": "单题作答结果应更新掌握度和复习间隔",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "RULE-VOC-06",
+        "hiddenTag": "<!-- RULE:RULE-VOC-06 -->"
+      },
+      "requirementIds": [
+        "REQ-VOC-05"
+      ]
+    },
+    {
+      "id": "RULE-VOC-07",
+      "type": "business_rule",
+      "module": "word",
+      "title": "选择题干扰项优先来自相近难度或相同主题",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "RULE-VOC-07",
+        "hiddenTag": "<!-- RULE:RULE-VOC-07 -->"
+      },
+      "requirementIds": [
+        "REQ-VOC-03"
+      ]
+    },
+    {
+      "id": "RULE-RD-01",
+      "type": "business_rule",
+      "module": "reading",
+      "title": "只打开文章不计入阅读完成",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "RULE-RD-01",
+        "hiddenTag": "<!-- RULE:RULE-RD-01 -->"
+      },
+      "requirementIds": [
+        "REQ-RD-07",
+        "REQ-REC-03"
+      ]
+    },
+    {
+      "id": "RULE-RD-02",
+      "type": "business_rule",
+      "module": "reading",
+      "title": "阅读完成应至少满足读完正文并提交题目或明确确认完成",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "RULE-RD-02",
+        "hiddenTag": "<!-- RULE:RULE-RD-02 -->"
+      },
+      "requirementIds": [
+        "REQ-RD-05",
+        "REQ-RD-07"
+      ]
+    },
+    {
+      "id": "RULE-RD-03",
+      "type": "business_rule",
+      "module": "reading",
+      "title": "阅读中加入生词本的词不立即计入已学单词",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "RULE-RD-03",
+        "hiddenTag": "<!-- RULE:RULE-RD-03 -->"
+      },
+      "requirementIds": [
+        "REQ-RD-04",
+        "REQ-VOC-01"
+      ]
+    },
+    {
+      "id": "RULE-RD-04",
+      "type": "business_rule",
+      "module": "reading",
+      "title": "题目解析必须有原文依据或说明来源",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "RULE-RD-04",
+        "hiddenTag": "<!-- RULE:RULE-RD-04 -->"
+      },
+      "requirementIds": [
+        "REQ-RD-06"
+      ]
+    },
+    {
+      "id": "RULE-RD-05",
+      "type": "business_rule",
+      "module": "reading",
+      "title": "删除阅读记录后不再用于个性化推荐",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "RULE-RD-05",
+        "hiddenTag": "<!-- RULE:RULE-RD-05 -->"
+      },
+      "requirementIds": [
+        "REQ-RD-07"
+      ]
+    },
+    {
+      "id": "RULE-RD-06",
+      "type": "business_rule",
+      "module": "reading",
+      "title": "本期不实现阅读自评或诊断入口",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "RULE-RD-06",
+        "hiddenTag": "<!-- RULE:RULE-RD-06 -->"
+      },
+      "requirementIds": [
+        "REQ-RD-02"
+      ]
+    },
+    {
+      "id": "RULE-PAL-01",
+      "type": "business_rule",
+      "module": "penpal",
+      "title": "未确认关系或非受控测试关系的用户之间不能发送私人信件",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "RULE-PAL-01",
+        "hiddenTag": "<!-- RULE:RULE-PAL-01 -->"
+      },
+      "requirementIds": [
+        "REQ-PAL-02",
+        "REQ-PAL-08"
+      ]
+    },
+    {
+      "id": "RULE-PAL-02",
+      "type": "business_rule",
+      "module": "penpal",
+      "title": "用户不应被要求使用真实姓名、照片、电话、邮箱或具体地址",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "RULE-PAL-02",
+        "hiddenTag": "<!-- RULE:RULE-PAL-02 -->"
+      },
+      "requirementIds": [
+        "REQ-PAL-01"
+      ]
+    },
+    {
+      "id": "RULE-PAL-03",
+      "type": "business_rule",
+      "module": "penpal",
+      "title": "信件发送前必须经过安全检查",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "RULE-PAL-03",
+        "hiddenTag": "<!-- RULE:RULE-PAL-03 -->"
+      },
+      "requirementIds": [
+        "REQ-PAL-06"
+      ]
+    },
+    {
+      "id": "RULE-PAL-04",
+      "type": "business_rule",
+      "module": "penpal",
+      "title": "审核失败、网络失败或语言检查失败不能导致草稿丢失",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "RULE-PAL-04",
+        "hiddenTag": "<!-- RULE:RULE-PAL-04 -->"
+      },
+      "requirementIds": [
+        "REQ-PAL-05",
+        "REQ-PAL-07"
+      ]
+    },
+    {
+      "id": "RULE-PAL-05",
+      "type": "business_rule",
+      "module": "penpal",
+      "title": "解除关系或屏蔽后，对方不能继续发送信件",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "RULE-PAL-05",
+        "hiddenTag": "<!-- RULE:RULE-PAL-05 -->"
+      },
+      "requirementIds": [
+        "REQ-PAL-09"
+      ]
+    },
+    {
+      "id": "RULE-PAL-06",
+      "type": "business_rule",
+      "module": "penpal",
+      "title": "管理员默认不能直接查看私人信件，除非触发举报、安全审查或合规流程",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "RULE-PAL-06",
+        "hiddenTag": "<!-- RULE:RULE-PAL-06 -->"
+      },
+      "requirementIds": [
+        "REQ-PAL-09"
+      ]
+    },
+    {
+      "id": "RULE-PAL-07",
+      "type": "business_rule",
+      "module": "penpal",
+      "title": "同伴反馈应可选、友好、低压力",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "RULE-PAL-07",
+        "hiddenTag": "<!-- RULE:RULE-PAL-07 -->"
+      },
+      "requirementIds": [
+        "REQ-PAL-12"
+      ]
+    },
+    {
+      "id": "RULE-PAL-08",
+      "type": "business_rule",
+      "module": "penpal",
+      "title": "本期测试关系由管理员预配置产生，不存在前端搜索/邀请/同意流程",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "RULE-PAL-08",
+        "hiddenTag": "<!-- RULE:RULE-PAL-08 -->"
+      },
+      "requirementIds": [
+        "REQ-PAL-02"
+      ]
+    },
+    {
+      "id": "RULE-REC-01",
+      "type": "business_rule",
+      "module": "analytics",
+      "title": "学习记录必须来自真实学习行为，不得固定写死",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "RULE-REC-01",
+        "hiddenTag": "<!-- RULE:RULE-REC-01 -->"
+      },
+      "requirementIds": [
+        "REQ-REC-01",
+        "REQ-REC-03"
+      ]
+    },
+    {
+      "id": "RULE-REC-02",
+      "type": "business_rule",
+      "module": "analytics",
+      "title": "只打开页面不计入完成数量或连续学习",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "RULE-REC-02",
+        "hiddenTag": "<!-- RULE:RULE-REC-02 -->"
+      },
+      "requirementIds": [
+        "REQ-REC-02",
+        "REQ-REC-03"
+      ]
+    },
+    {
+      "id": "RULE-REC-03",
+      "type": "business_rule",
+      "module": "analytics",
+      "title": "跨模块关联记录不直接等同于掌握",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "RULE-REC-03",
+        "hiddenTag": "<!-- RULE:RULE-REC-03 -->"
+      },
+      "requirementIds": [
+        "REQ-REC-04"
+      ]
+    },
+    {
+      "id": "RULE-REC-04",
+      "type": "business_rule",
+      "module": "analytics",
+      "title": "笔友信件正文等敏感信息默认不进入公开或概览展示",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "RULE-REC-04",
+        "hiddenTag": "<!-- RULE:RULE-REC-04 -->"
+      },
+      "requirementIds": [
+        "REQ-REC-05"
+      ]
+    },
+    {
+      "id": "RULE-REC-05",
+      "type": "business_rule",
+      "module": "analytics",
+      "title": "趋势、跨模块关联和行动建议可先保证数据口径",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "RULE-REC-05",
+        "hiddenTag": "<!-- RULE:RULE-REC-05 -->"
+      },
+      "requirementIds": [
+        "REQ-REC-04",
+        "REQ-REC-06",
+        "REQ-REC-07"
+      ]
+    },
+    {
+      "id": "RULE-REC-06",
+      "type": "business_rule",
+      "module": "analytics",
+      "title": "写作完成次数以 penpal_activity_completed 事件为准",
+      "source": {
+        "path": "docs/phase-2-requirements-specification-and-scope-control.md",
+        "anchor": "RULE-REC-06",
+        "hiddenTag": "<!-- RULE:RULE-REC-06 -->"
+      },
+      "requirementIds": [
+        "REQ-REC-03",
+        "REQ-PAL-08"
+      ]
+    }
+  ]
+}

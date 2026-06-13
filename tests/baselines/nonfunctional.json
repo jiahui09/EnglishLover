@@ -1,0 +1,149 @@
+{
+  "schemaVersion": "1.0.0",
+  "source": "docs/phase-2-requirements-specification-and-scope-control.md#8",
+  "thresholds": {
+    "performance": {
+      "fcpMs": {
+        "nfrId": "NFR-PERF-01",
+        "max": 1500,
+        "pages": [
+          "/",
+          "/words",
+          "/reading"
+        ]
+      },
+      "lcpMs": {
+        "nfrId": "NFR-PERF-02",
+        "max": 2500,
+        "pages": [
+          "/",
+          "/words",
+          "/reading"
+        ]
+      },
+      "interactionFeedbackMs": {
+        "nfrId": "NFR-PERF-03",
+        "max": 100
+      },
+      "externalApiTimeoutMs": {
+        "nfrId": "NFR-PERF-05",
+        "min": 5000,
+        "max": 8000
+      },
+      "lazyNonCriticalResources": {
+        "nfrId": "NFR-PERF-04",
+        "required": true
+      }
+    },
+    "stability": {
+      "noSilentDataLoss": {
+        "nfrId": "NFR-STAB-01",
+        "required": true
+      },
+      "noSilentFailure": {
+        "nfrId": "NFR-STAB-02",
+        "required": true
+      },
+      "coreE2ERequired": {
+        "nfrId": "NFR-STAB-03",
+        "featureFiles": [
+          "tests/specs/auth-session.feature",
+          "tests/specs/navigation.feature",
+          "tests/specs/word-review.feature",
+          "tests/specs/reading-practice.feature",
+          "tests/specs/penpal-letter.feature",
+          "tests/specs/analytics-summary.feature"
+        ]
+      },
+      "resumeAfterInterruption": {
+        "nfrId": "NFR-STAB-04",
+        "required": true
+      }
+    },
+    "security": {
+      "privateLearningData": {
+        "nfrId": "NFR-SEC-01",
+        "required": true
+      },
+      "penpalRelationIsolation": {
+        "nfrId": "NFR-SEC-02",
+        "required": true
+      },
+      "contentSafetyRules": {
+        "nfrId": "NFR-SEC-03",
+        "required": true,
+        "denyPatterns": [
+          {
+            "id": "SEC-RULE-CN-MOBILE",
+            "description": "中国大陆 11 位手机号",
+            "pattern": "(?<!\\d)1[3-9]\\d{9}(?!\\d)"
+          },
+          {
+            "id": "SEC-RULE-EMAIL",
+            "description": "Email 地址",
+            "pattern": "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
+          },
+          {
+            "id": "SEC-RULE-SOCIAL",
+            "description": "社交账号关键词与数字组合",
+            "pattern": "(wechat|wx|qq|whatsapp)\\s*[:：-]?\\s*\\d{4,}"
+          }
+        ]
+      },
+      "noCommittedSecrets": {
+        "nfrId": "NFR-SEC-04",
+        "required": true
+      },
+      "personalizationNotice": {
+        "nfrId": "NFR-SEC-05",
+        "requiredWhenPersonalizationEnabled": true
+      }
+    },
+    "maintainability": {
+      "moduleBoundaries": {
+        "nfrId": "NFR-MAINT-01",
+        "required": true
+      },
+      "componentReuse": {
+        "nfrId": "NFR-MAINT-02",
+        "required": true
+      },
+      "docSync": {
+        "nfrId": "NFR-MAINT-03",
+        "required": true,
+        "rtmPath": "docs/rtm.json"
+      },
+      "extensibleDataModel": {
+        "nfrId": "NFR-MAINT-04",
+        "required": true
+      }
+    },
+    "robustness": {
+      "backendInputValidation": {
+        "nfrId": "NFR-ROBUST-01",
+        "required": true,
+        "invalidRequestsMustNotReturn500": true
+      }
+    },
+    "navigation": {
+      "maxCoreFlowDepth": {
+        "nfrId": "NFR-UX-01",
+        "max": 3
+      }
+    },
+    "ux": {
+      "noBlockingPromotions": {
+        "nfrId": "NFR-UX-02",
+        "required": true
+      },
+      "actionVerbCopy": {
+        "nfrId": "NFR-UX-03",
+        "required": true
+      },
+      "actionableErrors": {
+        "nfrId": "NFR-UX-04",
+        "required": true
+      }
+    }
+  }
+}

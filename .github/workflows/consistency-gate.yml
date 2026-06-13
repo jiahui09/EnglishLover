@@ -1,0 +1,38 @@
+name: consistency-gate
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  executable-specs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: |
+            backend/package-lock.json
+            front/package-lock.json
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: backend/go.mod
+          cache-dependency-path: backend/go.sum
+      - name: Install backend contract dependencies
+        working-directory: backend
+        run: npm ci
+      - name: Install frontend dependencies
+        working-directory: front
+        run: npm ci
+      - name: Verify executable specs and OpenAPI contract
+        working-directory: backend
+        run: npm run verify
+      - name: Verify backend Go tests
+        working-directory: backend
+        run: go test ./...
+      - name: Verify frontend
+        working-directory: front
+        run: npm run verify
