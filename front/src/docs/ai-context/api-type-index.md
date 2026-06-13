@@ -8,7 +8,7 @@
 - 不得手写请求参数、响应结构、错误码、业务枚举或 DTO。
 - 字段、枚举、错误码和响应包裹格式以 `src/types/api.ts` 为唯一前端类型来源。
 - 接口字段变更必须先完成后端契约变更评审，再重新执行 `cd backend && API_CONTRACT_FROZEN=true npm run generate:api-types`。
-- 第二轮仍不得开发依赖接口的业务页面；真实页面接入留到第三轮 AI Studio 一次性生成。
+- 当前处于 M3 页面生成前准备阶段；真实业务页面必须在 G2/G3 审核通过后由 AI Studio 一次性生成，M4 才接真实接口。
 
 ## 当前契约覆盖
 

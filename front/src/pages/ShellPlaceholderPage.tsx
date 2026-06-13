@@ -27,7 +27,7 @@ export function ShellPlaceholderPage({ route }: { route: ShellRoute }) {
               <Badge>无临时数据</Badge>
             </div>
             <p>
-              后续只有在后端契约冻结、API 类型自动生成、组件库说明完成后，才允许通过 AI Studio
+              后续只有在 G2 业务组件冻结审核和 G3 AI 输入包审核通过后，才允许通过 AI Studio
               一次性生成真实业务页面。当前页面不得加入列表、卡片、表格、用户信息、学习记录或课程内容。
             </p>
           </div>

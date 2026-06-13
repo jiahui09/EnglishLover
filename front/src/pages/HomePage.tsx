@@ -3,19 +3,19 @@ import { Badge, Card, CardContent, CardDescription, CardHeader, CardTitle } from
 
 const foundationChecks = [
   '目录边界已建立：pages、features、components、types、lib、styles 分层清晰。',
-  'P0 基础组件集中在 components/ui，页面不得重复自绘基础 UI。',
+  '基础、反馈、数据展示和业务组件已集中维护，页面不得重复自绘组件库能力。',
   'src/types/api.ts 已由冻结契约自动生成，前端不得手写接口类型。',
-  '路由仍只展示空壳和建设中提示，第二轮不消费业务接口或临时数据。',
+  '路由仍只展示空壳和建设中提示，M3C 前不消费业务接口或临时数据。',
 ] as const;
 
 export function HomePage() {
   return (
     <div className="mx-auto max-w-6xl">
       <PageHeader
-        eyebrow="Round 1 · Web Foundation"
-        title="EnglishLover Web 端基础骨架"
-        description="当前已交付可持续迭代的前端底座、组件库和冻结 API 类型。业务页面、真实接口消费和业务数据展示仍留到第三轮 AI Studio 一次性生成。"
-        status="框架已完成，业务待接入"
+        eyebrow="M3 · Page Generation Readiness"
+        title="EnglishLover Web 端页面生成前准备"
+        description="当前已交付前端底座、组件库、业务组件、冻结 API 类型和 AI Studio 输入包。业务页面、真实接口消费和业务数据展示仍留到 M3C/M4。"
+        status="生成前准备完成，业务页待生成"
       />
 
       <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
@@ -31,7 +31,7 @@ export function HomePage() {
               {foundationChecks.map((item) => (
                 <li key={item} className="flex gap-3">
                   <Badge variant="success" size="sm">
-                    M1
+                    Ready
                   </Badge>
                   <span>{item}</span>
                 </li>
@@ -51,7 +51,7 @@ export function HomePage() {
               <code className="rounded-tokenSm bg-el-muted text-el-main mx-1 px-1 py-0.5">
                 src/types/api.ts
               </code>
-              。前端仍不会猜测接口字段、错误码、枚举或分页结构，第三轮页面生成必须以该文件为唯一类型来源。
+              。前端仍不会猜测接口字段、错误码、枚举或分页结构，M3C 页面生成必须以该文件和 AI 输入包为唯一依据。
             </p>
           </CardContent>
         </Card>
@@ -64,7 +64,7 @@ export function HomePage() {
               <Card key={name} variant="outlined">
                 <CardHeader>
                   <CardTitle>{name}</CardTitle>
-                  <CardDescription>路由壳已建立，真实页面未开始。</CardDescription>
+                  <CardDescription>路由壳已建立，等待 M3C 一次性生成。</CardDescription>
                 </CardHeader>
               </Card>
             ))}

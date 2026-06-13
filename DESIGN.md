@@ -4,14 +4,14 @@
 - Status: Active
 - Last refreshed: 2026-06-13
 - Primary product surfaces: EnglishLover 在线英语学习平台 Web 端；今日学习首页、单词记忆、阅读练习、受控笔友写信、今日成果记录。
-- Evidence reviewed: `docs/online-english-learning-platform-development-process.md`, `docs/phase-1-project-initiation-and-requirements-analysis.md`, `docs/phase-2-requirements-specification-and-scope-control.md`, `docs/phase-3-product-and-user-experience-design.md`, `docs/phase-4-technical-architecture-design.md`, `README.md`, `AGENTS.md`.
-- Evidence boundary: Current repository evidence is mainly product/process/architecture documentation. The `front/` source directory mentioned in repository guidance and README was not present during this refresh, so this file and the phase documents do not claim existing UI implementation details.
+- Evidence reviewed: `README.md`, `AGENTS.md`, `docs/asset-baseline-investigation-report.md`, `docs/phase-6-round-1-web-foundation-delivery.md`, `docs/phase-6-round-2-ui-and-api-readiness.md`, `docs/backend-interface-delivery-test-report.md`, `front/src/`, `backend/`, `tests/specs/`, `docs/online-english-learning-platform-development-process.md`, `docs/phase-1-project-initiation-and-requirements-analysis.md`, `docs/phase-2-requirements-specification-and-scope-control.md`, `docs/phase-3-product-and-user-experience-design.md`, `docs/phase-4-technical-architecture-design.md`.
+- Evidence boundary: Current repository evidence now includes front/back source, frozen API contract, generated API types, component library, business components and AI Studio input package. Real business pages are still shell routes; this file does not claim `/today`, `/vocabulary`, `/reading`, `/penpal` or `/results` are implemented user flows.
 
 ## Architecture source
 - Primary technical architecture document: `docs/phase-4-technical-architecture-design.md`.
-- Recommended architecture: React/Vite Web frontend, modular monolith backend selected after existing asset baseline review, PostgreSQL source of truth, Redis cache/queue/rate-limit support, optional AI adapter with graceful degradation, Docker Compose as the initial repeatable deployment surface.
-- Architecture boundary: The architecture document is a target design and review baseline. It must be revised after real source code, database migrations, API contracts, or deployment manifests are added.
-- Critical architecture review fixes: CRIT-01 requires technology selection to pass an existing-code asset baseline gate before any Go/Node decision; CRIT-02 requires a complete social-abuse workflow for reports, actions, appeals, block/end/suspend relationship consequences, notifications, and audit logs; DES-01 to DES-06 require frontend recovery mechanics, capacity-bound performance targets, explicit data dictionary, split learning-session responsibilities, Admin permission-code checks with audit logs, and AI user-control settings/consent APIs.
+- Current implemented architecture baseline: React/Vite/TypeScript frontend, Go + Chi modular monolith backend, PostgreSQL migration, Redis connection layer, OpenAPI 3.1 frozen contract, and generated `front/src/types/api.ts`.
+- Architecture boundary: API contract and backend interface delivery are frozen for M3 page generation. Full frontend user flows, real browser-to-API integration, final Docker/Compose deployment and performance verification remain future M4-M6 work.
+- Critical architecture review fixes: CRIT-02 still requires complete social-abuse workflow coverage if expanded beyond the frozen MVP endpoints; DES-01 to DES-06 remain product/implementation guardrails for frontend recovery mechanics, capacity-bound performance targets, explicit data dictionary, split learning-session responsibilities, Admin permission-code checks with audit logs, and AI user-control settings/consent APIs.
 
 ## Brand
 - Personality: 清晰、克制、支持型的英语自学工作台。
@@ -106,7 +106,7 @@
   - 系统错误：404、403、500、离线等必须有系统错误页，提供重试、返回今日学习或返回上一页。
 
 ## Components
-- Existing components to reuse: 当前未核验到可复用源码组件；后续若补充 `front/` 代码，应优先复用已有组件和样式。
+- Existing components to reuse: 当前已核验到 `front/src/components/` 组件库，包括 `components/ui` 基础组件、`components/feedback` 反馈状态组件、`components/data-display` 数据展示组件和 `components/business` 业务组件；M3 页面生成必须优先复用这些组件和 `front/src/docs/ai-context/COMPONENT_CATALOG.md` 中的组件 API。
 - New/changed components:
   - `AppShell` 应用框架。
   - `PrimaryNav` 主导航。
@@ -202,7 +202,7 @@
   - 不使用“敬请期待”占位按钮或灰色不可用入口干扰用户。
 
 ## Implementation constraints
-- Framework/styling system: README 和仓库指南提到 React/Vite/TypeScript/Express，但当前刷新时未核验到 `front/` 源码目录；后续实现前需再次确认真实技术栈。
+- Framework/styling system: 当前已核验前端为 React/Vite/TypeScript + Tailwind CSS 4 + CSS 设计令牌；后端为 Go + Chi + PostgreSQL，OpenAPI 3.1 契约生成 `front/src/types/api.ts`。M3 页面生成不得引入 Express 假设、临时 DTO、Mock 数据或未冻结接口字段。
 - Design-token constraints: 不新增复杂设计系统依赖；优先使用项目现有样式体系或轻量 token。
 - Performance constraints:
   - 核心页面 FCP 目标 1.5 秒内，LCP 目标 2.5 秒内。

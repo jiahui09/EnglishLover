@@ -1017,63 +1017,63 @@
       "module": "general"
     },
     {
-      "id": "docs/README.md#L9",
+      "id": "docs/README.md#L11",
       "type": "documentation",
       "sourcePath": "docs/README.md",
       "heading": "推荐阅读路径",
       "module": "general"
     },
     {
-      "id": "docs/README.md#L12",
+      "id": "docs/README.md#L13",
       "type": "documentation",
       "sourcePath": "docs/README.md",
       "heading": "0. 可执行规约与一致性门禁",
       "module": "general"
     },
     {
-      "id": "docs/README.md#L21",
+      "id": "docs/README.md#L22",
       "type": "documentation",
       "sourcePath": "docs/README.md",
       "heading": "1. 快速了解项目",
       "module": "general"
     },
     {
-      "id": "docs/README.md#L27",
+      "id": "docs/README.md#L28",
       "type": "documentation",
       "sourcePath": "docs/README.md",
       "heading": "2. 产品和需求评审",
       "module": "general"
     },
     {
-      "id": "docs/README.md#L33",
+      "id": "docs/README.md#L34",
       "type": "documentation",
       "sourcePath": "docs/README.md",
       "heading": "3. 技术方案和实施规划",
       "module": "general"
     },
     {
-      "id": "docs/README.md#L40",
+      "id": "docs/README.md#L42",
       "type": "documentation",
       "sourcePath": "docs/README.md",
       "heading": "4. 交付、运维和治理",
       "module": "general"
     },
     {
-      "id": "docs/README.md#L46",
+      "id": "docs/README.md#L48",
       "type": "documentation",
       "sourcePath": "docs/README.md",
       "heading": "文档清单",
       "module": "general"
     },
     {
-      "id": "docs/README.md#L67",
+      "id": "docs/README.md#L70",
       "type": "documentation",
       "sourcePath": "docs/README.md",
       "heading": "维护规则",
       "module": "general"
     },
     {
-      "id": "docs/README.md#L75",
+      "id": "docs/README.md#L78",
       "type": "documentation",
       "sourcePath": "docs/README.md",
       "heading": "下一步文档整理建议",
@@ -1234,101 +1234,66 @@
       "module": "general"
     },
     {
-      "id": "docs/asset-baseline-investigation-report.md#L27",
+      "id": "docs/asset-baseline-investigation-report.md#L35",
       "type": "documentation",
       "sourcePath": "docs/asset-baseline-investigation-report.md",
       "heading": "2. 当前仓库资产清单",
       "module": "general"
     },
     {
-      "id": "docs/asset-baseline-investigation-report.md#L29",
+      "id": "docs/asset-baseline-investigation-report.md#L37",
       "type": "documentation",
       "sourcePath": "docs/asset-baseline-investigation-report.md",
-      "heading": "2.1 已核查到的文件",
+      "heading": "2.1 已核查到的主要资产",
       "module": "general"
     },
     {
-      "id": "docs/asset-baseline-investigation-report.md#L48",
+      "id": "docs/asset-baseline-investigation-report.md#L53",
       "type": "documentation",
       "sourcePath": "docs/asset-baseline-investigation-report.md",
-      "heading": "2.2 当前未核查到的关键源码资产",
+      "heading": "2.2 前端资产",
       "module": "general"
     },
     {
-      "id": "docs/asset-baseline-investigation-report.md#L65",
+      "id": "docs/asset-baseline-investigation-report.md#L71",
       "type": "documentation",
       "sourcePath": "docs/asset-baseline-investigation-report.md",
-      "heading": "3. 现有技术栈判断",
+      "heading": "2.3 后端资产",
       "module": "general"
     },
     {
-      "id": "docs/asset-baseline-investigation-report.md#L67",
+      "id": "docs/asset-baseline-investigation-report.md#L85",
       "type": "documentation",
       "sourcePath": "docs/asset-baseline-investigation-report.md",
-      "heading": "3.1 可确认事实",
+      "heading": "2.4 当前未完成或待验证资产",
       "module": "general"
     },
     {
-      "id": "docs/asset-baseline-investigation-report.md#L76",
+      "id": "docs/asset-baseline-investigation-report.md#L98",
       "type": "documentation",
       "sourcePath": "docs/asset-baseline-investigation-report.md",
-      "heading": "3.2 不能确认的内容",
+      "heading": "3. 代码规模快照",
       "module": "general"
     },
     {
-      "id": "docs/asset-baseline-investigation-report.md#L90",
+      "id": "docs/asset-baseline-investigation-report.md#L117",
       "type": "documentation",
       "sourcePath": "docs/asset-baseline-investigation-report.md",
-      "heading": "4. 技术选型门禁建议",
+      "heading": "4. 技术选型判断",
       "module": "general"
     },
     {
-      "id": "docs/asset-baseline-investigation-report.md#L107",
+      "id": "docs/asset-baseline-investigation-report.md#L137",
       "type": "documentation",
       "sourcePath": "docs/asset-baseline-investigation-report.md",
-      "heading": "5. 源码恢复后的调查模板",
-      "module": "general"
-    },
-    {
-      "id": "docs/asset-baseline-investigation-report.md#L111",
-      "type": "documentation",
-      "sourcePath": "docs/asset-baseline-investigation-report.md",
-      "heading": "5.1 前端资产",
-      "module": "general"
-    },
-    {
-      "id": "docs/asset-baseline-investigation-report.md#L124",
-      "type": "documentation",
-      "sourcePath": "docs/asset-baseline-investigation-report.md",
-      "heading": "5.2 后端资产",
-      "module": "general"
-    },
-    {
-      "id": "docs/asset-baseline-investigation-report.md#L138",
-      "type": "documentation",
-      "sourcePath": "docs/asset-baseline-investigation-report.md",
-      "heading": "5.3 代码规模",
+      "heading": "5. 阶段准入建议",
       "module": "general"
     },
     {
       "id": "docs/asset-baseline-investigation-report.md#L149",
       "type": "documentation",
       "sourcePath": "docs/asset-baseline-investigation-report.md",
-      "heading": "6. 初步决策建议",
-      "module": "general"
-    },
-    {
-      "id": "docs/asset-baseline-investigation-report.md#L163",
-      "type": "documentation",
-      "sourcePath": "docs/asset-baseline-investigation-report.md",
-      "heading": "7. 后续行动项",
-      "module": "general"
-    },
-    {
-      "id": "docs/asset-baseline-investigation-report.md#L176",
-      "type": "documentation",
-      "sourcePath": "docs/asset-baseline-investigation-report.md",
-      "heading": "8. 报告结论",
+      "heading": "6. 报告结论",
       "module": "general"
     },
     {
@@ -7912,6 +7877,111 @@
       "module": "general"
     },
     {
+      "id": "docs/phase-6-m3-page-generation-readiness-audit.md#L1",
+      "type": "documentation",
+      "sourcePath": "docs/phase-6-m3-page-generation-readiness-audit.md",
+      "heading": "第六阶段 M3 页面生成前准备审核记录",
+      "module": "general"
+    },
+    {
+      "id": "docs/phase-6-m3-page-generation-readiness-audit.md#L7",
+      "type": "documentation",
+      "sourcePath": "docs/phase-6-m3-page-generation-readiness-audit.md",
+      "heading": "1. 阶段定位",
+      "module": "general"
+    },
+    {
+      "id": "docs/phase-6-m3-page-generation-readiness-audit.md#L20",
+      "type": "documentation",
+      "sourcePath": "docs/phase-6-m3-page-generation-readiness-audit.md",
+      "heading": "2. P0：事实边界同步结果",
+      "module": "general"
+    },
+    {
+      "id": "docs/phase-6-m3-page-generation-readiness-audit.md#L37",
+      "type": "documentation",
+      "sourcePath": "docs/phase-6-m3-page-generation-readiness-audit.md",
+      "heading": "3. P1 / G2：业务组件冻结审核",
+      "module": "general"
+    },
+    {
+      "id": "docs/phase-6-m3-page-generation-readiness-audit.md#L39",
+      "type": "documentation",
+      "sourcePath": "docs/phase-6-m3-page-generation-readiness-audit.md",
+      "heading": "3.1 审核对象",
+      "module": "general"
+    },
+    {
+      "id": "docs/phase-6-m3-page-generation-readiness-audit.md#L66",
+      "type": "documentation",
+      "sourcePath": "docs/phase-6-m3-page-generation-readiness-audit.md",
+      "heading": "3.2 类型来源审核",
+      "module": "general"
+    },
+    {
+      "id": "docs/phase-6-m3-page-generation-readiness-audit.md#L76",
+      "type": "documentation",
+      "sourcePath": "docs/phase-6-m3-page-generation-readiness-audit.md",
+      "heading": "3.3 组件目录和反模式审核",
+      "module": "general"
+    },
+    {
+      "id": "docs/phase-6-m3-page-generation-readiness-audit.md#L86",
+      "type": "documentation",
+      "sourcePath": "docs/phase-6-m3-page-generation-readiness-audit.md",
+      "heading": "3.4 G2 结论",
+      "module": "general"
+    },
+    {
+      "id": "docs/phase-6-m3-page-generation-readiness-audit.md#L95",
+      "type": "documentation",
+      "sourcePath": "docs/phase-6-m3-page-generation-readiness-audit.md",
+      "heading": "4. P2 / G3：AI 输入包审核",
+      "module": "general"
+    },
+    {
+      "id": "docs/phase-6-m3-page-generation-readiness-audit.md#L97",
+      "type": "documentation",
+      "sourcePath": "docs/phase-6-m3-page-generation-readiness-audit.md",
+      "heading": "4.1 指定输入包",
+      "module": "general"
+    },
+    {
+      "id": "docs/phase-6-m3-page-generation-readiness-audit.md#L112",
+      "type": "documentation",
+      "sourcePath": "docs/phase-6-m3-page-generation-readiness-audit.md",
+      "heading": "4.2 输入包内容审核",
+      "module": "general"
+    },
+    {
+      "id": "docs/phase-6-m3-page-generation-readiness-audit.md#L124",
+      "type": "documentation",
+      "sourcePath": "docs/phase-6-m3-page-generation-readiness-audit.md",
+      "heading": "4.3 G3 结论",
+      "module": "general"
+    },
+    {
+      "id": "docs/phase-6-m3-page-generation-readiness-audit.md#L135",
+      "type": "documentation",
+      "sourcePath": "docs/phase-6-m3-page-generation-readiness-audit.md",
+      "heading": "5. 页面生成前准入清单",
+      "module": "general"
+    },
+    {
+      "id": "docs/phase-6-m3-page-generation-readiness-audit.md#L148",
+      "type": "documentation",
+      "sourcePath": "docs/phase-6-m3-page-generation-readiness-audit.md",
+      "heading": "6. 仍需注意的非阻断事项",
+      "module": "general"
+    },
+    {
+      "id": "docs/phase-6-m3-page-generation-readiness-audit.md#L154",
+      "type": "documentation",
+      "sourcePath": "docs/phase-6-m3-page-generation-readiness-audit.md",
+      "heading": "7. 下一步",
+      "module": "general"
+    },
+    {
       "id": "docs/phase-6-round-1-web-foundation-delivery.md#L1",
       "type": "documentation",
       "sourcePath": "docs/phase-6-round-1-web-foundation-delivery.md",
@@ -10274,12 +10344,12 @@
       "type": "mentions"
     },
     {
-      "from": "docs/README.md#L12",
+      "from": "docs/README.md#L13",
       "to": "ADR-0001",
       "type": "mentions"
     },
     {
-      "from": "docs/README.md#L12",
+      "from": "docs/README.md#L13",
       "to": "ADR-0001-",
       "type": "mentions"
     },

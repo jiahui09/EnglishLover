@@ -1,178 +1,151 @@
 # EnglishLover 现有资产基线调查报告
 
-> 文档用途：支撑第四阶段技术选型门禁，避免在未核实现有代码资产前直接决定重写或迁移。  
+> 文档用途：支撑阶段推进、技术选型复核和页面生成前准入判断，避免把规划内容误写成已实现事实。  
 > 调查日期：2026-06-13  
-> 调查范围：仓库根目录、`docs/`、`README.md`、`DESIGN.md`、阶段文档。  
-> 事实边界：本报告基于当前仓库快照的可核查文件。当前未发现完整 `front/` 或 `backend/` 源码目录，因此不能确认任何前端、后端、接口、数据库或部署配置已经真实实现。
+> 调查范围：仓库根目录、`front/`、`backend/`、`docs/`、`tests/specs/`、`README.md`、`DESIGN.md`、阶段文档和验证脚本。  
+> 事实边界：本报告基于当前仓库快照和本地验证命令。当前已核验到前端工程、后端工程、冻结 OpenAPI 契约、自动生成 API 类型、组件库、业务组件、AI Studio 页面生成前上下文包和可执行规约门禁；真实业务页面、端到端联调、正式部署和性能报告尚未完成。
 
 ---
 
 ## 1. 结论概述
 
-当前仓库可核查资产以项目文档为主，未核验到可运行应用源码。虽然 README、Docker 指南和既有架构文档曾提到 `front/`、React/Vite/TypeScript/Express、`front/server.ts`、`front/package.json` 等线索，但在当前仓库快照中未发现对应目录和文件。
-
-因此，第四阶段技术选型不能直接以“已有 Express 后端”或“必须 Go 重写”为前提。正确决策路径应为：
+当前仓库已经从“仅文档阶段”推进到第六阶段 M3 页面生成前准备状态：
 
 ```text
-恢复或确认真实源码
-  -> 完成代码资产盘点
-  -> 评估可复用资产和重写成本
-  -> 决定 Node/Express 模块化改造、NestJS/Fastify 迁移或 Go 新建服务
+M1 基础工程可运行：已完成
+M2 接口交付与状态组件齐备：已完成
+M3 页面生成前准备：P0/P1/P2 审核中，真实业务页面尚未生成
+M4 真实接口联调：未开始
+M5 体验与测试达标：未开始
+M6 部署与文档闭环：未开始
 ```
 
-在源码恢复前，架构文档中的技术栈只能视为目标方案或候选路线，不能作为已实现事实。
+关键事实：
+
+- `front/` 已存在 React/Vite/TypeScript 前端工程；
+- `backend/` 已存在 Go + Chi 模块化单体后端工程；
+- `backend/openapi/openapi.yaml` 已冻结为契约版本 `1.0.0`，并作为 `front/src/types/api.ts` 的唯一生成来源；
+- 前端已具备基础组件、反馈/状态组件、数据展示组件和业务组件；
+- `front/src/docs/ai-context/` 已具备第三轮页面生成前上下文包；
+- `/today`、`/vocabulary`、`/reading`、`/penpal`、`/results` 仍是壳路由，不展示真实业务数据，不接真实接口，不使用 Mock 数据；
+- 真实部署、性能测试、E2E/a11y 测试和最终验收尚未完成。
 
 ---
 
 ## 2. 当前仓库资产清单
 
-### 2.1 已核查到的文件
+### 2.1 已核查到的主要资产
 
-| 路径 | 类型 | 说明 |
+| 路径 | 类型 | 当前状态 |
 |---|---|---|
-| `README.md` | 项目入口文档 | 记录文档索引和当前仓库事实边界 |
-| `DESIGN.md` | 产品与架构 source of truth | 汇总产品定位、UX 原则和架构文档引用 |
-| `AGENTS.md` | 协作与写作规范 | 约束论文和文档写作边界 |
-| `docs/README.md` | 文档地图 | 汇总阶段文档阅读顺序和事实边界 |
-| `docs/online-english-learning-platform-development-process.md` | 开发流程规划 | 描述全生命周期流程，不等同于已实现 |
-| `docs/phase-1-project-initiation-and-requirements-analysis.md` | 第一阶段文档 | 立项与需求分析 |
-| `docs/phase-2-requirements-specification-and-scope-control.md` | 第二阶段文档 | 需求规格和范围控制 |
-| `docs/phase-3-product-and-user-experience-design.md` | 第三阶段文档 | 产品与 UX 设计 |
-| `docs/phase-4-technical-architecture-design.md` | 第四阶段文档 | 技术架构设计和评审整改记录 |
-| `docs/phase-5-component-library-and-reuse-design.md` | 第五阶段文档 | 组件库建设与复用执行方案 |
-| `docs/function-analysis-and-system-architecture.md` | 功能与系统架构分析 | 历史/目标架构分析，部分内容引用了未在当前快照核验到的源码路径 |
-| `docs/docker-compose-guide.md` | Docker/Compose 指南 | 部署学习手册，提到 `front/` 但当前未核验到源码 |
-| `docs/data-retention-and-deletion-policy.md` | 数据治理策略 | 注销、删除、匿名化、导出和审计留存目标策略 |
-| `docs/performance-test-plan.md` | 性能测试计划 | 性能场景、指标和报告模板，尚未执行压测 |
+| `README.md` | 项目入口文档 | 已记录当前阶段、验证命令和下一步 |
+| `DESIGN.md` | 产品与架构 source of truth | 已记录产品体验、组件/API 事实和未完成项 |
+| `AGENTS.md` | 协作与工程规范 | 约束项目执行、验证和事实边界 |
+| `docs/README.md` | 文档地图 | 已更新为 front/backend 存在后的事实边界 |
+| `docs/phase-6-round-1-web-foundation-delivery.md` | M1 交付记录 | 前端基础骨架、壳路由和 P0 组件边界 |
+| `docs/phase-6-round-2-ui-and-api-readiness.md` | M2 交付记录 | 组件库、冻结契约和后端接口就绪说明 |
+| `docs/backend-interface-delivery-test-report.md` | 后端接口交付报告 | 14 个 operation 契约测试 100% 通过记录 |
+| `docs/phase-6-m3-page-generation-readiness-audit.md` | M3 生成前审核记录 | G2/G3 准入结论和输入包清单 |
+| `backend/openapi/openapi.yaml` | OpenAPI 3.1 契约 | `info.x-contract-frozen: true`，版本 `1.0.0` |
+| `front/src/types/api.ts` | 前端 API 类型 | 由 OpenAPI 自动生成，包含生成标记 |
+| `tests/specs/` | Gherkin 可执行规约 | 6 个 feature 文件，参与规约检查 |
 
-### 2.2 当前未核查到的关键源码资产
-
-| 预期路径 | 当前状态 | 影响 |
-|---|---|---|
-| `front/` | 当前快照未发现 | 无法确认 React/Vite/TypeScript/Express 实现是否存在 |
-| `front/package.json` | 当前快照未发现 | 无法确认构建命令、依赖和实际技术栈 |
-| `front/server.ts` | 当前快照未发现 | 无法确认 Express API、Gemini 代理或业务逻辑 |
-| `front/src/` | 当前快照未发现 | 无法确认页面、组件、状态管理和数据模型实现 |
-| `backend/` | 当前快照未发现 | 无法确认是否存在独立后端 |
-| `docker-compose.yml` | 当前快照未发现 | 无法确认部署拓扑已实现 |
-| `Dockerfile` / `.dockerignore` | 当前快照未发现 | 无法确认容器化已落地 |
-| 数据库迁移脚本 | 当前快照未发现 | 无法确认 PostgreSQL 数据模型已实现 |
-| OpenAPI / 接口文档 | 当前快照未发现 | 无法确认接口契约已实现 |
-| 自动化测试 | 当前快照未发现 | 无法确认核心流程已验证 |
-
----
-
-## 3. 现有技术栈判断
-
-### 3.1 可确认事实
-
-当前只能确认：
-
-- 项目文档倾向于 Web 端在线英语学习平台；
-- 文档目标技术栈包含 React/Vite/TypeScript、模块化单体后端、PostgreSQL、Redis、Docker Compose；
-- 文档多次提示 `front/` 未核验或当前快照未发现完整源码目录；
-- 当前没有足够证据证明 Express 后端、React 前端、数据库、部署文件已经存在并可运行。
-
-### 3.2 不能确认的内容
-
-当前不能确认：
-
-- 是否已有可运行 React/Vite 前端；
-- 是否已有 Express 服务端；
-- Express 是否只做 AI 代理，还是已经包含业务 API；
-- 是否存在 localStorage 业务状态实现；
-- 是否存在 Gemini API 调用代码；
-- 是否存在任何数据库、Redis、Docker 或测试配置；
-- 任何功能是否已真实完成。
-
----
-
-## 4. 技术选型门禁建议
-
-后续恢复源码后，应按以下门禁完成技术选型：
-
-| 门禁项 | 调查问题 | 决策依据 |
-|---|---|---|
-| 源码可运行性 | `npm install`、`npm run dev`、`npm run build` 是否可运行 | 决定是否存在可复用前端/后端 |
-| 后端职责 | Express 是否只有静态服务和 AI 代理，还是包含用户、学习、阅读、写信 API | 决定保留、改造或替换成本 |
-| 业务完成度 | 单词、阅读、写信、今日成果是否已有可运行闭环 | 决定重构范围 |
-| 数据存储 | 是否使用 localStorage、文件、数据库或远程服务 | 决定迁移策略 |
-| 代码规模 | 文件数、代码行数、核心模块复杂度 | 决定重写是否划算 |
-| 测试覆盖 | 是否已有单元/组件/E2E 测试 | 决定重构保护手段 |
-| 依赖风险 | 依赖是否过旧、是否存在安全风险 | 决定升级或替换 |
-| 团队能力 | 团队是否熟悉 Node/TypeScript/Go/数据库/部署 | 决定后端语言选择 |
-
----
-
-## 5. 源码恢复后的调查模板
-
-恢复源码后，应补充以下表格。
-
-### 5.1 前端资产
+### 2.2 前端资产
 
 | 项目 | 调查结果 | 证据路径 | 备注 |
 |---|---|---|---|
-| 前端框架 | 待补充 | 待补充 | React/Vue/其他 |
-| 构建工具 | 待补充 | 待补充 | Vite/Webpack/其他 |
-| TypeScript 使用情况 | 待补充 | 待补充 | 是否严格类型检查 |
-| 页面路由 | 待补充 | 待补充 | 今日学习、单词、阅读、写信、记录 |
-| 状态管理 | 待补充 | 待补充 | React state/Zustand/Redux/localStorage |
-| 可恢复机制 | 待补充 | 待补充 | 是否有草稿、断点、pending 队列 |
-| 样式方案 | 待补充 | 待补充 | Tailwind/CSS Modules/其他 |
-| 测试 | 待补充 | 待补充 | 单元/组件/E2E |
+| 前端框架 | React | `front/package.json` | 依赖包含 `react`、`react-dom` |
+| 构建工具 | Vite | `front/package.json`、`front/vite.config.ts` | `npm run build` 执行 `tsc -b && vite build` |
+| TypeScript 使用情况 | 已启用 | `front/tsconfig*.json`、`front/src/` | `npm run typecheck` 已纳入 verify |
+| 样式方案 | Tailwind CSS 4 + CSS 设计令牌 | `front/src/styles/tokens.css`、`front/src/styles/global.css` | 样式边界脚本限制硬编码颜色和任意值 |
+| 页面路由 | 壳路由已建立 | `front/src/App.tsx`、`front/src/lib/routes.ts` | 业务路由仍展示占位页 |
+| 基础组件 | 已建立 | `front/src/components/ui/` | Button、Card、Input、Modal、Toast 等 |
+| 反馈/状态组件 | 已建立 | `front/src/components/feedback/` | EmptyState、ErrorState、SaveStatus 等 |
+| 数据展示组件 | 已建立 | `front/src/components/data-display/` | StatCard、DataList、Timeline 等 |
+| 业务组件 | 已建立 | `front/src/components/business/` | 组件 Props 引用自动生成 API 类型或派生别名 |
+| API 类型 | 已生成 | `front/src/types/api.ts` | 来源为冻结 OpenAPI 契约 |
+| AI 上下文包 | 已建立 | `front/src/docs/ai-context/` | 页面生成前输入材料，不是运行时数据源 |
+| 真实业务页面 | 未生成 | `front/src/pages/`、`front/src/features/README.md` | `/today` 等仍为壳路由 |
+| 前端自动化检查 | 已建立 | `front/scripts/`、`front/package.json` | typecheck、ESLint、样式边界、组件复用、catalog、无业务数据、build |
 
-### 5.2 后端资产
+### 2.3 后端资产
 
 | 项目 | 调查结果 | 证据路径 | 备注 |
 |---|---|---|---|
-| 后端框架 | 待补充 | 待补充 | Express/NestJS/Go/其他 |
-| API 路由 | 待补充 | 待补充 | 用户、单词、阅读、写信、AI |
-| 鉴权方案 | 待补充 | 待补充 | Cookie/JWT/无 |
-| 数据库 | 待补充 | 待补充 | PostgreSQL/SQLite/无 |
-| 缓存 | 待补充 | 待补充 | Redis/无 |
-| AI 集成 | 待补充 | 待补充 | Gemini/OpenAI/无 |
-| 安全规则 | 待补充 | 待补充 | 联系方式、敏感词、举报 |
-| 日志监控 | 待补充 | 待补充 | requestId/结构化日志/无 |
-| 测试 | 待补充 | 待补充 | API/集成/无 |
+| 后端框架 | Go + Chi | `backend/go.mod`、`backend/internal/app/router.go` | 模块化单体接口服务 |
+| API 契约 | OpenAPI 3.1 | `backend/openapi/openapi.yaml` | 契约版本 `1.0.0`，已冻结 |
+| API 路由 | 已实现 14 个 operation | `backend/internal/modules/`、`docs/backend-interface-delivery-test-report.md` | Health、Auth、Word、Review、Reading、Penpal、Analytics |
+| 鉴权方案 | Access/Refresh Token Cookie 方案 | `backend/openapi/openapi.yaml`、`backend/internal/modules/auth/` | 契约和测试覆盖登录/刷新/退出/当前用户 |
+| 数据库 | PostgreSQL 迁移存在 | `backend/migrations/001_init.sql`、`backend/internal/store/postgres.go` | 当前稳定环境为本地测试环境 |
+| 缓存 | Redis 连接预留 | `backend/internal/platform/redis/redis.go` | 核心幂等记录当前以后端报告为准 |
+| 契约测试 | 已建立并通过 | `backend/scripts/contract-test.mjs`、`backend/reports/contract-test-result.json` | operation 覆盖率 100% |
+| 规约检查 | 已建立并通过 | `backend/scripts/check-executable-specs.mjs` | RTM/Gherkin/OpenAPI 一致性门禁 |
+| 类型生成 | 已建立 | `backend/scripts/generate-api-types.mjs` | 生成 `front/src/types/api.ts` |
 
-### 5.3 代码规模
+### 2.4 当前未完成或待验证资产
 
-| 指标 | 前端 | 后端 | 总计 | 备注 |
-|---|---|---|---|---|
-| 文件数 | 待补充 | 待补充 | 待补充 | 排除 `node_modules`、构建产物 |
-| 有效代码行数 | 待补充 | 待补充 | 待补充 | 排除空行和注释可另算 |
-| 主要依赖数 | 待补充 | 待补充 | 待补充 | 以 package/lock 文件为准 |
-| 测试用例数 | 待补充 | 待补充 | 待补充 | 单元/集成/E2E 分开统计 |
-
----
-
-## 6. 初步决策建议
-
-在当前源码缺失状态下，建议暂不做最终后端语言决策。
-
-| 场景 | 建议路线 | 原因 |
+| 项目 | 当前状态 | 影响 |
 |---|---|---|
-| 恢复后确认 Express 后端已实现较多业务 | Node/Express 模块化改造 | 保护已有资产，降低 MVP 延期风险 |
-| 恢复后确认 Express 只做简单代理 | 可选 NestJS/Fastify 或 Go 新建服务 | 沉没成本较小，可按团队能力选择 |
-| 团队主要熟悉 TypeScript | NestJS/Fastify 或 Express 模块化 | 降低学习成本，提升交付确定性 |
-| 团队具备 Go 能力且后端几乎为空 | Go + Gin/Chi | 长期 API 性能和部署收益更明显 |
-| 毕业设计时间紧 | 优先复用现有技术栈 | 稳定可演示比技术重写更重要 |
+| 真实业务页面 | 未生成 | 无法声称今日学习、单词、阅读、写信、成果页已可用 |
+| 前端 API client | 未进入 M4 | 页面尚未消费真实接口 |
+| 端到端联调报告 | 未形成 | 核心闭环尚未以浏览器流程验证 |
+| Vitest/RTL/Playwright/a11y smoke | 未纳入当前门禁 | M5 前需补齐 |
+| 正式 Docker/Compose 全栈部署验收 | 未完成 | M6 前不能声明可部署交付 |
+| 性能测试报告 | 未执行 | 不能声明已达到 FCP/LCP 等目标 |
 
 ---
 
-## 7. 后续行动项
+## 3. 代码规模快照
 
-| 优先级 | 行动项 | 责任人 | 完成标准 |
-|---|---|---|---|
-| P0 | 恢复或确认 `front/`、`backend/` 源码 | 项目负责人 | 仓库中存在可核验源码或明确说明不存在 |
-| P0 | 运行构建和启动命令 | 开发负责人 | 记录命令、结果和错误日志 |
-| P0 | 补充前后端功能清单 | 开发负责人 | 列出已实现、部分实现、未实现功能 |
-| P0 | 补充代码规模统计 | 开发负责人 | 形成文件数、代码行数、依赖清单 |
-| P1 | 完成技术选型评审 | 技术负责人 | 明确 Node/Express、NestJS/Fastify 或 Go 路线 |
-| P1 | 更新第四阶段架构文档 | 文档负责人 | 将调查结果同步到架构决策记录 |
+> 统计口径：排除 `node_modules` 和构建产物；用于阶段判断，不代表最终交付规模。
+
+| 指标 | 当前结果 |
+|---|---:|
+| `front/src` 文件数 | 88 |
+| `front/src` TypeScript/TSX 文件数 | 73 |
+| `front/src/docs/ai-context` 文件数 | 12 |
+| `front/src` 相关源码/文档行数 | 5165 |
+| 后端 Go 文件数 | 23 |
+| 后端迁移文件数 | 1 |
+| 后端 OpenAPI 文件数 | 1 |
+| 后端脚本文件数 | 8 |
+| 后端 Go/SQL/YAML/MJS/MD 行数 | 4272 |
+| `tests/specs` feature 文件数 | 6 |
 
 ---
 
-## 8. 报告结论
+## 4. 技术选型判断
 
-当前仓库未提供足够证据支持“已有 Express 后端可用”或“必须 Go 重写”任一结论。第四阶段架构设计中的后端技术选型应保持候选状态，并以本报告后续补充的源码基线调查结果作为最终决策依据。
+当前不再处于“源码缺失、技术栈未确认”状态。现阶段技术路线已形成阶段性事实：
+
+- 前端：React + Vite + TypeScript + Tailwind CSS 4 + 设计令牌；
+- 后端：Go + Chi + PostgreSQL，Redis 连接能力预留；
+- 契约：OpenAPI 3.1 冻结契约驱动前端类型生成；
+- 质量门禁：后端契约/规约/类型边界检查 + 前端 typecheck/lint/build/边界脚本。
+
+后续不应再讨论“是否恢复 front/backend 源码”作为前置问题。真正的下一步门禁是：
+
+```text
+G2 业务组件冻结门
+  -> G3 AI 输入包门
+  -> M3C AI Studio 一次性生成真实业务页面
+  -> 生成后自动合规/类型/构建检查
+```
+
+---
+
+## 5. 阶段准入建议
+
+| 优先级 | 行动项 | 完成标准 |
+|---|---|---|
+| P0 | 同步事实边界文档 | README、docs README、资产基线、DESIGN、front README 不再残留“源码未恢复/接口未冻结”的旧结论 |
+| P1 | 完成 G2 业务组件冻结审核 | 业务组件 Props 来源清楚、catalog 覆盖完整、无重复 DTO/枚举、`npm run verify` 通过 |
+| P2 | 完成 G3 AI 输入包审核 | 大写六件套输入包明确、无 Mock/敏感数据/运行时数据源、页面范围和禁止事项清楚 |
+| P3 | 启动 M3C 页面生成 | 一次性生成 `/today`、`/vocabulary`、`/reading`、`/penpal`、`/results`，并通过 `cd front && npm run verify` |
+| P4 | 进入 M4 联调 | 建立 API client，接入真实接口，补错误/空态/认证/分页/幂等验证记录 |
+
+---
+
+## 6. 报告结论
+
+当前仓库已有可核验前后端工程、冻结接口契约、自动生成类型、组件库、业务组件和 AI 页面生成前上下文材料。系统所处阶段不是“源码恢复前”，而是 **第六阶段 M3 页面生成前准备收口**。在 G2/G3 审核通过后，可以启动 M3C 的 AI Studio 一次性页面生成；在页面生成和前端自动化检查通过前，不能声明核心业务页面已实现。
