@@ -2,24 +2,58 @@ import { useState } from 'react';
 
 import {
   ConfirmDialog,
+  DailyGoalProgress,
   DataList,
   EmptyState,
   ErrorState,
   FeedbackPanel,
   InlineAlert,
+  LearningProgressSummary,
+  LetterEditor,
+  LetterTimeline,
+  ModuleSummaryGrid,
   PageHeader,
+  PenpalThreadList,
+  PracticeQuestion,
   ProgressChartContainer,
   ProgressIndicator,
+  ReadingArticlePanel,
+  ReadingProgressHeader,
+  ReadingQuestionPanel,
+  ReadingWordAction,
+  RecentActivityList,
   RetryPanel,
+  ResultSummary,
+  ReviewResultFeedback,
   SaveStatus,
   SectionLayout,
+  SafetyCheckStatus,
+  SafetyHighlight,
+  SafetyNotice,
   Skeleton,
   StatCard,
   StepIndicator,
   SummaryPanel,
   TagList,
+  TaskActionCard,
   Timeline,
+  TodayTaskList,
+  VocabularyReviewPanel,
+  WordStatusBadge,
 } from '@/components';
+import type {
+  AddToWordLearningQueueResult,
+  DailySummary,
+  PenpalThreadSummary,
+  ReadingArticleDetail,
+  ReadingArticleSummary,
+  ReviewEvent,
+  ReviewSubmitResult,
+  SendPenpalLetterRequest,
+  WordListData,
+  WordSummary,
+} from '@/components/business/api-types';
+import type { LetterTimelineItem } from '@/components/business/LetterTimeline';
 import {
   Badge,
   Button,
@@ -90,6 +124,79 @@ const tags = [
   { id: 'feedback', label: '反馈状态', tone: 'success' },
   { id: 'display', label: '数据展示', tone: 'neutral' },
 ] as const;
+
+const contractWord = {
+  wordId: 'wordId',
+  text: 'word.text',
+  phonetic: 'phonetic',
+  stage: 'general',
+} satisfies WordSummary;
+
+const contractWordList = {
+  items: [contractWord],
+  page: 1,
+  pageSize: 1,
+  total: 1,
+} satisfies WordListData;
+
+const contractReviewResult = {
+  reviewEventId: 'reviewEventId',
+  status: 'accepted',
+} satisfies ReviewSubmitResult;
+
+const contractArticleSummary = {
+  articleId: 'articleId',
+  title: 'article.title',
+  level: 'level',
+} satisfies ReadingArticleSummary;
+
+const contractArticleDetail = {
+  articleId: 'articleId',
+  title: 'article.title',
+  content: 'article.content 字段展示区；组件只负责排版，不读取接口或生成阅读材料。',
+} satisfies ReadingArticleDetail;
+
+const contractQueueResult = {
+  status: 'success',
+  source: 'reading',
+} satisfies AddToWordLearningQueueResult;
+
+const contractLetterDraft = {
+  threadId: 'threadId',
+  body: 'body 字段由页面状态传入；组件不保存草稿、不发送请求。',
+} satisfies SendPenpalLetterRequest;
+
+const contractThreads = [
+  {
+    threadId: 'threadId',
+    status: 'active',
+  },
+] satisfies PenpalThreadSummary[];
+
+const contractLetterTimelineItems = [
+  {
+    letterId: 'letterId',
+    activityType: 'letter_sent',
+    occurredAt: 'occurredAt',
+  },
+] satisfies LetterTimelineItem[];
+
+const contractDailySummary = {
+  date: 'date',
+  wordCompletedCount: 0,
+  readingCompletedCount: 0,
+  writingCompletedCount: 0,
+  taskCompletionRate: 0,
+  streakIncluded: false,
+} satisfies DailySummary;
+
+const contractReviewEvents = [
+  {
+    eventId: 'eventId',
+    module: 'word',
+    occurredAt: 'occurredAt',
+  },
+] satisfies ReviewEvent[];
 
 export function ComponentsPage() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -314,6 +421,117 @@ export function ComponentsPage() {
 
           <div className="mt-6">
             <TagList tags={tags} />
+          </div>
+        </SectionLayout>
+
+        <SectionLayout
+          title="业务组件货架"
+          description="只展示可供后续页面编排的业务 UI 单元；传入值均为字段形态演示，不代表真实用户、课程、学习记录或接口结果。"
+        >
+          <div className="grid gap-6 xl:grid-cols-2">
+            <TaskActionCard
+              module="word"
+              title="title 字段"
+              description="description 字段由第三轮页面层从真实契约数据传入。"
+              status="active"
+              progressValue={0}
+              action={<Button variant="secondary">action 插槽</Button>}
+              meta={<Badge variant="info">meta 插槽</Badge>}
+            />
+
+            <TodayTaskList
+              items={[
+                {
+                  id: 'taskId',
+                  module: 'reading',
+                  title: 'title 字段',
+                  description: '任务列表项只接收页面层传入内容。',
+                  status: 'active',
+                  actionLabel: 'actionLabel',
+                },
+              ]}
+            />
+
+            <PracticeQuestion
+              word={contractWord}
+              mode="recognition"
+              prompt="prompt 字段展示区"
+              options={[
+                { id: 'optionA', label: 'option.label A' },
+                { id: 'optionB', label: 'option.label B' },
+              ]}
+              selectedOptionId="optionA"
+              feedback={<ReviewResultFeedback result={contractReviewResult} />}
+            />
+
+            <VocabularyReviewPanel
+              wordList={contractWordList}
+              activeWordId={contractWord.wordId}
+              lastResult={contractReviewResult}
+              action={<WordStatusBadge stage="general" />}
+            />
+
+            <div className="grid gap-5">
+              <ReadingProgressHeader article={contractArticleSummary} progressValue={0} />
+              <ReadingArticlePanel
+                article={contractArticleDetail}
+                footer={
+                  <ReadingWordAction
+                    articleId={contractArticleDetail.articleId}
+                    wordId={contractWord.wordId}
+                    result={contractQueueResult}
+                  />
+                }
+              />
+            </div>
+
+            <ReadingQuestionPanel
+              articleId={contractArticleSummary.articleId}
+              title="阅读题组件"
+              prompt="prompt 字段展示区"
+              options={[
+                { id: 'choiceA', label: 'option.label A' },
+                { id: 'choiceB', label: 'option.label B' },
+              ]}
+              selectedOptionId="choiceA"
+              feedback={<FeedbackPanel title="反馈插槽">feedback 由页面层传入。</FeedbackPanel>}
+            />
+
+            <div className="grid gap-5">
+              <LetterEditor
+                draft={contractLetterDraft}
+                saveStatus="idle"
+                safetySlot={
+                  <SafetyCheckStatus
+                    state="needs_review"
+                    description="安全状态由页面层或真实接口结果决定。"
+                  />
+                }
+                actions={<Button variant="secondary">actions 插槽</Button>}
+              />
+              <SafetyNotice tone="warning" title="安全提示组件">
+                <span className="grid gap-3">
+                  <span>用于展示固定安全说明，不在组件内判断文本风险。</span>
+                  <SafetyHighlight label="片段">children 字段</SafetyHighlight>
+                </span>
+              </SafetyNotice>
+            </div>
+
+            <div className="grid gap-5">
+              <PenpalThreadList threads={contractThreads} />
+              <LetterTimeline items={contractLetterTimelineItems} />
+            </div>
+
+            <div className="grid gap-5">
+              <LearningProgressSummary summary={contractDailySummary} />
+              <ResultSummary summary={contractDailySummary} />
+            </div>
+
+            <div className="grid gap-5">
+              <DailyGoalProgress summary={contractDailySummary} />
+              <ModuleSummaryGrid summary={contractDailySummary} />
+              <RecentActivityList events={contractReviewEvents} />
+            </div>
           </div>
         </SectionLayout>
       </div>

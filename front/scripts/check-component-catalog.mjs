@@ -6,6 +6,11 @@ const required = [
   'EmptyState', 'ErrorState', 'SaveStatus', 'FeedbackPanel', 'ProgressIndicator', 'Skeleton',
   'RetryPanel', 'InlineAlert', 'ConfirmDialog', 'StepIndicator',
   'StatCard', 'DataList', 'Timeline', 'ProgressChartContainer', 'SummaryPanel', 'TagList',
+  'TaskActionCard', 'TodayTaskList', 'PracticeQuestion', 'VocabularyReviewPanel',
+  'ReviewResultFeedback', 'WordStatusBadge', 'LearningProgressSummary', 'ReadingArticlePanel',
+  'ReadingQuestionPanel', 'ReadingWordAction', 'ReadingProgressHeader', 'LetterEditor',
+  'SafetyNotice', 'SafetyCheckStatus', 'SafetyHighlight', 'PenpalThreadList', 'LetterTimeline',
+  'ResultSummary', 'ModuleSummaryGrid', 'DailyGoalProgress', 'RecentActivityList',
 ];
 const violations = [];
 

@@ -55,6 +55,17 @@ Run commands from `front/`:
 - `npm run lint` — run TypeScript checks with `tsc --noEmit`.
 - `npm run clean` — remove generated build output.
 
+## Automated Consistency Verification & Development Pipeline
+Use the repository's existing automated gates as the source of truth. Do not invent passing results; report exactly which commands were run and their outcomes.
+
+- Frontend changes: from `front/`, run `npm run verify` before claiming completion. This covers `typecheck`, ESLint, style-boundary checks, component reuse compliance, component catalog consistency, no-business-data checks, and the production build.
+- Backend contract, OpenAPI, docs, or executable-spec changes: from `backend/`, run `npm run verify`. This covers the frozen OpenAPI contract, frontend API type boundary, contract tests, executable specs, and generated documentation knowledge-base consistency.
+- Documentation/traceability-impact changes under `docs/`, `backend/openapi/`, `backend/contracts/`, `tests/specs/`, or `tests/baselines/`: from `backend/`, also run `npm run check:doc-impact` when the change needs an impact report. Note that it writes `docs/index/last-impact-report.json`; mention whether that generated file should be included.
+- Backend Go changes: from `backend/`, run `go test ./...` in addition to the Node-based contract checks.
+- CI parity: `.github/workflows/consistency-gate.yml` is the final pipeline reference. Its pull-request/main-branch gate installs backend and frontend dependencies, runs `npm run verify` in `backend/`, runs `go test ./...` in `backend/`, then runs `npm run verify` in `front/`.
+- Generated artifacts: checks such as `backend/scripts/build-doc-knowledge-base.mjs` can update files under `docs/index/`. If a command modifies generated outputs, inspect and report those paths instead of hiding or reverting them without explicit instruction.
+- Existing user work: if the worktree already contains unrelated changes, keep them intact and scope edits to the requested files only.
+
 ## Coding Style & Naming Conventions
 Use TypeScript with React function components. Follow the existing two-space indentation, single-quoted imports, and semicolon style. Name React components in PascalCase (`WordTrainer.tsx`), hooks/state handlers in camelCase (`handleUpdateProfile`), and shared types in PascalCase. Prefer path aliases only where configured (`@/*` maps to `front/*`). Keep UI logic in components and API/server logic in `server.ts`.
 

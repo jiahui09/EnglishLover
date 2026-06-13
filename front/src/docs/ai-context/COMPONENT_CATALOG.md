@@ -30,3 +30,24 @@
 | ProgressChartContainer | `src/components/data-display/ProgressChartContainer.tsx` | `ProgressChartContainerProps; title; description; children; footer` | 作为图表区域容器和说明外框。 | 在容器内定义统计口径或假图表数据。 |
 | SummaryPanel | `src/components/data-display/SummaryPanel.tsx` | `SummaryPanelProps; title; description; items; actions` | 组合展示若干传入摘要项。 | 在组件中拼接后端 DTO 或计算业务总结。 |
 | TagList | `src/components/data-display/TagList.tsx` | `TagListProps; tags; label` | 展示标签集合。 | 在页面层重复实现 Badge 列表或创造临时业务标签。 |
+| TaskActionCard | `src/components/business/TaskActionCard.tsx` | `TaskActionCardProps; module LearningModule; title; description; status SessionStatus; progressValue; progressMax; action; meta` | 展示单个学习任务入口和状态。 | 页面层自造任务卡片或绕过 SessionStatus。 |
+| TodayTaskList | `src/components/business/TodayTaskList.tsx` | `TodayTaskListProps; items TodayTaskListItem[]; emptyTitle; emptyDescription` | 展示今日任务集合并统一空态。 | 页面层用普通列表拼任务或伪造任务数据。 |
+| PracticeQuestion | `src/components/business/PracticeQuestion.tsx` | `PracticeQuestionProps; word WordSummary; mode ReviewMode; prompt; options; selectedOptionId; rating; feedback; callbacks` | 展示词汇练习题和提交入口。 | 组件内生成题目、选项或请求提交接口。 |
+| VocabularyReviewPanel | `src/components/business/VocabularyReviewPanel.tsx` | `VocabularyReviewPanelProps; wordList WordListData; activeWordId; lastResult ReviewSubmitResult; action` | 组合词汇分页概览、词表和最近复习反馈。 | 页面层重复拼词汇复习区域或手写分页 DTO。 |
+| ReviewResultFeedback | `src/components/business/ReviewResultFeedback.tsx` | `ReviewResultFeedbackProps; result ReviewSubmitResult; title` | 展示复习提交后的统一反馈。 | 用 Toast 替代复习结果面板或自行解释算法结果。 |
+| WordStatusBadge | `src/components/business/WordStatusBadge.tsx` | `WordStatusBadgeProps; stage WordStage` | 展示词库阶段标签。 | 页面层手写阶段文案或临时枚举映射。 |
+| LearningProgressSummary | `src/components/business/LearningProgressSummary.tsx` | `LearningProgressSummaryProps; summary DailySummary` | 组合今日目标进度和模块摘要。 | 页面层自行计算 DailySummary 外的统计口径。 |
+| ReadingArticlePanel | `src/components/business/ReadingArticlePanel.tsx` | `ReadingArticlePanelProps; article ReadingArticleDetail; toolbar; footer` | 展示阅读文章标题、正文和辅助区域。 | 页面层自造文章容器或改写 article 字段结构。 |
+| ReadingQuestionPanel | `src/components/business/ReadingQuestionPanel.tsx` | `ReadingQuestionPanelProps; articleId; title; prompt; options; selectedOptionId; feedback; callbacks` | 展示阅读题选项、反馈和提交入口。 | 组件内生成答案或请求接口。 |
+| ReadingWordAction | `src/components/business/ReadingWordAction.tsx` | `ReadingWordActionProps; articleId; wordId; status WordQueueStatus; source WordLearningSource; result AddToWordLearningQueueResult; callbacks` | 展示阅读中加入生词队列的状态和操作。 | 页面层自造加入队列状态或硬编码 source/status。 |
+| ReadingProgressHeader | `src/components/business/ReadingProgressHeader.tsx` | `ReadingProgressHeaderProps; article ReadingArticleSummary; progressValue; progressMax` | 展示阅读材料摘要和传入进度。 | 在组件中推断阅读百分比或生成阅读记录。 |
+| LetterEditor | `src/components/business/LetterEditor.tsx` | `LetterEditorProps; draft SendPenpalLetterRequest; saveStatus SaveStatusValue; helperText; safetySlot; actions; callbacks` | 展示写信编辑器、保存状态和安全插槽。 | 组件内发送信件、保存草稿或自造安全结果。 |
+| SafetyNotice | `src/components/business/SafetyNotice.tsx` | `SafetyNoticeProps; tone info/success/warning/danger; title; children` | 展示写作安全或合规提醒。 | 页面层散落警告文案或只靠颜色提示风险。 |
+| SafetyCheckStatus | `src/components/business/SafetyCheckStatus.tsx` | `SafetyCheckStatusProps; state idle/checking/passed/blocked/needs_review; errorCode ErrorCode; description` | 展示安全检查过程状态。 | 用未冻结安全枚举替代组件状态。 |
+| SafetyHighlight | `src/components/business/SafetyHighlight.tsx` | `SafetyHighlightProps; label; children` | 标记需要用户关注的安全片段。 | 用任意颜色 mark 或在组件内判断敏感内容。 |
+| PenpalThreadList | `src/components/business/PenpalThreadList.tsx` | `PenpalThreadListProps; threads PenpalThreadSummary[]; onOpenThread` | 展示笔友线程列表和状态。 | 页面层手写线程状态标签或自造关系字段。 |
+| LetterTimeline | `src/components/business/LetterTimeline.tsx` | `LetterTimelineProps; items LetterTimelineItem[]` | 展示信件发送活动时间线。 | 自行生成通信事件或伪造历史信件。 |
+| ResultSummary | `src/components/business/ResultSummary.tsx` | `ResultSummaryProps; summary DailySummary` | 展示今日成果摘要。 | 页面层重新定义统计口径或补不存在字段。 |
+| ModuleSummaryGrid | `src/components/business/ModuleSummaryGrid.tsx` | `ModuleSummaryGridProps; summary DailySummary; items ModuleSummaryGridItem[]` | 展示单词、阅读、写作模块摘要。 | 为不存在模块生成统计卡片或引入图表库。 |
+| DailyGoalProgress | `src/components/business/DailyGoalProgress.tsx` | `DailyGoalProgressProps; summary DailySummary` | 展示 DailySummary 的今日完成率。 | 组件内自行计算目标完成率。 |
+| RecentActivityList | `src/components/business/RecentActivityList.tsx` | `RecentActivityListProps; events ReviewEvent[]` | 展示近期学习事件时间线。 | 页面层伪造事件流或临时活动类型。 |

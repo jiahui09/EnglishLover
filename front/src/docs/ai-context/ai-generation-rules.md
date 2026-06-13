@@ -1,20 +1,34 @@
 # AI Studio 生成规则
 
-当前状态：第二轮已完成组件库扩展、组件 API 摘要、后端契约冻结和 `src/types/api.ts` 自动生成；业务页面仍未开始，必须留到第三轮由 AI Studio 基于冻结契约和组件上下文一次性生成。
+当前状态：第二轮已完成前端反馈/状态/数据展示组件，并按“第三轮一次完整生成 UI”目标补齐业务组件货架；后端契约已冻结并自动生成 `src/types/api.ts`。业务页面仍未开始，真实页面只能在第三轮由 AI Studio 基于冻结契约、组件 catalog 和页面组件映射一次性生成。
 
-进入页面生成前必须满足：
+## 生成前必须读取
 
-1. 使用 `front/src/types/api.ts` 作为唯一 API 类型来源；
-2. 使用 `COMPONENT_CATALOG.md` 中列出的组件，不重复实现基础 UI、反馈状态组件或数据展示组件；
-3. 遵守页面-组件映射表、设计令牌摘要和组件状态覆盖说明；
-4. 生成结果必须通过类型检查、组件复用检查、样式令牌检查、组件 catalog 检查和无临时数据检查；
-5. 任何字段、枚举、错误码或响应结构缺失时，不得猜测补写，必须回到契约变更流程。
+1. `SYSTEM_INSTRUCTION.md`：全局边界和禁止事项；
+2. `COMPONENT_CATALOG.md`：唯一组件消费清单；
+3. `API_TYPES_REFERENCE.md`：冻结接口类型索引；
+4. `PAGE_COMPONENT_MAP.md`：目标页面与组件装配关系；
+5. `DESIGN_TOKENS_QUICKREF.md`：设计令牌和样式规则；
+6. `API_FIELD_EXAMPLES.md`：字段形态参考，不作为页面数据源。
 
-禁止事项：
+## 生成时必须遵守
 
-- 不得重复实现 Button、Card、Input、Textarea、Select、Modal、Loading、Badge、Tabs、Toast；
-- 不得重复实现 EmptyState、ErrorState、SaveStatus、FeedbackPanel、ProgressIndicator、Skeleton、RetryPanel、InlineAlert、ConfirmDialog、StepIndicator；
-- 不得重复实现 StatCard、DataList、Timeline、ProgressChartContainer、SummaryPanel、TagList；
-- 不得硬编码颜色、阴影、圆角、任意间距或内联样式；
-- 不得创造 `src/types/api.ts` 中不存在的字段、枚举或错误码；
-- 不得加入临时数据、猜测式接口或未评审业务流程。
+1. 使用 `src/types/api.ts` 作为唯一 API 类型来源；
+2. 页面层优先组合 `COMPONENT_CATALOG.md` 中的基础、反馈、数据展示和业务组件；
+3. 不重复实现 Button、Card、Modal、Toast、EmptyState、DataList、Timeline、TaskActionCard、PracticeQuestion、LetterEditor 等已存在组件；
+4. 不创建 `src/data`、`src/mocks`、`src/fixtures` 或任何临时数据文件；
+5. 不猜测字段、枚举、错误码、分页结构、认证方式或响应包裹格式；
+6. 不在组件或页面中硬编码颜色、阴影、圆角、任意尺寸或内联 style；
+7. 生成结果必须通过 `npm run typecheck`、`npm run lint` 和 `npm run build`。
+
+## 禁止事项
+
+- 禁止在第三轮生成前提前实现业务页面；
+- 禁止用静态列表、假用户、假课程、假学习记录或假通信记录驱动页面；
+- 禁止手写接口 DTO、请求参数、响应结构、错误码或业务枚举；
+- 禁止绕过业务组件货架直接在页面层拼复杂 UI；
+- 禁止把 `/components` 示例页扩展成业务流程页。
+
+## 变更流程
+
+如 AI Studio 发现缺少字段、组件或接口，不得就地补造；必须回到契约变更评审或组件库变更评审，更新冻结契约/组件 catalog 后再重新生成页面。

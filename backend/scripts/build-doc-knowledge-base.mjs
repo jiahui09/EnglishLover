@@ -18,6 +18,7 @@ async function walk(dir, accept) {
     const relative = path.join(dir, entry.name);
     if (entry.isDirectory()) {
       if (['node_modules', 'dist', '.git', '.omx'].includes(entry.name)) continue;
+      if (relative === 'docs/index') continue;
       files.push(...await walk(relative, accept));
     } else if (accept(relative)) {
       files.push(relative);
