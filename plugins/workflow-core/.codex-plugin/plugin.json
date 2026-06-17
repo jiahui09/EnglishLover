@@ -1,0 +1,31 @@
+{
+  "name": "workflow-core",
+  "version": "0.1.0",
+  "description": "EnglishLover AI agent workflow core: evidence-first sliced generation, independent critique, and verification gates.",
+  "author": {
+    "name": "EnglishLover"
+  },
+  "license": "UNLICENSED",
+  "keywords": [
+    "agent-workflow",
+    "quality-gates",
+    "prompting"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Workflow Core",
+    "shortDescription": "Evidence-first AI workflow for EnglishLover.",
+    "longDescription": "Project-local workflow plugin for sliced prompt generation, independent content critique, and verification gates.",
+    "developerName": "EnglishLover",
+    "category": "Productivity",
+    "capabilities": [
+      "Write",
+      "Review"
+    ],
+    "defaultPrompt": [
+      "Create a prompt bundle for the current slice.",
+      "Critique this EnglishLover draft before promotion.",
+      "Plan a quality-gated agent workflow."
+    ]
+  }
+}

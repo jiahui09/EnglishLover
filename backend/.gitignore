@@ -1,8 +1,0 @@
-bin/
-tmp/
-coverage.out
-coverage.html
-.env
-.env.*
-!.env.example
-node_modules/
