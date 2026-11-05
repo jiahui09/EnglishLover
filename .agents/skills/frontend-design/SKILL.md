@@ -6,6 +6,23 @@ license: Complete terms in LICENSE.txt
 
 # Frontend Design
 
+## EnglishLover project overlay
+
+For this repository, treat `DESIGN.md` and `docs/ai-coach-ui-design-guidelines.md` as the binding design contract before applying the general studio guidance below.
+
+EnglishLover-specific constraints:
+
+- Product subject: exam-prep English learning coach for Chinese learners.
+- Core loop: `单词背诵 -> 阅读理解 -> 练习解析 -> 教练建议`.
+- Primary surfaces: 今日学习、单词训练、阅读训练、教练建议.
+- Focus mode: word training and reading comprehension hide unrelated navigation and keep one primary action; reading focus begins at reading generation and continues through preset reading, text, answering, and analysis.
+- Learning profile: stays as a learning-profile summary inside the coach-advice page, not a primary navigation item.
+- Visual direction: calm minimal learning desk, light Material hierarchy, `Focus Navy` + warm paper + `Word Amber`; do not introduce green as brand primary, heavy dashboards, celebratory gamification, or marketing-page visuals.
+- Implementation contract: reuse `ELTokens`, `ELTheme`, `ELButton`, `ELCard`, `ELBadge`, `ELStatChip`, `ELLearningPath`, `ELEmptyState`, and `ELSectionHeader` before inventing new patterns.
+- Distinctive risk: spend visual memorability on the “单词 -> 阅读 -> 解析 -> 建议” learning-path motif, not on decorative animation, charts, or loud color.
+
+When the generic guidance below suggests boldness, typography experiments, or motion, reinterpret it through these EnglishLover constraints and document any deliberate deviation in `DESIGN.md` first.
+
 Approach this as the design lead at a small studio known for giving every client a visual identity that could not be mistaken for anyone else's. This client has already rejected proposals that felt templated, and is paying for a distinctive point of view: make deliberate, opinionated choices about palette, typography, and layout that are specific to this brief, and take one real aesthetic risk you can justify.
 
 ## Ground it in the subject

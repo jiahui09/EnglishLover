@@ -13,8 +13,9 @@ class EnglishLoverApp extends StatelessWidget {
     return ShadApp(
       title: 'EnglishLover',
       debugShowCheckedModeBanner: false,
-      themeMode: ThemeMode.light,
-      theme: ELTheme.shadTheme,
+      themeMode: ThemeMode.system,
+      theme: ELTheme.lightShadTheme,
+      darkTheme: ELTheme.darkShadTheme,
       materialThemeBuilder: ELTheme.materialThemeBuilder,
       home: const ELAppShell(),
       builder: (context, child) => child!,

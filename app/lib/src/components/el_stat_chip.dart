@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
+import '../design/el_theme.dart';
 import '../design/el_tokens.dart';
 
 class ELStatChip extends StatelessWidget {
@@ -18,10 +19,12 @@ class ELStatChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = ShadTheme.of(context);
+    final colors = ELTheme.colorsOf(context);
     final (background, foreground) = switch (tone) {
-      ELStatTone.coach => (ELTokens.coachGreenSoft, ELTokens.coachGreen),
-      ELStatTone.word => (ELTokens.wordAmberSoft, ELTokens.wordAmber),
-      ELStatTone.neutral => (ELTokens.paper, ELTokens.ink),
+      ELStatTone.coach => (colors.primarySoft, colors.primary),
+      ELStatTone.word => (colors.wordSoft, colors.word),
+      ELStatTone.success => (colors.successSoft, colors.success),
+      ELStatTone.neutral => (colors.surfaceElevated, colors.text),
     };
 
     return Container(
@@ -29,7 +32,7 @@ class ELStatChip extends StatelessWidget {
       decoration: BoxDecoration(
         color: background,
         borderRadius: ELTokens.radius16All,
-        border: Border.all(color: ELTokens.line),
+        border: Border.all(color: colors.border),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -44,4 +47,4 @@ class ELStatChip extends StatelessWidget {
   }
 }
 
-enum ELStatTone { coach, word, neutral }
+enum ELStatTone { coach, word, success, neutral }

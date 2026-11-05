@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
+import '../design/el_theme.dart';
 import '../design/el_tokens.dart';
 
 class ELLearningPath extends StatelessWidget {
@@ -12,6 +13,7 @@ class ELLearningPath extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = ShadTheme.of(context);
+    final colors = ELTheme.colorsOf(context);
     return Wrap(
       crossAxisAlignment: WrapCrossAlignment.center,
       spacing: ELTokens.space8,
@@ -28,7 +30,7 @@ class ELLearningPath extends StatelessWidget {
             Container(
               width: 22,
               height: 1.5,
-              color: i < activeIndex ? ELTokens.coachGreen : ELTokens.line,
+              color: i < activeIndex ? colors.primary : colors.border,
             ),
         ],
       ],
@@ -51,16 +53,15 @@ class _PathNode extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = active || complete ? ELTokens.coachGreen : ELTokens.mutedInk;
-    final background = active || complete
-        ? ELTokens.coachGreenSoft
-        : ELTokens.card;
+    final colors = ELTheme.colorsOf(context);
+    final color = active || complete ? colors.primary : colors.mutedText;
+    final background = active || complete ? colors.primarySoft : colors.surface;
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
       decoration: BoxDecoration(
         color: background,
         borderRadius: BorderRadius.circular(999),
-        border: Border.all(color: active ? ELTokens.coachGreen : ELTokens.line),
+        border: Border.all(color: active ? colors.primary : colors.border),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,

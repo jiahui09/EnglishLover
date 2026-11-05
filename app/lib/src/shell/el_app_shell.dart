@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
+import '../design/el_theme.dart';
 import '../design/el_tokens.dart';
 import '../features/coach/coach_page.dart';
 import '../features/home/home_page.dart';
 import '../features/reading/reading_page.dart';
 import '../features/words/words_page.dart';
+import '../shared/learning_session.dart';
 
 class ELAppShell extends StatefulWidget {
   const ELAppShell({super.key});
@@ -16,23 +18,52 @@ class ELAppShell extends StatefulWidget {
 
 class _ELAppShellState extends State<ELAppShell> {
   int _selectedIndex = 0;
+  late final LearningSessionController _session;
+
+  @override
+  void initState() {
+    super.initState();
+    _session = LearningSessionController()..addListener(_handleSessionUpdate);
+  }
+
+  @override
+  void dispose() {
+    _session
+      ..removeListener(_handleSessionUpdate)
+      ..dispose();
+    super.dispose();
+  }
+
+  void _handleSessionUpdate() {
+    if (!mounted) return;
+    setState(() {});
+  }
 
   void _selectPage(int index) {
+    if (index == 3) {
+      _session.markCoachReviewed();
+    }
     setState(() => _selectedIndex = index);
+  }
+
+  void _returnToToday() {
+    _selectPage(0);
   }
 
   @override
   Widget build(BuildContext context) {
+    final colors = ELTheme.colorsOf(context);
     final pages = [
-      HomePage(onNavigate: _selectPage),
-      WordsPage(onNavigate: _selectPage),
-      ReadingPage(onNavigate: _selectPage),
-      CoachPage(onNavigate: _selectPage),
+      HomePage(session: _session, onNavigate: _selectPage),
+      WordsPage(session: _session, onNavigate: _selectPage, onExitFocus: _returnToToday),
+      ReadingPage(session: _session, onNavigate: _selectPage, onExitFocus: _returnToToday),
+      CoachPage(session: _session, onNavigate: _selectPage),
     ];
 
     return LayoutBuilder(
-      builder: (context, constraints) {
-        final useRail = constraints.maxWidth >= ELTokens.sideRailBreakpoint;
+        builder: (context, constraints) {
+          final useRail = constraints.maxWidth >= ELTokens.sideRailBreakpoint;
+          final focusMode = _session.isWordFocusActive || _session.isReadingFocusActive;
         final content = Center(
           child: ConstrainedBox(
             constraints: const BoxConstraints(
@@ -50,7 +81,7 @@ class _ELAppShellState extends State<ELAppShell> {
           ),
         );
 
-        if (useRail) {
+        if (useRail && !focusMode) {
           return Scaffold(
             body: SafeArea(
               child: Row(
@@ -68,7 +99,7 @@ class _ELAppShellState extends State<ELAppShell> {
                       destinations: _railDestinations,
                     ),
                   ),
-                  Container(width: 1, color: ELTokens.line),
+                  Container(width: 1, color: colors.border),
                   Expanded(child: content),
                 ],
               ),
@@ -78,11 +109,13 @@ class _ELAppShellState extends State<ELAppShell> {
 
         return Scaffold(
           body: SafeArea(child: content),
-          bottomNavigationBar: NavigationBar(
-            selectedIndex: _selectedIndex,
-            onDestinationSelected: _selectPage,
-            destinations: _barDestinations,
-          ),
+          bottomNavigationBar: focusMode
+              ? null
+              : NavigationBar(
+                  selectedIndex: _selectedIndex,
+                  onDestinationSelected: _selectPage,
+                  destinations: _barDestinations,
+                ),
         );
       },
     );
@@ -140,20 +173,21 @@ class _BrandMark extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = ELTheme.colorsOf(context);
     return Padding(
       padding: const EdgeInsets.only(bottom: 16),
       child: Container(
         width: 44,
         height: 44,
-        decoration: const BoxDecoration(
-          color: ELTokens.coachGreen,
+        decoration: BoxDecoration(
+          color: colors.primary,
           borderRadius: ELTokens.radius16All,
         ),
         alignment: Alignment.center,
-        child: const Text(
+        child: Text(
           'EL',
           style: TextStyle(
-            color: ELTokens.card,
+            color: colors.surface,
             fontSize: 15,
             fontWeight: FontWeight.w800,
             letterSpacing: .3,

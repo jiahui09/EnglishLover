@@ -4,84 +4,76 @@ import 'package:shadcn_ui/shadcn_ui.dart';
 import '../../components/el_badge.dart';
 import '../../components/el_button.dart';
 import '../../components/el_card.dart';
-import '../../components/el_empty_state.dart';
 import '../../components/el_learning_path.dart';
+import '../../components/el_page_shell.dart';
 import '../../components/el_section_header.dart';
+import '../../design/el_theme.dart';
 import '../../design/el_tokens.dart';
 import '../../shared/mock_learning_data.dart';
 
 class ReadingPage extends StatelessWidget {
-  const ReadingPage({super.key, required this.onNavigate});
+  const ReadingPage({
+    super.key,
+    required this.onNavigate,
+    required this.onExitFocus,
+  });
 
   final ValueChanged<int> onNavigate;
+  final VoidCallback onExitFocus;
 
   @override
   Widget build(BuildContext context) {
-    final theme = ShadTheme.of(context);
-    return SingleChildScrollView(
-      padding: const EdgeInsets.fromLTRB(20, 18, 20, 28),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('阅读训练', style: theme.textTheme.h1),
-          const SizedBox(height: ELTokens.space8),
-          Text('把近期单词放入考研阅读语境，再用题目检测理解。', style: theme.textTheme.lead),
-          const SizedBox(height: ELTokens.space20),
-          _GenerateCard(onGenerate: () {}),
-          const SizedBox(height: ELTokens.space16),
-          LayoutBuilder(
-            builder: (context, constraints) {
-              final twoColumns = constraints.maxWidth >= 860;
-              if (!twoColumns) {
-                return Column(
-                  children: [
-                    const _ArticleCard(),
-                    const SizedBox(height: ELTokens.space16),
-                    _QuestionPanel(onOpenCoach: () => onNavigate(3)),
-                  ],
-                );
-              }
-              return Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Expanded(flex: 6, child: _ArticleCard()),
-                  const SizedBox(width: ELTokens.space16),
-                  Expanded(
-                    flex: 4,
-                    child: _QuestionPanel(onOpenCoach: () => onNavigate(3)),
-                  ),
-                ],
-              );
-            },
-          ),
-          const SizedBox(height: ELTokens.space16),
-          ELEmptyState(
-            title: 'AI 不可用时不中断学习',
-            description: '暂时无法生成新文章时，可使用预置考研阅读继续练习，并透明标注为“基于预置阅读”。',
-            actionLabel: '使用预置阅读',
-            onAction: () {},
-          ),
-        ],
-      ),
+    return ELFocusShell(
+      stageLabel: '阅读专注模式',
+      title: '生成今日阅读',
+      subtitle: '把近期词放入考研阅读语境，再用题目检测理解。',
+      progressLabel: '阅读生成与答题 · 目标词 ${targetWords.length} 个',
+      progressValue: .62,
+      onExit: onExitFocus,
+      child: _ReadingFocusContent(onOpenCoach: () => onNavigate(3)),
     );
   }
 }
 
-class _GenerateCard extends StatelessWidget {
-  const _GenerateCard({required this.onGenerate});
+class _ReadingFocusContent extends StatelessWidget {
+  const _ReadingFocusContent({required this.onOpenCoach});
 
-  final VoidCallback onGenerate;
+  final VoidCallback onOpenCoach;
 
   @override
   Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const _GenerateBrief(),
+        const SizedBox(height: ELTokens.space16),
+        const _ArticleCard(),
+        const SizedBox(height: ELTokens.space16),
+        _QuestionPanel(onOpenCoach: onOpenCoach),
+        const SizedBox(height: ELTokens.space16),
+        const _FallbackNotice(),
+      ],
+    );
+  }
+}
+
+class _GenerateBrief extends StatelessWidget {
+  const _GenerateBrief();
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = ELTheme.colorsOf(context);
     return ELCard(
+      level: ELSurfaceLevel.flat,
+      backgroundColor: colors.wordSoft,
+      borderColor: colors.wordSoftBorder,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const ELSectionHeader(
-            title: '生成今日阅读',
-            subtitle: '难度：考研英语 · 题型：主旨 / 细节 / 推断 / 词义',
-            trailing: Icon(LucideIcons.sparkles, color: ELTokens.coachGreen),
+          ELSectionHeader(
+            title: '本篇阅读使用这些近期词',
+            subtitle: '词汇提示默认收起；正文中的目标词会用轻下划线标出。',
+            trailing: Icon(LucideIcons.bookMarked, color: colors.word),
           ),
           const SizedBox(height: ELTokens.space16),
           Wrap(
@@ -94,8 +86,6 @@ class _GenerateCard extends StatelessWidget {
           ),
           const SizedBox(height: ELTokens.space16),
           const ELLearningPath(steps: ['单词', '阅读', '解析', '建议'], activeIndex: 1),
-          const SizedBox(height: ELTokens.space16),
-          ELButton.primary(label: '生成今日阅读', onPressed: onGenerate),
         ],
       ),
     );
@@ -108,12 +98,21 @@ class _ArticleCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = ShadTheme.of(context);
+    final colors = ELTheme.colorsOf(context);
     final readingStyle = theme.textTheme.custom['reading'] ?? theme.textTheme.p;
     return ELCard(
+      level: ELSurfaceLevel.level2,
+      padding: ELTokens.focusPadding,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const ELBadge('考研英语级别', tone: ELBadgeTone.coach),
+          Row(
+            children: [
+              const ELBadge('考研英语级别', tone: ELBadgeTone.coach),
+              const Spacer(),
+              Icon(LucideIcons.bookOpenText, color: colors.primary, size: 20),
+            ],
+          ),
           const SizedBox(height: ELTokens.space12),
           Text('Why Vocabulary Needs Context', style: theme.textTheme.h2),
           const SizedBox(height: ELTokens.space16),
@@ -124,18 +123,14 @@ class _ArticleCard extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(14),
             decoration: BoxDecoration(
-              color: ELTokens.paper,
+              color: colors.wordSoft,
               borderRadius: ELTokens.radius16All,
-              border: Border.all(color: ELTokens.line),
+              border: Border.all(color: colors.wordSoftBorder),
             ),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Icon(
-                  LucideIcons.info,
-                  color: ELTokens.coachGreen,
-                  size: 18,
-                ),
+                Icon(LucideIcons.info, color: colors.word, size: 18),
                 const SizedBox(width: ELTokens.space8),
                 Expanded(
                   child: Text(
@@ -146,8 +141,6 @@ class _ArticleCard extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(height: ELTokens.space16),
-          ELButton.primary(label: '开始答题', onPressed: () {}),
         ],
       ),
     );
@@ -163,6 +156,7 @@ class _HighlightedParagraph extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final spans = <TextSpan>[];
+    final colors = ELTheme.colorsOf(context);
     var remaining = text;
     while (remaining.isNotEmpty) {
       final match = RegExp(
@@ -180,10 +174,10 @@ class _HighlightedParagraph extends StatelessWidget {
         TextSpan(
           text: remaining.substring(match.start, match.end),
           style: style.copyWith(
-            color: ELTokens.wordAmber,
+            color: colors.word,
             fontWeight: FontWeight.w700,
             decoration: TextDecoration.underline,
-            decorationColor: ELTokens.wordAmber,
+            decorationColor: colors.word,
           ),
         ),
       );
@@ -204,11 +198,11 @@ class _QuestionPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ELCard(
-      shadows: const [],
+      level: ELSurfaceLevel.level2,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const ELSectionHeader(title: '练习题', subtitle: '提交后给出正确率、错因和原文依据。'),
+          const ELSectionHeader(title: '练习题', subtitle: '先完成选择，提交后再看答案和错因。'),
           const SizedBox(height: ELTokens.space16),
           for (var i = 0; i < questions.length; i++) ...[
             _QuestionCard(question: questions[i], index: i + 1),
@@ -216,9 +210,14 @@ class _QuestionPanel extends StatelessWidget {
               const SizedBox(height: ELTokens.space12),
           ],
           const SizedBox(height: ELTokens.space16),
-          ELButton.primary(label: '提交答案', onPressed: () {}),
-          const SizedBox(height: ELTokens.space8),
-          ELButton.ghost(label: '看教练建议', onPressed: onOpenCoach),
+          ELButton.primary(
+            expands: true,
+            label: '提交答案',
+            onPressed: () {},
+            trailing: const Icon(LucideIcons.check, size: 18),
+          ),
+          const SizedBox(height: ELTokens.space12),
+          _AnalysisPreview(onOpenCoach: onOpenCoach),
         ],
       ),
     );
@@ -234,13 +233,14 @@ class _QuestionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = ShadTheme.of(context);
+    final colors = ELTheme.colorsOf(context);
     final letters = ['A', 'B', 'C', 'D'];
     return Container(
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
-        color: ELTokens.paper,
+        color: colors.surfaceElevated,
         borderRadius: ELTokens.radius20All,
-        border: Border.all(color: ELTokens.line),
+        border: Border.all(color: colors.border),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -250,23 +250,117 @@ class _QuestionCard extends StatelessWidget {
           Text(question.question, style: theme.textTheme.h4),
           const SizedBox(height: ELTokens.space12),
           for (var i = 0; i < question.options.length; i++) ...[
-            Text(
-              '${letters[i]}. ${question.options[i]}',
-              style: theme.textTheme.muted,
-            ),
-            const SizedBox(height: ELTokens.space8),
+            _OptionRow(label: letters[i], text: question.options[i]),
+            if (i < question.options.length - 1)
+              const SizedBox(height: ELTokens.space8),
           ],
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: ELTokens.card,
-              borderRadius: ELTokens.radius16All,
-              border: Border.all(color: ELTokens.line),
-            ),
-            child: Text(
-              '解析示例：${question.reason}',
-              style: theme.textTheme.small,
+        ],
+      ),
+    );
+  }
+}
+
+class _OptionRow extends StatelessWidget {
+  const _OptionRow({required this.label, required this.text});
+
+  final String label;
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = ShadTheme.of(context);
+    final colors = ELTheme.colorsOf(context);
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          width: 24,
+          height: 24,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: colors.surface,
+            borderRadius: BorderRadius.circular(999),
+            border: Border.all(color: colors.border),
+          ),
+          child: Text(
+            label,
+            style: theme.textTheme.small.copyWith(color: colors.text),
+          ),
+        ),
+        const SizedBox(width: ELTokens.space8),
+        Expanded(child: Text(text, style: theme.textTheme.muted)),
+      ],
+    );
+  }
+}
+
+class _AnalysisPreview extends StatelessWidget {
+  const _AnalysisPreview({required this.onOpenCoach});
+
+  final VoidCallback onOpenCoach;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = ShadTheme.of(context);
+    final colors = ELTheme.colorsOf(context);
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: colors.surface,
+        borderRadius: ELTokens.radius16All,
+        border: Border.all(color: colors.border),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('提交后解析', style: theme.textTheme.h4),
+          const SizedBox(height: ELTokens.space8),
+          Text(
+            '解析会按“答案 / 原文依据 / 错因 / 薄弱词回流”展示，不在答题前暴露答案。',
+            style: theme.textTheme.muted,
+          ),
+          const SizedBox(height: ELTokens.space12),
+          ELButton.ghost(
+            label: '看教练建议',
+            onPressed: onOpenCoach,
+            trailing: const Icon(LucideIcons.arrowRight, size: 16),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _FallbackNotice extends StatelessWidget {
+  const _FallbackNotice();
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = ShadTheme.of(context);
+    final colors = ELTheme.colorsOf(context);
+    return ELCard(
+      shadows: const [],
+      backgroundColor: colors.errorSoft,
+      borderColor: colors.error,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(LucideIcons.triangleAlert, color: colors.error, size: 20),
+          const SizedBox(width: ELTokens.space12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('AI 不可用时不中断学习', style: theme.textTheme.h4),
+                const SizedBox(height: ELTokens.space8),
+                Text(
+                  '暂时无法生成新文章时，可使用预置考研阅读继续练习，并透明标注为“基于预置阅读”。',
+                  style: theme.textTheme.muted,
+                ),
+                const SizedBox(height: ELTokens.space12),
+                ELButton.outline(label: '使用预置阅读', onPressed: () {}),
+              ],
             ),
           ),
         ],

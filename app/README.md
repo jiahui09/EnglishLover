@@ -1,17 +1,35 @@
-# english_lover
+# EnglishLover Flutter App
 
-A new Flutter project.
+This folder contains the Flutter client for EnglishLover AI Coach.
 
-## Getting Started
+## What lives here
 
-This project is a starting point for a Flutter application.
+- `lib/src/app.dart` — app entry and theme bootstrap.
+- `lib/src/shell/` — shared navigation shell.
+- `lib/src/design/` — design tokens and theme mapping.
+- `lib/src/components/` — reusable `EL*` components.
+- `lib/src/features/` — 今日、单词、阅读、教练 four-screen prototype.
 
-A few resources to get you started if this is your first Flutter project:
+## Run locally
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+```bash
+flutter pub get
+flutter run
+```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Design source of truth
+
+- `../DESIGN.md`
+- `../docs/README.md`
+- `../docs/ai-coach-prd.md`
+- `../docs/ai-coach-information-architecture.md`
+- `../docs/ai-coach-core-page-copy-and-interactions.md`
+- `../docs/ai-coach-ui-design-guidelines.md`
+- `../docs/ai-coach-architecture-design.md`
+
+## Implementation notes
+
+- Reuse `ELTokens` and `ELTheme` before adding new hard-coded styles.
+- Keep single-action focus mode rules from the docs.
+- Preserve transparent AI fallback behavior.
+- No project custom fonts, graph libraries, or complex animation libraries yet.

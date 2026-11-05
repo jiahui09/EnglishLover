@@ -1,9 +1,9 @@
 import 'package:flutter/widgets.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
-import '../design/el_tokens.dart';
+import '../design/el_theme.dart';
 
-enum ELBadgeTone { coach, word, neutral, danger }
+enum ELBadgeTone { coach, word, success, neutral, danger }
 
 class ELBadge extends StatelessWidget {
   const ELBadge(this.label, {super.key, this.tone = ELBadgeTone.neutral});
@@ -13,11 +13,13 @@ class ELBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = ELTheme.colorsOf(context);
     final (background, foreground) = switch (tone) {
-      ELBadgeTone.coach => (ELTokens.coachGreenSoft, ELTokens.coachGreen),
-      ELBadgeTone.word => (ELTokens.wordAmberSoft, ELTokens.wordAmber),
-      ELBadgeTone.danger => (ELTokens.softRedSoft, ELTokens.softRed),
-      ELBadgeTone.neutral => (ELTokens.paper, ELTokens.mutedInk),
+      ELBadgeTone.coach => (colors.primarySoft, colors.primary),
+      ELBadgeTone.word => (colors.wordSoft, colors.word),
+      ELBadgeTone.success => (colors.successSoft, colors.success),
+      ELBadgeTone.danger => (colors.errorSoft, colors.error),
+      ELBadgeTone.neutral => (colors.surfaceElevated, colors.mutedText),
     };
 
     return ShadBadge(

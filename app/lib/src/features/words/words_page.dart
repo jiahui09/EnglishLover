@@ -1,18 +1,20 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
-import '../../components/el_badge.dart';
 import '../../components/el_button.dart';
-import '../../components/el_card.dart';
-import '../../components/el_empty_state.dart';
-import '../../components/el_section_header.dart';
+import '../../design/el_theme.dart';
 import '../../design/el_tokens.dart';
 import '../../shared/mock_learning_data.dart';
 
 class WordsPage extends StatefulWidget {
-  const WordsPage({super.key, required this.onNavigate});
+  const WordsPage({
+    super.key,
+    required this.onNavigate,
+    required this.onExitFocus,
+  });
 
   final ValueChanged<int> onNavigate;
+  final VoidCallback onExitFocus;
 
   @override
   State<WordsPage> createState() => _WordsPageState();
@@ -20,195 +22,388 @@ class WordsPage extends StatefulWidget {
 
 class _WordsPageState extends State<WordsPage> {
   var _index = 0;
-  var _showMeaning = false;
+  var _isFlipped = false;
+  var _sessionDone = false;
 
   WordItem get _word => wordItems[_index];
 
-  void _nextWord() {
+  void _flipToBack() {
+    if (_isFlipped) return;
+    setState(() => _isFlipped = true);
+  }
+
+  void _recordFeedback() {
+    if (!_isFlipped) return;
     setState(() {
-      _index = (_index + 1).clamp(0, wordItems.length - 1);
-      _showMeaning = false;
+      if (_index >= wordItems.length - 1) {
+        _sessionDone = true;
+        return;
+      }
+      _index += 1;
+      _isFlipped = false;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    final theme = ShadTheme.of(context);
-    final completed = _index == wordItems.length - 1;
-    return SingleChildScrollView(
-      padding: const EdgeInsets.fromLTRB(20, 18, 20, 28),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('单词训练', style: theme.textTheme.h1),
-          const SizedBox(height: ELTokens.space8),
-          Text('这些词会用于稍后的考研阅读生成。请按真实掌握情况选择。', style: theme.textTheme.lead),
-          const SizedBox(height: ELTokens.space20),
-          ELCard(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    ELBadge('第 ${_index + 1} / ${wordItems.length} 个'),
-                    const Spacer(),
-                    const ELBadge('预计 6 分钟', tone: ELBadgeTone.word),
-                  ],
-                ),
-                const SizedBox(height: ELTokens.space16),
-                ShadProgress(
-                  value: (_index + 1) / wordItems.length,
-                  color: ELTokens.coachGreen,
-                  backgroundColor: ELTokens.quietLine,
-                  minHeight: 10,
-                  semanticsLabel: '单词训练进度',
-                  semanticsValue: '${_index + 1}/${wordItems.length}',
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: ELTokens.space16),
-          _WordCard(
-            word: _word,
-            showMeaning: _showMeaning,
-            onReveal: () => setState(() => _showMeaning = true),
-          ),
-          const SizedBox(height: ELTokens.space16),
-          ELCard(
-            shadows: const [],
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const ELSectionHeader(
-                  title: '掌握反馈',
-                  subtitle: '三个按钮权重一致，避免为了进度误选“认识”。',
-                ),
-                const SizedBox(height: ELTokens.space16),
-                LayoutBuilder(
-                  builder: (context, constraints) {
-                    final stacked = constraints.maxWidth < 520;
-                    final buttons = [
-                      ELButton.outline(
-                        label: '认识',
-                        onPressed: completed ? null : _nextWord,
-                        expands: stacked,
-                      ),
-                      ELButton.outline(
-                        label: '模糊',
-                        onPressed: completed ? null : _nextWord,
-                        expands: stacked,
-                      ),
-                      ELButton.outline(
-                        label: '不认识',
-                        onPressed: completed ? null : _nextWord,
-                        expands: stacked,
-                      ),
-                    ];
-                    if (stacked) {
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          for (var i = 0; i < buttons.length; i++) ...[
-                            if (i > 0) const SizedBox(height: ELTokens.space8),
-                            buttons[i],
-                          ],
-                        ],
-                      );
-                    }
-                    return Row(
-                      children: [
-                        for (var i = 0; i < buttons.length; i++) ...[
-                          if (i > 0) const SizedBox(width: ELTokens.space8),
-                          Expanded(child: buttons[i]),
-                        ],
-                      ],
-                    );
-                  },
-                ),
-                const SizedBox(height: ELTokens.space12),
-                Text('本轮已标记：认识 3 · 模糊 2 · 不认识 1', style: theme.textTheme.small),
-              ],
-            ),
-          ),
-          const SizedBox(height: ELTokens.space16),
-          ELEmptyState(
-            title: '本轮完成后建议进入阅读',
-            description: '把刚复习的词放进文章里使用，能同时强化知识输入与输出。',
-            actionLabel: '生成阅读',
-            onAction: () => widget.onNavigate(2),
-          ),
-        ],
+    final colors = ELTheme.colorsOf(context);
+
+    return Scaffold(
+      backgroundColor: colors.background,
+      body: SafeArea(
+        child: _sessionDone
+            ? _WordSessionDone(
+                onExit: widget.onExitFocus,
+                onGenerateReading: () => widget.onNavigate(2),
+              )
+            : _WordImmersiveStage(
+                word: _word,
+                index: _index,
+                total: wordItems.length,
+                isFlipped: _isFlipped,
+                onFlip: _flipToBack,
+                onFeedback: _recordFeedback,
+                onExit: widget.onExitFocus,
+              ),
       ),
     );
   }
 }
 
-class _WordCard extends StatelessWidget {
-  const _WordCard({
+class _WordImmersiveStage extends StatelessWidget {
+  const _WordImmersiveStage({
     required this.word,
-    required this.showMeaning,
-    required this.onReveal,
+    required this.index,
+    required this.total,
+    required this.isFlipped,
+    required this.onFlip,
+    required this.onFeedback,
+    required this.onExit,
   });
 
   final WordItem word;
-  final bool showMeaning;
-  final VoidCallback onReveal;
+  final int index;
+  final int total;
+  final bool isFlipped;
+  final VoidCallback onFlip;
+  final VoidCallback onFeedback;
+  final VoidCallback onExit;
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Positioned.fill(
+          child: GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: isFlipped ? null : onFlip,
+            child: Center(
+              child: AnimatedSwitcher(
+                duration: const Duration(milliseconds: 180),
+                switchInCurve: Curves.easeOut,
+                switchOutCurve: Curves.easeIn,
+                child: isFlipped
+                    ? _WordBackFace(
+                        key: ValueKey('back-${word.word}'),
+                        word: word,
+                      )
+                    : _WordFrontFace(
+                        key: ValueKey('front-${word.word}'),
+                        word: word,
+                      ),
+              ),
+            ),
+          ),
+        ),
+        Positioned(
+          top: ELTokens.space8,
+          left: ELTokens.space8,
+          child: _FocusIconButton(
+            icon: LucideIcons.x,
+            semanticLabel: '退出单词训练',
+            onPressed: onExit,
+          ),
+        ),
+        Positioned(
+          top: ELTokens.space8,
+          right: ELTokens.space8,
+          child: _FocusIconButton(
+            icon: LucideIcons.settings2,
+            semanticLabel: '单词训练设置',
+            onPressed: () {},
+          ),
+        ),
+        if (isFlipped)
+          Positioned(
+            left: ELTokens.space24,
+            right: ELTokens.space24,
+            bottom: ELTokens.space72,
+            child: AnimatedOpacity(
+              opacity: 1,
+              duration: const Duration(milliseconds: 160),
+              child: _EqualFeedbackButtons(onFeedback: onFeedback),
+            ),
+          ),
+        Positioned(
+          left: ELTokens.space24,
+          right: ELTokens.space24,
+          bottom: ELTokens.space8,
+          child: _ZenProgress(index: index, total: total),
+        ),
+      ],
+    );
+  }
+}
+
+class _FocusIconButton extends StatelessWidget {
+  const _FocusIconButton({
+    required this.icon,
+    required this.semanticLabel,
+    required this.onPressed,
+  });
+
+  final IconData icon;
+  final String semanticLabel;
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = ELTheme.colorsOf(context);
+    return IconButton(
+      icon: Icon(icon, size: 20),
+      color: colors.mutedText,
+      tooltip: semanticLabel,
+      onPressed: onPressed,
+    );
+  }
+}
+
+class _WordFrontFace extends StatelessWidget {
+  const _WordFrontFace({super.key, required this.word});
+
+  final WordItem word;
 
   @override
   Widget build(BuildContext context) {
     final theme = ShadTheme.of(context);
-    return ELCard(
-      backgroundColor: ELTokens.card,
+    final colors = ELTheme.colorsOf(context);
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Text(
+          word.word,
+          textAlign: TextAlign.center,
+          style: theme.textTheme.h1.copyWith(
+            color: colors.primary,
+            fontSize: 48,
+            fontWeight: FontWeight.w700,
+            height: 1.05,
+          ),
+        ),
+        const SizedBox(height: ELTokens.space8),
+        Text(_phoneticFor(word.word), style: theme.textTheme.muted),
+        const SizedBox(height: ELTokens.space24),
+        Text('点击屏幕任意区域显示释义', style: theme.textTheme.small),
+      ],
+    );
+  }
+}
+
+class _WordBackFace extends StatelessWidget {
+  const _WordBackFace({super.key, required this.word});
+
+  final WordItem word;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = ShadTheme.of(context);
+    final colors = ELTheme.colorsOf(context);
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: ELTokens.space24),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text(word.word, style: theme.textTheme.h1.copyWith(fontSize: 34)),
-          const SizedBox(height: ELTokens.space8),
-          Text('先回忆它的意思，再点击查看释义。', style: theme.textTheme.muted),
-          const SizedBox(height: ELTokens.space20),
-          if (!showMeaning)
-            ELButton.primary(label: '查看释义', onPressed: onReveal)
-          else ...[
-            Text(
-              '${word.partOfSpeech} ${word.meaning}',
-              style: theme.textTheme.h4,
+          Transform.translate(
+            offset: const Offset(0, -ELTokens.space24),
+            child: Text(
+              word.word,
+              textAlign: TextAlign.center,
+              style: theme.textTheme.h1.copyWith(
+                color: colors.primary,
+                fontSize: 42,
+                fontWeight: FontWeight.w700,
+                height: 1.08,
+              ),
             ),
-            const SizedBox(height: ELTokens.space16),
-            _WordInfoBlock(title: '例句', body: word.example),
-            const SizedBox(height: ELTokens.space12),
-            _WordInfoBlock(title: '考研语境提示', body: word.contextHint),
-          ],
+          ),
+          const SizedBox(height: ELTokens.space16),
+          Text(
+            '${word.partOfSpeech} ${word.meaning}',
+            textAlign: TextAlign.center,
+            style: theme.textTheme.h2.copyWith(
+              color: colors.text,
+              fontSize: 22,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          const SizedBox(height: ELTokens.space24),
+          ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 520),
+            child: Text(
+              word.example,
+              textAlign: TextAlign.center,
+              style: theme.textTheme.p.copyWith(
+                color: colors.mutedText,
+                height: 1.6,
+              ),
+            ),
+          ),
         ],
       ),
     );
   }
 }
 
-class _WordInfoBlock extends StatelessWidget {
-  const _WordInfoBlock({required this.title, required this.body});
+class _EqualFeedbackButtons extends StatelessWidget {
+  const _EqualFeedbackButtons({required this.onFeedback});
 
-  final String title;
-  final String body;
+  final VoidCallback onFeedback;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+          child: ELButton.outline(
+            label: '认识',
+            onPressed: onFeedback,
+            expands: true,
+          ),
+        ),
+        const SizedBox(width: ELTokens.space8),
+        Expanded(
+          child: ELButton.outline(
+            label: '模糊',
+            onPressed: onFeedback,
+            expands: true,
+          ),
+        ),
+        const SizedBox(width: ELTokens.space8),
+        Expanded(
+          child: ELButton.outline(
+            label: '不认识',
+            onPressed: onFeedback,
+            expands: true,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _ZenProgress extends StatelessWidget {
+  const _ZenProgress({required this.index, required this.total});
+
+  final int index;
+  final int total;
 
   @override
   Widget build(BuildContext context) {
     final theme = ShadTheme.of(context);
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        color: ELTokens.paper,
-        borderRadius: ELTokens.radius16All,
-        border: Border.all(color: ELTokens.line),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(title, style: theme.textTheme.small),
-          const SizedBox(height: ELTokens.space4),
-          Text(body, style: theme.textTheme.p),
-        ],
-      ),
+    final colors = ELTheme.colorsOf(context);
+    final progress = (index + 1) / total;
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Row(
+          children: [
+            Text('${index + 1}/$total', style: theme.textTheme.small),
+            const Spacer(),
+            Text('00:14', style: theme.textTheme.small),
+          ],
+        ),
+        const SizedBox(height: ELTokens.space8),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(999),
+          child: LinearProgressIndicator(
+            value: progress,
+            minHeight: 2,
+            backgroundColor: colors.quietSurface,
+            valueColor: AlwaysStoppedAnimation<Color>(
+              colors.primary.withValues(alpha: .45),
+            ),
+            semanticsLabel: '单词训练进度',
+            semanticsValue: '${(progress * 100).round()}%',
+          ),
+        ),
+      ],
     );
   }
+}
+
+class _WordSessionDone extends StatelessWidget {
+  const _WordSessionDone({
+    required this.onExit,
+    required this.onGenerateReading,
+  });
+
+  final VoidCallback onExit;
+  final VoidCallback onGenerateReading;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = ShadTheme.of(context);
+    final colors = ELTheme.colorsOf(context);
+    return Stack(
+      children: [
+        Center(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: ELTokens.space24),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  '本轮单词已完成',
+                  textAlign: TextAlign.center,
+                  style: theme.textTheme.h1.copyWith(color: colors.primary),
+                ),
+                const SizedBox(height: ELTokens.space16),
+                Text(
+                  '这些词已经进入今日阅读的目标词池，下一步把它们放回文章语境。',
+                  textAlign: TextAlign.center,
+                  style: theme.textTheme.lead,
+                ),
+                const SizedBox(height: ELTokens.space24),
+                ELButton.primary(
+                  label: '生成今日阅读',
+                  onPressed: onGenerateReading,
+                  trailing: const Icon(LucideIcons.arrowRight, size: 18),
+                ),
+              ],
+            ),
+          ),
+        ),
+        Positioned(
+          top: ELTokens.space8,
+          left: ELTokens.space8,
+          child: _FocusIconButton(
+            icon: LucideIcons.x,
+            semanticLabel: '返回今日学习',
+            onPressed: onExit,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+String _phoneticFor(String word) {
+  return switch (word.toLowerCase()) {
+    'significant' => '/sɪɡˈnɪfɪkənt/',
+    'evaluate' => '/ɪˈvæljueɪt/',
+    'maintain' => '/meɪnˈteɪn/',
+    _ => '/ ${word.toLowerCase()} /',
+  };
 }

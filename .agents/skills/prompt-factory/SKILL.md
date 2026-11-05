@@ -10,10 +10,19 @@ Create small prompt bundles for a single slice. Do not generate broad all-projec
 ## Inputs to collect
 
 - Slice objective and stop condition.
-- Source facts from `DESIGN.md` and relevant `docs/` files.
-- Existing implementation facts from inspected files.
+- Source facts from `DESIGN.md`, `docs/README.md`, and relevant `docs/` files.
+- Existing implementation facts from inspected files under `app/lib/src/`.
 - Non-goals and prohibited shortcuts.
 - Verification or review criteria.
+
+## Product constraints to preserve
+
+- Core loop: `单词背诵 -> 阅读理解 -> 练习解析 -> 教练建议`.
+- Word and reading flows enter focus mode and keep one primary action; reading focus mode starts at reading generation and continues through preset reading, text, answering, and analysis.
+- Learning profile stays as a summary inside the coach-advice page, not a primary navigation item.
+- AI failure must keep retry or preset-reading fallback transparent.
+- Coach voice is calm, specific, and non-punitive.
+- Reuse `ELTokens`, `ELTheme`, and existing `EL*` components before new patterns.
 
 ## Bundle format
 
@@ -50,3 +59,4 @@ Promote / revise / block when <condition>.
 - Include only facts relevant to the current slice.
 - State AI boundaries and fallback behavior when content generation is involved.
 - Never ask a downstream generator to invent APIs, use fake real data, or skip verification.
+- If docs disagree, point to the conflict instead of hiding it in the prompt.

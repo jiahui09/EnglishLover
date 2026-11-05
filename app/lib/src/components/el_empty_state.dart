@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
+import '../design/el_theme.dart';
 import '../design/el_tokens.dart';
 import 'el_button.dart';
 import 'el_card.dart';
@@ -22,10 +23,11 @@ class ELEmptyState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = ShadTheme.of(context);
+    final colors = ELTheme.colorsOf(context);
     return ELCard(
-      backgroundColor: ELTokens.coachGreenSoft,
+      backgroundColor: colors.primarySoft,
       shadows: const [],
-      borderColor: ELTokens.coachGreenSoft,
+      borderColor: colors.primarySoftBorder,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

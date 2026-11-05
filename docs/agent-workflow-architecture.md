@@ -1,18 +1,35 @@
 # AI Agent Workflow Architecture
 
-> Status: Active  
-> Last refreshed: 2026-06-18  
-> Purpose: replace broad vibe coding with a traceable, sliced, independently reviewed agent workflow for EnglishLover.
+> Status: Active
+> Last refreshed: 2026-06-18
+> Purpose: replace broad vibe coding with a traceable, sliced, independently reviewed workflow for EnglishLover product, UI, copy, prompt, and code work.
+> Product anchor: EnglishLover AI Coach uses the loop `单词背诵 -> 阅读理解 -> 练习解析 -> 教练建议`, with focus mode for word/reading work and transparent AI fallback.
 
-## 1. Operating model
+## 1. Source-of-truth order
 
-EnglishLover should use a quality-first AI workflow:
+Use documents in this order when a task involves product behavior, UI, copy, or prompts:
+
+1. `DESIGN.md`
+2. `docs/README.md`
+3. `docs/ai-coach-prd.md`
+4. `docs/ai-coach-information-architecture.md`
+5. `docs/ai-coach-core-page-copy-and-interactions.md`
+6. `docs/ai-coach-ui-design-guidelines.md`
+7. `docs/ai-coach-architecture-design.md`
+8. Current app code under `app/lib/src/`
+9. Workflow docs and skills in `docs/agent-workflow-architecture.md`, `.agents/skills/`, and `plugins/workflow-core/`
+
+When these sources conflict, update the older or narrower document instead of silently choosing one.
+
+## 2. Operating model
+
+EnglishLover should use a quality-first workflow:
 
 ```text
 Fact Pack -> Slice Plan -> Draft Pass -> Critic Pass -> Verifier Gate -> Promote
 ```
 
-This workflow is designed for product, UI, copy, prompt, and code tasks. It avoids one-shot generation unless the change is trivial and locally verifiable.
+This workflow is designed for non-trivial product, UI, copy, prompt, and code tasks. It avoids one-shot generation unless the change is trivial and locally verifiable.
 
 Core invariants:
 
@@ -21,8 +38,9 @@ Core invariants:
 - Independent critique before promotion.
 - Fresh verification before completion claims.
 - Transparent AI fallback and no fake certainty.
+- Product scope remains centered on word training, reading comprehension, analysis, and coach advice.
 
-## 2. Role map
+## 3. Role map
 
 | Layer | Roles / skills | Responsibility | Output |
 |---|---|---|---|
@@ -40,11 +58,12 @@ $deep-interview when ambiguous
 -> $plan / $ralplan when tradeoffs or tests need review
 -> $ultragoal for durable execution
 -> optional $team inside an Ultragoal story for parallel lanes
--> $code-review
+-> $code-review for code risk
+-> content-critic for product/copy/prompt artifacts
 -> $ultraqa when behavior or integration risk warrants adversarial QA
 ```
 
-## 3. Tool and plugin strategy
+## 4. Tool and plugin strategy
 
 ### Fact tools
 
@@ -61,16 +80,18 @@ $deep-interview when ambiguous
 
 ### Quality tools
 
-- `content-critic` for generated copy, prompt bundles, UX text, and plan quality.
+- `content-critic` for generated copy, prompt bundles, UX text, docs, and plan quality.
 - `$code-review` for code diffs and architectural risk.
 - `$ultraqa` for behavior, degraded paths, stale state, hostile inputs, and misleading success output.
 - `ai-slop-cleaner` for changed files after behavior is locked.
 
 ### Plugin packaging
 
-The repository keeps project-local skills under `.agents/skills/`. The optional local plugin manifest under `plugins/workflow-core/` documents how this workflow can later be packaged for Codex plugin installation. Do not move workflow authority into the plugin until there is a concrete need to distribute or install it across repositories.
+The repository keeps project-local skills under `.agents/skills/`. The optional plugin copy under `plugins/workflow-core/` mirrors distributable workflow skills. Keep plugin skill copies aligned with `.agents/skills/` when their shared instructions change.
 
-## 4. Slice protocol
+Do not move workflow authority into the plugin until there is a concrete need to distribute or install it across repositories.
+
+## 5. Slice protocol
 
 Every non-trivial agent task should start with a single slice.
 
@@ -85,17 +106,18 @@ A slice must define:
 - Goal: what user-visible or developer-visible result changes.
 - Source facts: exact docs, files, types, or test outputs used.
 - Non-goals: what the slice will not attempt.
-- Quality rubric: criteria from section 5.
+- Product constraints: focus mode, one primary action, AI fallback, coach voice, and no distracting scope.
+- Quality rubric: criteria from section 6.
 - Verification: command, static check, screenshot/manual inspection, or test matrix.
 - Stop condition: promote, revise, block, or split.
 
-## 5. Quality rubrics
+## 6. Quality rubrics
 
 ### Content / copy / prompt quality
 
 | Criterion | Pass condition |
 |---|---|
-| Factuality | Claims trace to current repo docs or explicit user input |
+| Factuality | Claims trace to current repo docs, inspected code, or explicit user input |
 | Relevance | Output directly supports the current slice and product goal |
 | Actionability | User or next agent can act without guessing |
 | Voice | Private-coach tone: specific, calm, non-punitive |
@@ -107,10 +129,11 @@ A slice must define:
 | Criterion | Pass condition |
 |---|---|
 | Task clarity | User can identify the next action within 10 seconds |
-| Focus | Learning flows keep one primary action and hide unrelated navigation |
-| Continuity | Word -> reading -> analysis -> advice remains visible |
-| Fallback | AI failure does not interrupt daily learning |
-| Accessibility | Text, focus, labels, and touch targets remain checkable |
+| Focus | Word and reading flows keep one primary action and hide unrelated navigation |
+| Continuity | `单词 -> 阅读 -> 解析 -> 建议` remains visible |
+| Fallback | AI failure does not interrupt daily learning and can use preset reading |
+| Accessibility | Text, focus, labels, contrast, and touch targets remain checkable |
+| Philosophy fit | Gestalt grouping, minimal information, light Material hierarchy, inclusive scenarios, and atomic components are represented |
 
 ### Code quality
 
@@ -118,11 +141,11 @@ A slice must define:
 |---|---|
 | Scope | Diff matches the approved slice |
 | Source of truth | No duplicated DTOs, invented APIs, or fake real data |
-| Maintainability | Reuses existing patterns before new abstractions |
+| Maintainability | Reuses `ELTokens`, `ELTheme`, `EL*` components, and existing patterns before new abstractions |
 | Verification | Tests/build/static checks or explicit gaps are recorded |
 | Reversibility | Changes are small enough to review and revert |
 
-## 6. Required artifacts
+## 7. Required artifacts
 
 For each substantial task, create or update these artifacts as appropriate:
 
@@ -135,7 +158,7 @@ For each substantial task, create or update these artifacts as appropriate:
 
 Use `.omx/plans/` for durable plans and `.omx/logs/` / `.omx/state/` for runtime evidence. Do not manually edit transient session state except through supported OMX workflow commands.
 
-## 7. Recommended staffing patterns
+## 8. Recommended staffing patterns
 
 | Work shape | Recommended route |
 |---|---|
@@ -144,12 +167,14 @@ Use `.omx/plans/` for durable plans and `.omx/logs/` / `.omx/state/` for runtime
 | Multi-page feature | `$plan` -> `$ultragoal` -> optional `$team` lanes -> `$code-review` -> `$ultraqa` |
 | Refactor/cleanup | cleanup plan -> regression lock -> `ai-slop-cleaner` on changed files -> re-verify |
 | External SDK/API decision | `dependency-expert` + `researcher` -> `$plan` -> executor |
+| Documentation refresh | source-of-truth diff -> writer pass -> `content-critic` -> markdown/static checks |
 
-## 8. Done definition
+## 9. Done definition
 
 A task is done only when:
 
 - All prompt requirements are mapped to an artifact or explicit non-goal.
+- Source-of-truth documents remain aligned.
 - The critic verdict is clean or all findings are resolved/deferred with rationale.
 - Verification evidence is fresh and read by the leader.
 - Known residual risks are reported.

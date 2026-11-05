@@ -1,5 +1,11 @@
 # Launch Screen Assets
 
-You can customize the launch screen with your own desired assets by replacing the image files in this directory.
+This folder is optional for the EnglishLover iOS app.
 
-You can also do it by opening your Flutter project's Xcode project with `open ios/Runner.xcworkspace`, selecting `Runner/Assets.xcassets` in the Project Navigator and dropping in the desired images.
+If you add a custom launch image:
+
+- keep it aligned with `DESIGN.md` and the calm paper/coach palette;
+- avoid marketing copy, dense illustration, or extra UI states;
+- keep it visually quiet so the app opens into the learning flow.
+
+If you do not need a custom launch image, the Flutter defaults are fine.
